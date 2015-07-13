@@ -48,7 +48,10 @@ set nobackup
 
 " quick save file.
 map <C-s>       :w<Enter>
-imap <C-s>      <Esc>:w<Enter>i
+imap <C-s>      <Esc>:w<Enter>
+
+" copy into global clipboard.
+map <C-c>       "+y
 
 " reopen the current file.
 map  <F2>       :e%<Enter>
