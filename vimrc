@@ -51,7 +51,6 @@ map  <F2>       :e%<Enter>
 
 " quick save file.
 map <F3>       :w<Enter>
-map  <C-b>     :!_my_make.8.1.py <Enter>
 
 " window manager.
 " let g:winManagerWindowLayout='TagList|FileExplorer'
