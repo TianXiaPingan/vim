@@ -46,11 +46,12 @@ set ignorecase
 set mouse=a
 set nobackup
 
+" quick save file.
+map <C-s>       :w<Enter>
+imap <C-s>      <Esc>:w<Enter>i
+
 " reopen the current file.
 map  <F2>       :e%<Enter>
-
-" quick save file.
-map <F3>       :w<Enter>
 
 " window manager.
 " let g:winManagerWindowLayout='TagList|FileExplorer'
@@ -86,6 +87,7 @@ map  <S-F11>    :set nopaste<Enter>
 " when the cursor is at the beginning '{' of a block.
 map  <F12>      =%
 
+" Remove trailing blanks.
 map f0          :%s/\s\+\n/\r/g<Enter>
 
 " insert locale time
@@ -94,6 +96,7 @@ map time        a<C-R>=strftime("%c")<CR><Esc>a
 " comment and uncomment a variety of source files.
 map c           <leader>c<space>
 
+" continus paste
 xnoremap p      pgvy
 
 " pydiction
