@@ -50,6 +50,11 @@ set nobackup
 map <C-s>       :w<Enter>
 imap <C-s>      <Esc>:w<Enter>
 
+" build
+map <C-b>     :!_my_make.py<Enter>
+map <S-b>     :!_my_make.py -c<Enter>
+map <C-e>     :!<Enter>
+
 " copy into global clipboard.
 map <C-c>       "+y
 
@@ -165,3 +170,5 @@ command! -bar SetupPython call SetupPython()
 set tags+=~/.vim/tags/cpp
 
 au BufRead,BufNewFile *.tpt set filetype=robot_reporter_template
+
+" Ctrl + w: jump to another windows.
