@@ -1,6 +1,39 @@
 "Modified date: Sun Apr 19 20:29:18 2015
 "author=Summer Rain
 
+""""""""""""""""""""" function definition
+function! ExecuteProgram()
+python << endpython
+
+import vim
+from os import system, listdir
+
+file_name = vim.current.buffer.name.split("/")[-1]
+
+found = False
+if file_name.endswith(".py"):
+  vim.command("!./%s" %file_name)
+  found = True
+
+if (file_name.endswith(".h") or
+    file_name.endswith(".cpp") or
+    file_name.endswith(".hpp")):
+  if "BUILD" in listdir("."):
+    '''binary = "test"'''
+    for ln in open("BUILD"):
+      ln = ln.strip()
+      if ln.startswith("binary"):
+        exe_file = ln.split("=")[1].strip()[1: -1]
+        vim.command("!./%s" %exe_file)
+        found = True
+        break
+
+if not found:
+  print "Can not find any executable file"
+
+endpython
+endfunction
+
 """"""""""""""""""""" only for guivim
 colors desert
 set guifont=Monaco:h14
@@ -47,8 +80,8 @@ set mouse=a
 set nobackup
 
 " quick save file.
-map <C-s>       :w<Enter>
-imap <C-s>      <Esc>:w<Enter>
+map   <C-s>       :w<Enter>
+imap  <C-s>      <Esc>:w<Enter>
 
 " build
 map <C-b>     :!_my_make.py<Enter>
@@ -59,41 +92,43 @@ map <C-e>     :!<Enter>
 map <C-c>       "+y
 
 " reopen the current file.
-map  <F2>       :e%<Enter>
+map <F2>       :e%<Enter>
+
+" open h/cpp file
+":AS
+":AV
+map <F3>       :A <Enter>
 
 " window manager.
 " let g:winManagerWindowLayout='TagList|FileExplorer'
 let g:winManagerWindowLayout='FileExplorer|TagList'
 let g:winManagerWidth=36
-map  <F4>       :WMToggle<cr>
+map <F4>      :WMToggle<cr>
 
-" open h/cpp file
-":AS
-":AV
-map  <F5>       :A <Enter>
+map <F5>     :call ExecuteProgram()<CR>
 
 " create ctags file.
-map  <F6>       :!ctags --exclude="excluded*" -R --c++-kinds=+p --fields=+iaS --extra=+q .<cr><Enter>
+map <F6>       :!ctags --exclude="excluded*" -R --c++-kinds=+p --fields=+iaS --extra=+q .<cr><Enter>
 
 highlight OverLength ctermbg=darkred ctermfg=white guibg=#FFD9D9
 map <F7>      :match OverLength /\%81v.\+/ <Enter>
 map <S-F7>    :match OverLength /\%1000000081v.\+/ <Enter>
 
 " fold
-map  <F8>       zf%<Enter>
+map <F8>      zf%<Enter>
 
 " wrap
-map  <F9>       :set wrap<Enter>
-map  <S-F9>     :set nowrap<Enter>
+map <F9>      :set wrap<Enter>
+map <S-F9>    :set nowrap<Enter>
 
-map  <F10>      :set scrollbind<Enter>
-map  <S-F10>    :set noscrollbind<Enter>
+map <F10>     :set scrollbind<Enter>
+map <S-F10>   :set noscrollbind<Enter>
 
-map  <F11>      :set paste<Enter>
-map  <S-F11>    :set nopaste<Enter>
+map <F11>     :set paste<Enter>
+map <S-F11>   :set nopaste<Enter>
 
 " when the cursor is at the beginning '{' of a block.
-map  <F12>      =%
+map <F12>     =%
 
 " Remove trailing blanks.
 map f0          :%s/\s\+\n/\r/g<Enter>
