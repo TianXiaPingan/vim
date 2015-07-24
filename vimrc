@@ -1,7 +1,61 @@
 "Modified date: Sun Apr 19 20:29:18 2015
 "author=Summer Rain
 
-""""""""""""""""""""" function definition
+""""""""""""""""""""""function definition""""""""""""""""""""""""""""""""""""""
+function! NewPython()
+python << endpython
+
+import vim
+
+content = '''\
+#!/usr/bin/env python
+#coding: utf8
+
+from algorithm import *
+
+if __name__ == "__main__":
+  system("clear")
+
+  parser = OptionParser(usage = "cmd [optons] ..]")
+  #parser.add_option("-q", "--quiet", action = "store_true", dest = "verbose",
+                     #default = False, help = "")
+  (options, args) = parser.parse_args()
+'''
+
+buffer = vim.current.buffer
+buffer[:] = content.split("\n")
+
+endpython
+
+:w % 
+:!chmod 755 %
+endfunction
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! NewCplusplus()
+python << endpython
+
+import vim
+
+content = '''\
+#include "rain_algorithm.0x.h"
+
+using namespace rain;
+
+int main() {
+  cout << "Hello World" << endl;
+ 
+  return 0;
+}
+'''
+
+buffer = vim.current.buffer
+buffer[:] = content.split("\n")
+
+endpython
+endfunction
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! ExecuteProgram()
 python << endpython
 
@@ -34,13 +88,24 @@ if not found:
 endpython
 endfunction
 
-""""""""""""""""""""" only for guivim
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" http://stackoverflow.com/questions/21073496/why-does-vim-not-obey-my-expandtab-in-python-files
+" restore the tab setting overrided by some flugin.
+function! SetupPython()
+    " Here, you can have the final say on what is set.  So
+    " fixup any settings you don't like.
+    set softtabstop=2
+    set tabstop=2
+    set shiftwidth=2
+endfunction
+
+""""""""""""""""""""""only for guivim""""""""""""""""""""""""""""""""""""""""""
 colors desert
 set guifont=Monaco:h14
 " chdir to current file in time, but it will influence vim and in some cases it brings inconvenience.
 "set acd
 
-""""""""""""""""""""" both for guivim and vim
+""""""""""""""""""""""both for guivim and vim""""""""""""""""""""""""""""""""""
 set showcmd
 set backspace=indent,eol,start
 " shut down tips sound.
@@ -191,15 +256,6 @@ autocmd FileType python set omnifunc=pythoncomplete#Complete
 " cmd: set scrollbind
 " usage: 'vim -RO file1 file2', and scroll two windows at the same time.
 
-" http://stackoverflow.com/questions/21073496/why-does-vim-not-obey-my-expandtab-in-python-files
-" restore the tab setting overrided by some flugin.
-function! SetupPython()
-    " Here, you can have the final say on what is set.  So
-    " fixup any settings you don't like.
-    set softtabstop=2
-    set tabstop=2
-    set shiftwidth=2
-endfunction
 command! -bar SetupPython call SetupPython()
 
 set tags+=~/.vim/tags/cpp
