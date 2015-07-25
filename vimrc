@@ -2,9 +2,54 @@
 "author=Summer Rain
 
 """"""""""""""""""""""function definition""""""""""""""""""""""""""""""""""""""
+function! MapCodeingBracket()
+python << endpython
+import vim
+
+fname = vim.current.buffer.name
+if (fname.endswith(".h") or 
+    fname.endswith(".cpp") or 
+    fname.endswith(".c") or
+    fname.endswith(".hpp") or
+    fname.endswith(".java") or
+    fname.endswith(".py")):
+  vim.command("inoremap ( ()<Esc>i")
+  vim.command("inoremap [ []<Esc>i")
+  vim.command('''inoremap " ""<Esc>i''')
+  vim.command("inoremap { {<CR>}<Esc>kA")
+
+endpython
+endfunction
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! AddMacroDefinitionForHeader()
+python << endpython
+import vim
+  
+flag_definition = '''\
+#ifndef %s
+#define %s
+
+#endif
+
+'''
+
+fname = vim.current.buffer.name
+buffer = vim.current.buffer
+if fname.endswith(".h") and len(buffer) == 1 and len(buffer[0]) == 0:
+  #print "yes", fname
+  flag = fname.split("/")[-1].replace(".", "_").upper()
+  #print flag
+  buffer[:] = (flag_definition %(flag, flag)).split("\n")
+else:
+  print "The .h file must be empty"
+
+endpython
+endfunction
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! NewPython()
 python << endpython
-
 import vim
 
 content = '''\
@@ -34,7 +79,6 @@ endfunction
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! NewCplusplus()
 python << endpython
-
 import vim
 
 content = '''\
@@ -58,7 +102,6 @@ endfunction
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! ExecuteProgram()
 python << endpython
-
 import vim
 from os import system, listdir
 
@@ -263,3 +306,5 @@ set tags+=~/.vim/tags/cpp
 au BufRead,BufNewFile *.tpt set filetype=robot_reporter_template
 
 " Ctrl + w: jump to another windows.
+
+call MapCodeingBracket()
