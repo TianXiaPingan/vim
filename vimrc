@@ -2,6 +2,67 @@
 "author=Summer Rain
 
 """"""""""""""""""""""function definition""""""""""""""""""""""""""""""""""""""
+function! MapFold()
+  if &foldlevel == 1
+    set foldlevel=32
+  elseif &foldlevel == 32
+    set foldlevel=1
+  endif  
+endfunction
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! MapMatchLongLines()
+  if !exists("b:long_lines_matched")
+    let b:long_lines_matched = 0
+  endif
+
+  if b:long_lines_matched == 0
+    :match OverLength /\%81v.\+/
+    let b:long_lines_matched = 1
+  elseif b:long_lines_matched == 1
+    :match OverLength /\%1000000081v.\+/
+    let b:long_lines_matched = 0
+  endif
+
+"map <F7>            :match OverLength /\%81v.\+/ <Enter>
+"map <S-F7>          :match OverLength /\%1000000081v.\+/ <Enter>
+
+endfunction
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! MapScrollBind()
+  if &scrollbind == 1
+    set noscrollbind
+    echo "noscrollbind"
+  else
+    set scrollbind
+    echo "scrollbind"
+  endif
+endfunction
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! MapWrap()
+  if &wrap == 1
+    set nowrap
+    echo "nowrap"
+  else
+    set wrap
+    echo "wrap"
+  endif
+endfunction
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! MapPaste()
+  if &paste == 1
+    set nopaste
+    echo "nopaste"
+  else
+    set paste
+    echo "paste"
+  endif  
+endfunction
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! MapCodeingBracket()
 python << endpython
 import vim
@@ -111,10 +172,9 @@ found = False
 if file_name.endswith(".py"):
   vim.command("!./%s" %file_name)
   found = True
-
-if (file_name.endswith(".h") or
-    file_name.endswith(".cpp") or
-    file_name.endswith(".hpp")):
+elif (file_name.endswith(".h") or
+      file_name.endswith(".cpp") or
+      file_name.endswith(".hpp")):
   if "BUILD" in listdir("."):
     '''binary = "test"'''
     for ln in open("BUILD"):
@@ -137,9 +197,9 @@ endfunction
 function! SetupPython()
     " Here, you can have the final say on what is set.  So
     " fixup any settings you don't like.
-    set softtabstop=2
-    set tabstop=2
-    set shiftwidth=2
+  set softtabstop=2
+  set tabstop=2
+  set shiftwidth=2
 endfunction
 
 """"""""""""""""""""""only for guivim""""""""""""""""""""""""""""""""""""""""""
@@ -167,7 +227,6 @@ set lbr
 
 " don't wrap a long line.
 set nowrap
-"set wrap
 
 " replace tab with space.
 set expandtab
@@ -188,67 +247,65 @@ set mouse=a
 set nobackup
 
 " quick save file.
-map   <C-s>       :w<Enter>
-imap  <C-s>      <Esc>:w<Enter>
+map   <C-s>         :w<Enter>
+imap  <C-s>         <Esc>:w<Enter>
 
 " build
-map <C-b>     :!_my_make.py<Enter>
-map <S-b>     :!_my_make.py -c<Enter>
-map <C-e>     :!<Enter>
+map <C-b>           :!_my_make.py<Enter>
+map <S-b>           :!_my_make.py -c<Enter>
+map <C-e>           :!<Enter>
 
 " copy into global clipboard.
-map <C-c>       "+y
+map <C-c>           "+y
 
 " reopen the current file.
-map <F2>       :e%<Enter>
+map <F2>            :e%<Enter>
 
 " open h/cpp file
 ":AS
 ":AV
-map <F3>       :A <Enter>
+map <F3>            :A <Enter>
 
 " window manager.
 " let g:winManagerWindowLayout='TagList|FileExplorer'
 let g:winManagerWindowLayout='FileExplorer|TagList'
 let g:winManagerWidth=36
-map <F4>      :WMToggle<cr>
+map <F4>            :WMToggle<cr>
 
-map <F5>     :call ExecuteProgram()<CR>
+map <F5>            :call ExecuteProgram()<CR>
 
 " create ctags file.
-map <F6>       :!ctags --exclude="excluded*" -R --c++-kinds=+p --fields=+iaS --extra=+q .<cr><Enter>
+map <F6>            :!ctags --exclude="excluded*" -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR><CR>
 
 highlight OverLength ctermbg=darkred ctermfg=white guibg=#FFD9D9
-map <F7>      :match OverLength /\%81v.\+/ <Enter>
-map <S-F7>    :match OverLength /\%1000000081v.\+/ <Enter>
+map <F7>            :call MapMatchLongLines()<CR>
 
-" fold
-map <F8>      zf%<Enter>
+" fold a function 
+map <F8>            za<CR>
+" fold all functions
+map <S-F8>          :call MapFold()<CR>
 
 " wrap
-map <F9>      :set wrap<Enter>
-map <S-F9>    :set nowrap<Enter>
+map <F9>            :call MapWrap()<CR>
 
-map <F10>     :set scrollbind<Enter>
-map <S-F10>   :set noscrollbind<Enter>
+map <F10>           :call MapScrollBind()<CR>
 
-map <F11>     :set paste<Enter>
-map <S-F11>   :set nopaste<Enter>
+map <F11>           :call MapPaste()<CR>
 
-" when the cursor is at the beginning '{' of a block.
-map <F12>     =%
+" Indent when the cursor is at the beginning '{' of a block.
+map <F12>           =%
 
 " Remove trailing blanks.
-map f0          :%s/\s\+\n/\r/g<Enter>
+map f0              :%s/\s\+\n/\r/g<Enter>
 
 " insert locale time
-map time        a<C-R>=strftime("%c")<CR><Esc>a
+map time            a<C-R>=strftime("%c")<CR><Esc>a
 
 " comment and uncomment a variety of source files.
-map c           <leader>c<space>
+map c               <leader>c<space>
 
 " continus paste
-xnoremap p      pgvy
+xnoremap p          pgvy
 
 " pydiction
 "autocmd FileType python set complete+=k~/.vim/tools/pydiction
@@ -308,3 +365,6 @@ au BufRead,BufNewFile *.tpt set filetype=robot_reporter_template
 " Ctrl + w: jump to another windows.
 
 call MapCodeingBracket()
+
+set foldmethod=indent
+set foldlevel=32
