@@ -24,9 +24,6 @@ function! MapMatchLongLines()
     let b:long_lines_matched = 0
   endif
 
-"map <F7>            :match OverLength /\%81v.\+/ <Enter>
-"map <S-F7>          :match OverLength /\%1000000081v.\+/ <Enter>
-
 endfunction
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -98,9 +95,7 @@ flag_definition = '''\
 fname = vim.current.buffer.name
 buffer = vim.current.buffer
 if fname.endswith(".h") and len(buffer) == 1 and len(buffer[0]) == 0:
-  #print "yes", fname
   flag = fname.split("/")[-1].replace(".", "_").upper()
-  #print flag
   buffer[:] = (flag_definition %(flag, flag)).split("\n")
 else:
   print "The .h file must be empty"
@@ -161,15 +156,53 @@ endpython
 endfunction
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! CompileLatex(pre_compile)
+python << endpython
+import vim
+
+def latex_clean(fn):
+  files_to_delete = ["blg", "bbl", "log", "aux", "pdf"]
+  for suffix in files_to_delete:
+    cmd = '''silent !rm "%s.%s"''' %(fn, suffix)
+    vim.command(cmd)
+
+file_name = vim.current.buffer.name.split("/")[-1]
+if not file_name.endswith(".tex"):
+  print "Does not end with .tex"
+else: 
+  file_name = file_name.replace(".tex", "")
+
+  cmd0 = '''silent !pdflatex "%s"''' %file_name
+  cmd1 = '''!pdflatex "%s"''' %file_name
+  cmd2 = '''silent !bibtex "%s"''' %file_name
+  cmd3 = '''!open "%s.pdf"''' %file_name
+ 
+  pre_compile = vim.eval("a:pre_compile") == "1"
+  latex_clean(file_name)   
+  if pre_compile:
+    vim.command(cmd1) 
+  else:
+    vim.command(cmd0) 
+    vim.command(cmd0) 
+    vim.command(cmd2) 
+    vim.command(cmd0) 
+    vim.command(cmd0) 
+    vim.command(cmd3)
+
+endpython
+endfunction
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! ExecuteProgram()
 python << endpython
 import vim
-from os import system, listdir
+from os import listdir
 
 file_name = vim.current.buffer.name.split("/")[-1]
 
 found = False
 if file_name.endswith(".py"):
+  # Do not use system() from python, whose output is messy in VIM.
   vim.command("!./%s" %file_name)
   found = True
 elif (file_name.endswith(".h") or
@@ -368,3 +401,4 @@ call MapCodeingBracket()
 
 set foldmethod=indent
 set foldlevel=32
+
