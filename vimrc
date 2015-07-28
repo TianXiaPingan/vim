@@ -402,3 +402,5 @@ call MapCodeingBracket()
 set foldmethod=indent
 set foldlevel=32
 
+"toggles lines on and off.
+":IndentLinesToggle 
