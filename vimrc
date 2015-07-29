@@ -11,6 +11,11 @@ function! MapFold()
 endfunction
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! SpellCheck()
+  :setlocal spell spelllang=en_us
+endfunction
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! MapMatchLongLines()
   if !exists("b:long_lines_matched")
     let b:long_lines_matched = 0
@@ -404,3 +409,8 @@ set foldlevel=32
 
 "toggles lines on and off.
 ":IndentLinesToggle 
+
+":setlocal spell spelllang=en_us
+"]s   Move to next misspelled word after the cursor.
+"[s   Like "]s" but search backwards, find the misspelled word before the cursor.  
+"z=   suggest correctly spelled words.
