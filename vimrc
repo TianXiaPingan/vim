@@ -12,7 +12,17 @@ endfunction
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! SpellCheck()
-  :setlocal spell spelllang=en_us
+  if !exists("b:spell_check")
+    let b:spell_check = 1
+  endif
+
+  if b:spell_check == 1
+    :setlocal spell spelllang=en_us
+    let b:spell_check = 0
+  else
+    :setlocal spell spelllang=
+    let b:spell_check = 1
+  endif  
 endfunction
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -187,7 +197,7 @@ else:
   if pre_compile:
     vim.command(cmd1) 
   else:
-    vim.command(cmd0) 
+    #vim.command(cmd0) 
     vim.command(cmd0) 
     vim.command(cmd2) 
     vim.command(cmd0) 
