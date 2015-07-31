@@ -195,7 +195,8 @@ else:
   pre_compile = vim.eval("a:pre_compile") == "1"
   latex_clean(file_name)   
   if pre_compile:
-    vim.command(cmd1) 
+    vim.command(cmd0) 
+    vim.command(cmd3)
   else:
     #vim.command(cmd0) 
     vim.command(cmd0) 
@@ -205,6 +206,23 @@ else:
     vim.command(cmd3)
 
 endpython
+endfunction
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! CompileProgram(shift_pressed)
+  if @% =~ '.*\.tex'
+    if a:shift_pressed == 0
+      :call CompileLatex(1)
+    else
+      :call CompileLatex(0)
+    endif
+  elseif @% =~ '.*\.\(h\|cpp\|hpp\)'
+    if a:shift_pressed == 0
+      :!_my_make.py
+    else
+      :!_my_make.py -c
+    endif
+  endif
 endfunction
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -299,8 +317,8 @@ map   <C-s>         :w<Enter>
 imap  <C-s>         <Esc>:w<Enter>
 
 " build
-map <C-b>           :!_my_make.py<Enter>
-map <S-b>           :!_my_make.py -c<Enter>
+map <C-b>           :call CompileProgram(0)<CR>
+map <S-b>           :call CompileProgram(1)<CR>
 map <C-e>           :!<Enter>
 
 " copy into global clipboard.
@@ -424,3 +442,5 @@ set foldlevel=32
 "]s   Move to next misspelled word after the cursor.
 "[s   Like "]s" but search backwards, find the misspelled word before the cursor.  
 "z=   suggest correctly spelled words.
+
+"set textwidth=80
