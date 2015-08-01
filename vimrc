@@ -428,8 +428,6 @@ let Tlist_Exit_OnlyWindow=1
 
 let g:miniBufExplMapCTabSwitchBufs = 1
 
-" prérequis tags
-set nocp
 filetype plugin on
 
 " OmniCppComplete
@@ -465,6 +463,10 @@ au BufRead,BufNewFile *.tpt set filetype=robot_reporter_template
 "]s   Move to next misspelled word after the cursor.
 "[s   Like "]s" but search backwards, find the misspelled word before the cursor.  
 "z=   suggest correctly spelled words.
+
+"let g:tex_conceal="adgm"
+" Does not convert any math symbols in latex.
+let g:tex_conceal=""
 
 call MapCodeingBracket()
 call Initialize()
