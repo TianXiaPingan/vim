@@ -11,6 +11,38 @@ function! MapFold()
 endfunction
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! Initialize()
+  let file_type = FileType()
+  let wrap_line_file_types = ["C++", "Python", "Java", "Tex"]
+  if index(wrap_line_file_types, file_type) != -1 
+    set textwidth=80
+  endif  
+
+endfunction
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! FileType()
+  if @% =~ '.*\.\(h\|cpp\|hpp\)'
+    return "C++"
+  endif
+
+  if @% =~ '.*\.py'
+    return "Python"
+  endif
+
+  if @% =~ '.*\.java'
+    return "Java"
+  endif
+
+  if @% =~ '.*\.tex'
+    return "Tex"
+  endif
+
+  return "Other"
+
+endfunction
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! SpellCheck()
   if !exists("b:spell_check")
     let b:spell_check = 1
@@ -76,22 +108,15 @@ endfunction
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! MapCodeingBracket()
-python << endpython
-import vim
+  let file_type = FileType()
+  let dest_file_types = ["C++", "Python", "Java", "Tex"]
+  if index(dest_file_types, file_type) != -1
+    inoremap ( ()<Esc>i
+    inoremap [ []<Esc>i
+    inoremap " ""<Esc>i
+    inoremap { {<CR>}<Esc>kA
+  endif
 
-fname = vim.current.buffer.name
-if (fname.endswith(".h") or 
-    fname.endswith(".cpp") or 
-    fname.endswith(".c") or
-    fname.endswith(".hpp") or
-    fname.endswith(".java") or
-    fname.endswith(".py")):
-  vim.command("inoremap ( ()<Esc>i")
-  vim.command("inoremap [ []<Esc>i")
-  vim.command('''inoremap " ""<Esc>i''')
-  vim.command("inoremap { {<CR>}<Esc>kA")
-
-endpython
 endfunction
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -210,13 +235,14 @@ endfunction
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! CompileProgram(shift_pressed)
-  if @% =~ '.*\.tex'
+  let file_type = FileType()
+  if file_type == "Tex"
     if a:shift_pressed == 0
       :call CompileLatex(1)
     else
       :call CompileLatex(0)
     endif
-  elseif @% =~ '.*\.\(h\|cpp\|hpp\)'
+  elseif file_type == "C++" 
     if a:shift_pressed == 0
       :!_my_make.py
     else
@@ -232,21 +258,22 @@ import vim
 from os import listdir
 
 file_name = vim.current.buffer.name.split("/")[-1]
+file_type = vim.eval("FileType()")
 
 found = False
-if file_name.endswith(".py"):
+if file_type == "Python": 
   # Do not use system() from python, whose output is messy in VIM.
+  vim.command("silent !clear")
   vim.command("!./%s" %file_name)
   found = True
-elif (file_name.endswith(".h") or
-      file_name.endswith(".cpp") or
-      file_name.endswith(".hpp")):
+elif file_type == "C++": 
   if "BUILD" in listdir("."):
     '''binary = "test"'''
     for ln in open("BUILD"):
       ln = ln.strip()
       if ln.startswith("binary"):
         exe_file = ln.split("=")[1].strip()[1: -1]
+        vim.command("silent !clear")
         vim.command("!./%s" %exe_file)
         found = True
         break
@@ -290,6 +317,9 @@ set cindent
 set incsearch
 " open fold for whole word.
 set lbr
+
+set foldmethod=indent
+set foldlevel=32
 
 " don't wrap a long line.
 set nowrap
@@ -430,17 +460,12 @@ au BufRead,BufNewFile *.tpt set filetype=robot_reporter_template
 
 " Ctrl + w: jump to another windows.
 
-call MapCodeingBracket()
-
-set foldmethod=indent
-set foldlevel=32
-
-"toggles lines on and off.
-":IndentLinesToggle 
 
 ":setlocal spell spelllang=en_us
 "]s   Move to next misspelled word after the cursor.
 "[s   Like "]s" but search backwards, find the misspelled word before the cursor.  
 "z=   suggest correctly spelled words.
 
-"set textwidth=80
+call MapCodeingBracket()
+call Initialize()
+
