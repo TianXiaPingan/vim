@@ -1,6 +1,3 @@
-"Modified date: Sun Apr 19 20:29:18 2015
-"author=Summer Rain
-
 """"""""""""""""""""""function definition""""""""""""""""""""""""""""""""""""""
 function! MapFold()
   if &foldlevel == 1
@@ -298,8 +295,6 @@ endfunction
 """"""""""""""""""""""only for guivim""""""""""""""""""""""""""""""""""""""""""
 colors desert
 set guifont=Monaco:h14
-" chdir to current file in time, but it will influence vim and in some cases it brings inconvenience.
-"set acd
 
 """"""""""""""""""""""both for guivim and vim""""""""""""""""""""""""""""""""""
 set showcmd
@@ -363,7 +358,6 @@ map <F2>            :e%<Enter>
 map <F3>            :A <Enter>
 
 " window manager.
-" let g:winManagerWindowLayout='TagList|FileExplorer'
 let g:winManagerWindowLayout='FileExplorer|TagList'
 let g:winManagerWidth=36
 map <F4>            :WMToggle<cr>
@@ -403,9 +397,6 @@ map c               <leader>c<space>
 " continus paste
 xnoremap p          pgvy
 
-" pydiction
-"autocmd FileType python set complete+=k~/.vim/tools/pydiction
-
 " Search for selected text, forwards or backwards.
 vnoremap <silent> * :<C-U>
   \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
@@ -441,9 +432,9 @@ let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
 
 " automatically open and close the popup menu / preview window
 au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
-"set completeopt=menuone,menu,longest,preview
 set completeopt=menuone,menu,longest
 
+" Ctrl + x + o, open suggestions for python functions.
 autocmd FileType python set omnifunc=pythoncomplete#Complete
 
 " tricks
