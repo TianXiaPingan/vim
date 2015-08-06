@@ -462,3 +462,12 @@ let g:tex_conceal=""
 call MapCodeingBracket()
 call Initialize()
 
+execute pathogen#infect() 
+
+let g:jedi#goto_command = "<C-]>"
+"let g:jedi#goto_assignments_command = "<leader>g"
+"let g:jedi#goto_definitions_command = ""
+"let g:jedi#documentation_command = "K"
+let g:jedi#usages_command = "<C-u>"
+let g:jedi#completions_command = "<C-Space>"
+let g:jedi#rename_command = "<leader>r"
