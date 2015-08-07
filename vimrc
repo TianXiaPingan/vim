@@ -463,6 +463,7 @@ call MapCodeingBracket()
 call Initialize()
 
 execute pathogen#infect() 
+:Helptags
 
 let g:jedi#goto_command = "<C-]>"
 "let g:jedi#goto_assignments_command = "<leader>g"
