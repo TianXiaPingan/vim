@@ -104,19 +104,6 @@ function! MapPaste()
 endfunction
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-function! MapCodeingBracket()
-  let file_type = FileType()
-  let dest_file_types = ["C++", "Python", "Java", "Tex"]
-  if index(dest_file_types, file_type) != -1
-    inoremap ( ()<Esc>i
-    inoremap [ []<Esc>i
-    inoremap " ""<Esc>i
-    inoremap { {<CR>}<Esc>kA
-  endif
-
-endfunction
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! AddMacroDefinitionForHeader()
 python << endpython
 import vim
@@ -459,7 +446,6 @@ au BufRead,BufNewFile *.tpt set filetype=robot_reporter_template
 " Does not convert any math symbols in latex.
 let g:tex_conceal=""
 
-call MapCodeingBracket()
 call Initialize()
 
 execute pathogen#infect() 
