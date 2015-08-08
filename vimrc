@@ -458,3 +458,14 @@ let g:jedi#goto_command = "<C-]>"
 let g:jedi#usages_command = "<C-u>"
 let g:jedi#completions_command = "<C-Space>"
 let g:jedi#rename_command = "<leader>r"
+
+"pop munu sample codes.
+"inoremap ref{ <C-R>=ListMonths()<CR>
+"func! ListMonths()
+  "call complete(col('.'), ['January', 'February', 'March',
+  "\ 'April', 'May', 'June', 'July', 'August', 'September',
+  "\ 'October', 'November', 'December'])
+  "return ''
+"endfunc
+
+let tlist_tex_settings = 'latex;l:labels;s:sections;t:subsections;u:subsubsections;b:bib'

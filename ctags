@@ -1,0 +1,13 @@
+--langdef=latex
+--langmap=latex:.tex+.bib
+--regex-latex=/\\label\{([^}]*)\}/\1/l,label/
+--regex-latex=/\\section\{([^}]*)\}/\1/s,section/
+--regex-latex=/\\subsection\{([^}]*)\}/\1/t,subsection/
+--regex-latex=/\\subsubsection\{([^}]*)\}/\1/u,subsubsection/
+--regex-latex=/\\section\*\{([^}]*)\}/\1/s,section/
+--regex-latex=/\\subsection\*\{([^}]*)\}/\1/t,subsection/
+--regex-latex=/\\subsubsection\*\{([^}]*)\}/\1/u,subsubsection/
+--regex-latex=/@article{(.*),/\1/b,bib/
+--regex-latex=/@book{(.*),/\1/b,bib/
+--regex-latex=/@inproceedings{(.*),/\1/b,bib/
+  
