@@ -46,7 +46,8 @@ def get_indent(lnum):
 
   if (prev_line.startswith(":template") or 
       prev_line.startswith(":paragraph") or
-      prev_line.startswith(":condition") or
+      prev_line.startswith(":if") or
+      prev_line.startswith(":else") or
       prev_line.startswith(":random_one") or
       prev_line.startswith(":random_order") or
       prev_line.startswith(":sequence")):

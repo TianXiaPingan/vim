@@ -10,7 +10,7 @@ endfunction
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! Initialize()
   let file_type = FileType()
-  let wrap_line_file_types = ["C++", "Python", "Java", "Tex"]
+  let wrap_line_file_types = ["Tex"]
   if index(wrap_line_file_types, file_type) != -1 
     set textwidth=80
   endif  
