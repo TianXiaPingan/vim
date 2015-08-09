@@ -8,11 +8,89 @@ function! MapFold()
 endfunction
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! GenLatexTags()
+python << endpython
+import vim, re
+
+labels = {}
+label_heads = ["fig", "eq", "tb", "thm", "sec"]
+for head in label_heads:
+  labels.setdefault(head, [])
+
+reg = re.compile(r"\label{(.*?)}")
+tags = reg.findall(" ".join(vim.current.buffer))
+for tag in tags:
+  for head in labels:
+    if tag.startswith(head):
+      labels[head].append(tag)
+      break
+  else:    
+    print "Unknow labels:", tag
+    print "label must start with any of '%s'" %", ".join(label_heads)
+
+try:
+  txt = open("references.bib", "r").read() 
+  reg = re.compile(r"^@.*?{(.*?),", re.MULTILINE)
+  labels["citation"] = reg.findall(txt)
+except:
+  print "Warning: No references.bib"
+
+vim.command("let w:latex_labels = %s" %labels) 
+  
+endpython
+endfunction
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! InsertLatexLabel()
+  if !exists("w:latex_labels")
+    call GenLatexTags()
+  endif
+
+  let context = strpart(getline("."), 0, col(".") - 2)
+  "echom "context: " . context
+  if context =~ '.*Figure\s* \\ref'  
+    call complete(col('.'), w:latex_labels["fig"])
+  elseif context =~ '.*Eqn\.\s* \\ref'  
+    call complete(col('.'), w:latex_labels["eq"])
+  elseif context =~ '.*Table\s* \\ref'
+    call complete(col('.'), w:latex_labels["tb"])
+  elseif context =~ '.*Theorem\s* \\ref'
+    call complete(col('.'), w:latex_labels["thm"])
+  elseif context =~ '.*\\cite'   
+    call complete(col('.'), w:latex_labels["citation"])
+  endif
+
+  return ''
+endfunction
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! Initialize()
   let file_type = FileType()
-  let wrap_line_file_types = ["Tex"]
-  if index(wrap_line_file_types, file_type) != -1 
+
+  if index(["Tex"], file_type) != -1 
     set textwidth=80
+  endif 
+
+  if index(["C++", "Python", "Java"], file_type) != -1 
+    map <F6> :!ctags --exclude="excluded*" -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR><CR>
+  endif 
+
+  if file_type == "Tex"
+    inoremap <F5>     <C-R>=InsertLatexLabel()<CR>
+    map <F6>          :call GenLatexTags()<CR>
+
+    map <C-b>         :call CompileLatex(1)<CR>
+    map <S-b>         :call CompileLatex(0)<CR>
+
+  elseif file_type == "C++"
+    map <F5>        :call ExecuteCplusplusProgram()<CR>
+
+    map <C-b>       :!_my_make.py<CR>
+    map <S-b>       :!_my_make.py -c<CR>
+
+  elseif file_type == "Python"  
+    map <F5>        :!./%<CR>
+    
   endif  
 
 endfunction
@@ -209,7 +287,6 @@ else:
     vim.command(cmd0) 
     vim.command(cmd3)
   else:
-    #vim.command(cmd0) 
     vim.command(cmd0) 
     vim.command(cmd2) 
     vim.command(cmd0) 
@@ -220,52 +297,25 @@ endpython
 endfunction
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-function! CompileProgram(shift_pressed)
-  let file_type = FileType()
-  if file_type == "Tex"
-    if a:shift_pressed == 0
-      :call CompileLatex(1)
-    else
-      :call CompileLatex(0)
-    endif
-  elseif file_type == "C++" 
-    if a:shift_pressed == 0
-      :!_my_make.py
-    else
-      :!_my_make.py -c
-    endif
-  endif
-endfunction
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-function! ExecuteProgram()
+function! ExecuteCplusplusProgram()
 python << endpython
 import vim
 from os import listdir
 
-file_name = vim.current.buffer.name.split("/")[-1]
-file_type = vim.eval("FileType()")
-
 found = False
-if file_type == "Python": 
-  # Do not use system() from python, whose output is messy in VIM.
-  vim.command("silent !clear")
-  vim.command("!./%s" %file_name)
-  found = True
-elif file_type == "C++": 
-  if "BUILD" in listdir("."):
-    '''binary = "test"'''
-    for ln in open("BUILD"):
-      ln = ln.strip()
-      if ln.startswith("binary"):
-        exe_file = ln.split("=")[1].strip()[1: -1]
-        vim.command("silent !clear")
-        vim.command("!./%s" %exe_file)
-        found = True
-        break
-
-if not found:
-  print "Can not find any executable file"
+if "BUILD" not in listdir("."):
+  print "Not BUILD found"
+else:
+  '''binary = "test"'''
+  for ln in open("BUILD"):
+    ln = ln.strip()
+    if ln.startswith("binary"):
+      exe_file = ln.split("=")[1].strip()[1: -1]
+      vim.command("silent !clear")
+      vim.command("!./%s" %exe_file)
+      break
+  else:     
+    print "Can not find any executable file"
 
 endpython
 endfunction
@@ -330,9 +380,7 @@ set nobackup
 map   <C-s>         :w<Enter>
 imap  <C-s>         <Esc>:w<Enter>
 
-" build
-map <C-b>           :call CompileProgram(0)<CR>
-map <S-b>           :call CompileProgram(1)<CR>
+" Read console information.
 map <C-e>           :!<Enter>
 
 " copy into global clipboard.
@@ -350,11 +398,6 @@ map <F3>            :A <Enter>
 let g:winManagerWindowLayout='FileExplorer|TagList'
 let g:winManagerWidth=36
 map <F4>            :WMToggle<cr>
-
-map <F5>            :call ExecuteProgram()<CR>
-
-" create ctags file.
-map <F6>            :!ctags --exclude="excluded*" -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR><CR>
 
 highlight OverLength ctermbg=darkred ctermfg=white guibg=#FFD9D9
 map <F7>            :call MapMatchLongLines()<CR>
@@ -448,8 +491,6 @@ au BufRead,BufNewFile *.tpt set filetype=robot_reporter_template
 " Does not convert any math symbols in latex.
 let g:tex_conceal=""
 
-call Initialize()
-
 execute pathogen#infect() 
 :Helptags
 
@@ -461,12 +502,6 @@ let g:jedi#usages_command = "<C-u>"
 let g:jedi#completions_command = "<C-Space>"
 let g:jedi#rename_command = "<leader>r"
 
-"pop munu sample codes.
-"inoremap ref{ <C-R>=ListMonths()<CR>
-"func! ListMonths()
-  "call complete(col('.'), ['January', 'February', 'March',
-  "\ 'April', 'May', 'June', 'July', 'August', 'September',
-  "\ 'October', 'November', 'December'])
-  "return ''
-"endfunc
 
+" Must be in the last line.
+call Initialize()
