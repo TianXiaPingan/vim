@@ -19,19 +19,21 @@ endfunction
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! FileType()
-  if @% =~ '.*\.\(h\|cpp\|hpp\)'
+  let ext = expand("%:e")
+
+  if ext == "h" || ext == "cpp" || ext == "hpp"
     return "C++"
   endif
 
-  if @% =~ '.*\.py'
+  if ext == "py" 
     return "Python"
   endif
 
-  if @% =~ '.*\.java'
+  if ext == "java" 
     return "Java"
   endif
 
-  if @% =~ '.*\.tex'
+  if ext == "tex" 
     return "Tex"
   endif
 
