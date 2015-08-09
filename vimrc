@@ -470,4 +470,3 @@ let g:jedi#rename_command = "<leader>r"
   "return ''
 "endfunc
 
-let tlist_tex_settings = 'latex;l:labels;s:sections;t:subsections;u:subsubsections;b:bib'
