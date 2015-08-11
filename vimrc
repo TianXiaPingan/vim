@@ -466,9 +466,6 @@ let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
 au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
 set completeopt=menuone,menu,longest
 
-" Ctrl + x + o, open suggestions for python functions.
-autocmd FileType python set omnifunc=pythoncomplete#Complete
-
 " tricks
 " cmd: set scrollbind
 " usage: 'vim -RO file1 file2', and scroll two windows at the same time.
