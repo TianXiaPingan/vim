@@ -8,6 +8,7 @@ if exists("b:current_syntax")
 endif
 
 scriptencoding utf-8
+set iskeyword+=.
 
 syn match Todo "[-+]\?\d\+"
 syn match Todo "[-+]\?\d\+\.\d\+"

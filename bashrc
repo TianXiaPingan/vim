@@ -19,7 +19,6 @@ alias _my_server_osc2='echo password G402790G; ssh wsu0170@glenn.osc.edu'
 #alias _my_server_osc='echo password X37fsk-eug14T; ssh wsu0215@oakley.osc.edul'
 alias _my_server_new='echo shaojunwang; ssh swang@130.108.87.251'
 alias _my_server_amazon_tokyo="ssh ubuntu@52.68.137.96"
-alias _my_server_amazon_oregon="ssh ubuntu@52.26.235.200"
 
 alias _my_beyond_compare='wine "/Users/world/.wine/drive_c/Program Files/Beyond Compare 3/BCompare.exe"'
 
