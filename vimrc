@@ -72,7 +72,7 @@ function! Initialize()
   endif 
 
   if index(["C++", "Python", "Java"], file_type) != -1 
-    map <F6> :!ctags --exclude="excluded*" -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR><CR>
+    map <F6> :!ctags --exclude="excluded*" -R --c++-kinds=+p --fields=+iaSKlnz --extra=+q .<CR><CR>
   endif 
 
   if file_type == "Tex"
