@@ -1,1 +1,1 @@
-set iskeyword+=_
+setlocal iskeyword+=_
