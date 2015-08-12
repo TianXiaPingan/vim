@@ -402,10 +402,10 @@ map <F4>            :WMToggle<cr>
 highlight OverLength ctermbg=darkred ctermfg=white guibg=#FFD9D9
 map <F7>            :call MapMatchLongLines()<CR>
 
-" fold a function 
-map <F8>            za<CR>
 " fold all functions
-map <S-F8>          :call MapFold()<CR>
+map <F8>            :call MapFold()<CR>
+" fold a function 
+map <C-F8>          za<CR>
 
 " wrap
 map <F9>            :call MapWrap()<CR>

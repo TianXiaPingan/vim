@@ -15,52 +15,27 @@ setlocal indentexpr=RobotIndent(v:lnum)
 setlocal indentkeys=!^F,o,O,<:>,0),0],0}
 
 function! RobotIndent(lnum)
-" lnum, indent, prevnonblank, and many functions start with 1, rather than 0.
-" But its built-in array starts with 0.
-" :let mylist = [1, 2, ['a', 'b']]
-" :echo mylist[0]
+  " lnum, indent, prevnonblank, and many functions start with 1, rather than 0.
+  " But its built-in array starts with 0.
+  " :let mylist = [1, 2, ['a', 'b']]
+  " :echo mylist[0]
 
-python << endpython
-import vim
-from os import system, listdir
-
-def get_indent(lnum):
-  #print "arg:", lnum, type(lnum)
-  # buffer[] startswith 0, which is of python style.
-  buffer = vim.current.buffer
-
-  line = buffer[lnum].strip()
-  #print "-" * 64
-
-  if lnum == 0:
+  if a:lnum == 1
     return 0
-    
-  prev_num = int(vim.eval("prevnonblank(%s)" %(lnum - 1 + 1))) - 1
-  prev_line = buffer[prev_num].strip()
-  prev_indent = int(vim.eval("indent(%s)" %(prev_num + 1)))
-  #print "prev_num:", prev_num, prev_indent, prev_line
-  #print "current line:", lnum, line
+  endif
 
-  if line == "}":
+  let prev_line_idx = prevnonblank(a:lnum - 1)
+  let prev_line = getline(prev_line_idx)
+  let prev_indent = indent(prev_line_idx)
+  let cur_line = getline(a:lnum)
+
+  if cur_line =~ '[}\]]\s*$'
     return prev_indent - 2
-
-  if (prev_line.startswith(":template") or 
-      prev_line.startswith(":paragraph") or
-      prev_line.startswith(":if") or
-      prev_line.startswith(":else") or
-      prev_line.startswith(":random_one") or
-      prev_line.startswith(":random_order") or
-      prev_line.startswith(":sequence")):
+  elseif prev_line =~ '[{\[]\s*$'
     return prev_indent + 2
-  
-  return prev_indent
+  else
+    return prev_indent
+  endif
 
-lnum = int(vim.eval("a:lnum")) - 1
-indent = get_indent(lnum)
-#print "indent:", indent
-vim.command("let ret = %s" %indent)
-endpython
-
-return ret
 endfunction
 
