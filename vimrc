@@ -499,6 +499,7 @@ let g:jedi#usages_command = "<C-u>"
 let g:jedi#completions_command = "<C-Space>"
 let g:jedi#rename_command = "<leader>r"
 
+let g:VIMHOME = expand('<sfile>:p:h')
 
 " Must be in the last line.
 call Initialize()
