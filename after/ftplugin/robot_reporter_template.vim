@@ -1,17 +1,12 @@
 """"""""""""""""""""""function definition""""""""""""""""""""""""""""""""""""""
 function! LoadTemplateVar(keyword)
 
-let pattern = strpart(a:keyword, 0, strlen(a:keyword) - 1) . '(:\d+)?$'
+"list[f: t] ---> [f, t], not [f, t) in Python.
+let pattern = a:keyword[: -2] . '(:\d+)?$'
 let pattern = escape(pattern, '$(+)?.')
+let cmd = printf("syn match Define '%s'", pattern)
+execute cmd
 
-python << endpython
-import vim
-
-pattern = vim.eval("pattern")
-cmd = "syn match Define '%s'" %pattern
-vim.command(cmd)
-
-endpython
 endfunction
 
 function! LoadAllTemplateVar()
