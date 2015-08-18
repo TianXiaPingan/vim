@@ -123,8 +123,8 @@ set mouse=a
 set nobackup
 
 " quick save file.
-map   <C-s>         :w<Enter>
-imap  <C-s>         <Esc>:w<Enter>
+map   <C-s>         :w<CR>
+imap  <C-s>         <Esc><C-s>gi
 
 " Read console information.
 map <C-e>           :!<Enter>
