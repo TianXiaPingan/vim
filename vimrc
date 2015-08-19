@@ -201,4 +201,8 @@ set tags+=~/.vim/tags/cpp
 execute pathogen#infect() 
 :Helptags
 
+" Have to define here, not in after/ftplugin/python.vim.
+let g:jedi#goto_command = "<C-]>"
+let g:jedi#usages_command = "<C-u>"
+
 let g:VIMHOME = expand('<sfile>:p:h')
