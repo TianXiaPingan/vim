@@ -9,6 +9,59 @@
 " cmd: set scrollbind
 " usage: 'vim -RO file1 file2', and scroll two windows at the same time.
 
+"x delete
+"J join two lines quickly.
+"o insert a new line after current line.
+
+"complex repeat
+"1. In normal mode, qa
+"2. do something...
+"3. In normal mode, q.
+"4. @a or 1000@@
+
+"Open file in a binary form
+"vim -b datafile
+":%!xxd
+":%!xxd -r
+
+"Non-greedy .*? in vim regex. Use .\{-} instead.
+"help non-greedy
+
+"Make terminal colorful.
+"add "export CLICOLOR=1 export LSCOLORS=ExFxCxDxBxegedabagacad" into ~/.profile
+
+":scriptnames
+":TOhtml
+
+"Count current file.
+"g CTRL-G
+
+":iabbrev JB Jack Benny
+
+"v4jgq
+"v" to start Visual mode, "4j' to move to the end of the paragraph and then
+"the "gq" operator.  
+
+"gqap
+"A very useful text object to use with "gq" is the paragraph.  Try this: >
+" "ap" stands for "a-paragraph".  This formats the text of one paragraph
+" (separated by empty lines).  Also the part before the cursor.
+" For Chinese
+":set formatoptions+=m 
+
+":args *.c
+":argdo %s/\<x_cnt\>/x_counter/ge | update
+"Put all the relevant files in the argument list: >
+"This finds all C files and edits the first one.  Now you can perform a
+"substitution command on all these files: >
+
+"/19[0-9][0-9]\|20[0-9][0-9]
+"Using the same text as above, search for a year: 
+"Now press CTRL-A.  The year will be increased by one.
+
+"把光标所在行移动窗口的顶端、中间或底部，这时就可以用到”zt“、”zz“和”zb“。
+"zt zz zb
+
 """"""""""""""""""""""function definition""""""""""""""""""""""""""""""""""""""
 function! MapFold()
   if &foldlevel == 1
@@ -24,9 +77,11 @@ function! SpellCheck()
   endif
 
   if b:spell_check == 1
+    echo "spell check"
     :setlocal spell spelllang=en_us
     let b:spell_check = 0
   else
+    echo "close spell check"
     :setlocal spell spelllang=
     let b:spell_check = 1
   endif  
@@ -38,9 +93,11 @@ function! MapMatchLongLines()
   endif
 
   if b:long_lines_matched == 0
+    echo "match long lines"
     :match OverLength /\%81v.\+/
     let b:long_lines_matched = 1
   elseif b:long_lines_matched == 1
+    echo "close match long lines"
     :match OverLength /\%1000000081v.\+/
     let b:long_lines_matched = 0
   endif
@@ -94,6 +151,8 @@ set guioptions-=T
 set ruler
 set nohls
 set cindent
+"This stops the search at the end of the file
+"set nowrapscan
 set incsearch
 " open fold for whole word.
 set lbr
@@ -107,6 +166,10 @@ set expandtab
 set tabstop=2
 set shiftwidth=2
 set shiftround
+
+" For Chinese and textwidth
+set formatoptions+=m
+"set textwidth=80
 
 syntax on
 filetype indent on
