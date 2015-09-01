@@ -185,6 +185,9 @@ set ignorecase
 set mouse=a
 set nobackup
 
+" format a paragraph by textwidth
+map <Leader>p       gqap
+
 " quick save file.
 map   <C-s>         :w<CR>
 imap  <C-s>         <Esc><C-s>gi
