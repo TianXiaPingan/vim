@@ -175,6 +175,7 @@ syntax on
 filetype indent on
 filetype plugin on
 au BufRead,BufNewFile *.tpt set filetype=robot_reporter_template
+au BufRead,BufNewFile *.xinzhi set filetype=xinzhi
 
 set autoindent
 
