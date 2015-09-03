@@ -14,7 +14,7 @@ alias _my_server_nimbus='echo password: shaojunwang; ssh w004txx@nimbus.cs.wrigh
 alias _my_server_knoesis='echo password: commonSummer; ssh xia@knoesis1.wright.edu '
 # in wsj server: account: wsj, password: wsj
 alias _my_server_wsj='echo password: common; ssh summer@130.108.28.50'
-alias _my_server_osc='echo password X37fsk-eug14T or commonSummer; ssh wsu0215@glenn.osc.edu' 
+alias _my_server_osc='echo password Y36fsk-eag04Y or commonSummer; ssh wsu0215@glenn.osc.edu' 
 alias _my_server_osc2='echo password G402790G; ssh wsu0170@glenn.osc.edu' 
 #alias _my_server_osc='echo password X37fsk-eug14T; ssh wsu0215@oakley.osc.edul'
 alias _my_server_new='echo shaojunwang; ssh swang@130.108.87.251'
