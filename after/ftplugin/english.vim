@@ -63,10 +63,8 @@ syn match Type "dict:"
 syn match Constant "\<adj\."
 syn match Constant "\<adv\."
 syn match Constant "\<n\."
-syn match Constant "/.\{-}/"
-syn match Constant "/.\{-}\n.\{-}/"
-syn match Constant "\[.\{-}\n.\{-}\]"
-syn match Constant "\[.\{-}\]"
+syn match Constant "/\_.\{-}/"
+syn match Constant "\[\_.\{-}\]"
 
 map <leader>s   <Esc>Isent: <Esc>
 map <leader>d   <Esc>Idict: <Esc>
