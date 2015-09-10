@@ -13,6 +13,17 @@ vim.command('''syn match Tag "%s"''' %reg)
 endpython
 endfunction
 
+function! SaveWord(phrase)
+python << endpython
+import vim
+
+phrase = vim.eval("a:phrase")
+VIMHOME = vim.eval("g:VIMHOME")
+print >> open("%s/data/vocabulary.dat" %VIMHOME, "a"), phrase
+
+endpython
+endfunction
+
 function! Emphasize()
 normal gvy
 let phrase = getreg('"')
@@ -21,10 +32,7 @@ python << endpython
 import vim
 
 phrase = " ".join(vim.eval("phrase").lower().split())
-
-VIMHOME = vim.eval("g:VIMHOME")
-print >> open("%s/data/vocabulary.dat" %VIMHOME, "a"), phrase
-
+vim.command('''call SaveWord("%s")''' %phrase)
 vim.command('''call LoadWord("%s")''' %phrase)
 
 endpython
@@ -37,7 +45,7 @@ import vim
 try:
   VIMHOME = vim.eval("g:VIMHOME")
   fname = "%s/data/vocabulary.dat" %VIMHOME
-  phrases = open(fname).readlines()
+  phrases = set(open(fname).readlines())
   for v in phrases:
     vim.command('''call LoadWord("%s")''' %v)
 except IOError:
@@ -46,6 +54,13 @@ except IOError:
 endpython
 endfunction 
 
+function! ExpandandEmphrasize()
+  let word = expand("<cword>")
+  call LoadWord(word)
+  call SaveWord(word)
+endfunction
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 if exists("b:current_syntax")
   finish
 endif
@@ -63,11 +78,19 @@ syn match Type "dict:"
 syn match Constant "\<adj\."
 syn match Constant "\<adv\."
 syn match Constant "\<n\."
+syn match Constant "\<vt\."
+syn match Constant "\<vi\."
+
+
 syn match Constant "/\_.\{-}/"
 syn match Constant "\[\_.\{-}\]"
 
 map <leader>s   <Esc>Isent: <Esc>
 map <leader>d   <Esc>Idict: <Esc>
 
+map @           :call ExpandandEmphrasize()<Esc>
+
 "vnoremap <silent> @ :<C-U> normal gvy<CR> :echo getreg('"')<CR>
 vnoremap <silent> @ :call Emphasize()<CR>
+
+call LoadAllWords()
