@@ -80,13 +80,14 @@ syn match Constant "\<adv\."
 syn match Constant "\<n\."
 syn match Constant "\<vt\."
 syn match Constant "\<vi\."
-
+syn match Constant "\<v\."
 
 syn match Constant "/\_.\{-}/"
 syn match Constant "\[\_.\{-}\]"
 
 map <leader>s   <Esc>Isent: <Esc>
 map <leader>d   <Esc>Idict: <Esc>
+map <Leader>p       gqq
 
 map @           :call ExpandandEmphrasize()<Esc>
 
