@@ -94,4 +94,7 @@ map @           :call ExpandandEmphrasize()<Esc>
 "vnoremap <silent> @ :<C-U> normal gvy<CR> :echo getreg('"')<CR>
 vnoremap <silent> @ :call Emphasize()<CR>
 
+command! RandomLine execute 
+      \ ': '.(system('/bin/bash -c "echo -n $RANDOM"') % line("$"))
+
 call LoadAllWords()
