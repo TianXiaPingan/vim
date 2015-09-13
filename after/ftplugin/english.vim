@@ -4,7 +4,7 @@ python << endpython
 import vim
 
 phrase = vim.eval("a:phrase").split()
-phrase = ["\<%s\>" %w for w in phrase]
+phrase = ["\<%s" %w for w in phrase]
 reg = "\_s\+".join(phrase)
 if reg == "":
   exit()
