@@ -89,10 +89,10 @@ map <leader>s   <Esc>Isent: <Esc>gqq
 map <leader>d   <Esc>Idict: <Esc>gqq
 map <Leader>p       gqq
 
-map @           :call ExpandandEmphrasize()<Esc>
+map +           :call ExpandandEmphrasize()<Esc>
 
 "vnoremap <silent> @ :<C-U> normal gvy<CR> :echo getreg('"')<CR>
-vnoremap <silent> @ :call Emphasize()<CR>
+vnoremap <silent> + :call Emphasize()<CR>
 
 command! RandomLine execute 
       \ ': '.(system('/bin/bash -c "echo -n $RANDOM"') % line("$"))
