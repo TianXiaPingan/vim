@@ -63,6 +63,28 @@
 "zt zz zb
 
 """"""""""""""""""""""function definition""""""""""""""""""""""""""""""""""""""
+function! LoadExtraVimrc()
+python << endpython
+import vim, os
+
+fname = vim.current.buffer.name
+if "/" not in fname:
+  vimrc = ".%s.vimrc" %fname 
+else:
+  toks = fname.split("/") 
+  vimrc = "/".join(toks[: -1]) + "/.%s.vimrc" %toks[-1]
+
+#print "vimrc:", vimrc
+if os.path.exists(vimrc):
+  vim.command("syntax on")
+  for cmd in open(vimrc):
+    cmd = cmd.strip()
+    #print "executing", cmd
+    vim.command(cmd)
+
+endpython
+endfunction
+
 function! MapFold()
   if &foldlevel == 1
     set foldlevel=32
@@ -175,8 +197,8 @@ syntax on
 filetype indent on
 filetype plugin on
 au BufRead,BufNewFile *.tpt set filetype=robot_reporter_template
-au BufRead,BufNewFile *.xinzhi set filetype=xinzhi
 au BufRead,BufNewFile *.en set filetype=english
+au BufRead,BufNewFile * call LoadExtraVimrc() 
 
 set autoindent
 
