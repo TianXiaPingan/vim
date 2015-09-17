@@ -172,7 +172,6 @@ set showmatch
 set guioptions-=T
 set ruler
 set nohls
-set cindent
 "This stops the search at the end of the file
 "set nowrapscan
 set incsearch
