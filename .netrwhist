@@ -1,6 +1,0 @@
-let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =4
-let g:netrw_dirhist_1='/Users/world/inf/study/linux settings/common settings/vim/autoload'
-let g:netrw_dirhist_2='/Users/world/inf/study/linux settings/common settings/vim/after/ftplugin'
-let g:netrw_dirhist_3='/Users/world/inf/study/linux settings/common settings/vim/tags'
-let g:netrw_dirhist_4='/Users/world/inf/study/linux settings/common settings/vim'
