@@ -219,7 +219,8 @@ imap  <C-s>         <Esc><C-s>gi
 map <C-e>           :!<Enter>
 
 " copy into global clipboard.
-map <C-c>           "+y
+nmap     <silent> <C-c>   :call setreg("+", expand("<cword>"), "v") <CR>
+vnoremap <silent> <C-c>   :normal gv"+y<CR>
 
 " reopen the current file.
 map <F2>            :e%<Enter>
@@ -229,7 +230,7 @@ map <F3>            :A <Enter>
 " window manager.
 let g:winManagerWindowLayout='FileExplorer|TagList'
 let g:winManagerWidth=36
-map <F4>            :WMToggle<cr>
+map <F4>            :WMToggle<CR>
 
 highlight OverLength ctermbg=darkred ctermfg=white guibg=#FFD9D9
 map <F7>            :call MapMatchLongLines()<CR>
