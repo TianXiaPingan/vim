@@ -273,8 +273,12 @@ vnoremap <silent> # :<C-U>
   \escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
   \gV:call setreg('"', old_reg, old_regtype)<CR>
 
+" what is the encoding of the file to read.
+" If the file is of gbk, just 'set fileencodings=gbk' and 'F2'.
 set fileencodings=utf8
+" which encoding to denote the buffer in the memory.
 set encoding=utf8
+" how to display in the terminal.
 set termencoding=utf8
 
 let Tlist_Show_One_File=1
