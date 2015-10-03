@@ -1,3 +1,14 @@
+export CLICOLOR=1 
+export LSCOLORS=ExFxCxDxBxegedabagacad
+
+##
+# Your previous /Users/world/.profile file was backed up as /Users/world/.profile.macports-saved_2015-04-01_at_14:05:36
+##
+
+# MacPorts Installer addition on 2015-04-01_at_14:05:36: adding an appropriate PATH variable for use with MacPorts.
+export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
+# Finished adapting your PATH environment variable for use with MacPorts.
+
 alias l='       ls -lhtr       '
 alias ll='      ls -lhtr      '
 alias la='      ls -lhatr     '
