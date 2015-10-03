@@ -14,6 +14,15 @@ alias ll='      ls -lhtr      '
 alias la='      ls -lhatr     '
 alias lld='     ls -lhtr | grep "^d"'
 
+alias _git_status='git status'
+alias _git_difftool='git difftool'
+alias _git_difftool_name='git difftool --name-status'  # old-commit new-commit
+alias _git_commit='git commit -a'
+alias _git_commit_amend='git commit -a --amend'
+alias _git_branch='git branch'
+alias _git_checkout='git checkout'
+alias _git_log='git log'
+
 alias du='clear; du -h -d 1'
 alias du1='clear; du -h -d 1'
 alias gvim='/Applications/MacPorts/MacVim.app/Contents/MacOS/Vim -g'
