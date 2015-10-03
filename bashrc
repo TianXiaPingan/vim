@@ -2,7 +2,7 @@ export CLICOLOR=1
 export LSCOLORS=ExFxCxDxBxegedabagacad
 
 ##
-# Your previous /Users/world/.profile file was backed up as /Users/world/.profile.macports-saved_2015-04-01_at_14:05:36
+# Your previous ~/.profile file was backed up as ~/.profile.macports-saved_2015-04-01_at_14:05:36
 ##
 
 # MacPorts Installer addition on 2015-04-01_at_14:05:36: adding an appropriate PATH variable for use with MacPorts.
@@ -41,32 +41,32 @@ alias _my_server_new='echo shaojunwang; ssh swang@130.108.87.251'
 alias _my_server_amazon_tokyo="ssh ubuntu@52.68.137.96"
 alias _my_server_wife="ssh ma@192.168.1.139"
 
-alias _my_beyond_compare='wine "/Users/world/.wine/drive_c/Program Files/Beyond Compare 3/BCompare.exe"'
+alias _my_beyond_compare='wine "~/.wine/drive_c/Program Files/Beyond Compare 3/BCompare.exe"'
 
-export PATH=/Users/world/inf/study/bin:$PATH
+export PATH=~/inf/study/bin:$PATH
 
-export CPLUS_INCLUDE_PATH=/Users/world/inf/study/include:$CPLUS_INCLUDE_PATH
+export CPLUS_INCLUDE_PATH=~/inf/study/include:$CPLUS_INCLUDE_PATH
 export CPLUS_INCLUDE_PATH=/opt/local/include:$CPLUS_INCLUDE_PATH
 export CPLUS_INCLUDE_PATH=/opt/local/Library/Frameworks/Python.framework/Versions/2.7/Headers:$CPLUS_INCLUDE_PATH
-export CPLUS_INCLUDE_PATH=/Users/world/Installed/boost_1_54_0:$CPLUS_INCLUDE_PATH
+export CPLUS_INCLUDE_PATH=~/Installed/boost_1_54_0:$CPLUS_INCLUDE_PATH
 # for installing python library: json
 export CPLUS_INCLUDE_PATH=/System/Library/Frameworks/JavaVM.framework/Versions/A/Headers:$CPLUS_INCLUDE_PATH
 # for google test 1.7.0
-export CPLUS_INCLUDE_PATH=/Users/world/Installed/gtest-1.7.0.summer/include:$CPLUS_INCLUDE_PATH
+export CPLUS_INCLUDE_PATH=~/Installed/gtest-1.7.0.summer/include:$CPLUS_INCLUDE_PATH
 
 
 export LIBRARY_PATH=/opt/local/Library/Frameworks/Python.framework/Versions/2.7/lib:$LIBRARY_PATH
-export LIBRARY_PATH=/Users/world/Installed/boost_1_54_0/stage/lib:$LIBRARY_PATH
+export LIBRARY_PATH=~/Installed/boost_1_54_0/stage/lib:$LIBRARY_PATH
 export LIBRARY_PATH=/opt/local/lib:$LIBRARY_PATH
 # for google test 1.7.0
-export LIBRARY_PATH=/Users/world/Installed/gtest-1.7.0.summer/lib/:$LIBRARY_PATH
+export LIBRARY_PATH=~/Installed/gtest-1.7.0.summer/lib/:$LIBRARY_PATH
 
 export DYLD_FALLBACK_LIBRARY_PATH=/opt/local/Library/Frameworks/Python.framework/Versions/2.7/lib:$DYLD_FALLBACK_LIBRARY_PATH
-export DYLD_FALLBACK_LIBRARY_PATH=/Users/world/Installed/boost_1_54_0/stage/lib:$DYLD_FALLBACK_LIBRARY_PATH
+export DYLD_FALLBACK_LIBRARY_PATH=~/Installed/boost_1_54_0/stage/lib:$DYLD_FALLBACK_LIBRARY_PATH
 export DYLD_FALLBACK_LIBRARY_PATH=/opt/local/lib:$DYLD_FALLBACK_LIBRARY_PATH
 
-export PYTHONPATH=/Users/world/include:$PYTHONPATH
-export PYTHONPATH=/Users/world/bin:$PYTHONPATH
+export PYTHONPATH=~/include:$PYTHONPATH
+export PYTHONPATH=~/bin:$PYTHONPATH
 
 #export PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME%%.*}: ${PWD/#$HOME/~}\007"'
 
