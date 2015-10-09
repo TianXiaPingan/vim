@@ -76,5 +76,6 @@ stty stop undef
 export PYTHONIOENCODING=utf8
 
 export PROMPT_COMMAND='echo -ne "\033]0;$PWD\007"'
+export PS1='\u@\W\$ '
 
 echo "a healthy of disregarding of impossible"
