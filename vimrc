@@ -246,6 +246,7 @@ map <F11>           :set paste!<Bar>set paste?<CR>
 
 " Indent when the cursor is at the beginning '{' of a block.
 map <F12>           =%
+map <C-F12>         :set ignorecase!<Bar>set ignorecase?<CR>
 
 " Remove trailing blanks.
 map f0              :%s/\s\+\n/\r/g<Enter>
