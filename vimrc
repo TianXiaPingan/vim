@@ -1,4 +1,32 @@
 """"""""""""""""""""""some tricks""""""""""""""""""""""""""""""""""""""""""""""
+"To number the lines in the file. Try one of these
+":%! nl -ba
+":%!cat -n
+
+"Help for help
+":h visual<C-D><Tab> : obtain list of all visual help topics 
+                    ": Then use tab to step through them
+":h ctrl<C-D>        : list help of all control keys
+":h :r               : help for :ex command
+":h CTRL-R           : normal mode
+":h \r               : what's \r in a regexp
+":h i_CTRL-R         : help for say <C-R> in insert mode
+":h c_CTRL-R         : help for say <C-R> in command mode
+":h v_CTRL-V         : visual mode
+":h 'ai              : help on setting option 'autoindent'
+
+"Searching over multiple lines: \_ includes newline
+"/<!--\_p\{-}-->    : search for multiple line comments
+"/fred\_s*joe/i     : any whitespace including newline
+"/bugs\_.*bunny     : bugs followed by bunny anywhere in file
+":h \_              : help
+
+"!sort                  " sort selected lines
+
+"\v (very magic) reduces backslashing
+"/codes\(\n\|\s\)*where " normal regexp
+"/\vcodes(\n|\s)*where  " very magic
+
 ":setlocal spell spelllang=en_us
 "]s   Move to next misspelled word after the cursor.
 "[s   Like "]s" but search backwards, find the misspelled word before the cursor.  
@@ -59,7 +87,7 @@
 "Using the same text as above, search for a year: 
 "Now press CTRL-A.  The year will be increased by one.
 
-"把光标所在行移动窗口的顶端、中间或底部，这时就可以用到”zt“、”zz“和”zb“。
+"把光标所在行移到窗口的顶端、中间或底部，这时就可以用到”zt“、”zz“和”zb“。
 "zt zz zb
 
 """"""""""""""""""""""function definition""""""""""""""""""""""""""""""""""""""
@@ -124,36 +152,6 @@ function! MapMatchLongLines()
     let b:long_lines_matched = 0
   endif
 
-endfunction
-
-function! MapScrollBind()
-  if &scrollbind == 1
-    set noscrollbind
-    echo "noscrollbind"
-  else
-    set scrollbind
-    echo "scrollbind"
-  endif
-endfunction
-
-function! MapWrap()
-  if &wrap == 1
-    set nowrap
-    echo "nowrap"
-  else
-    set wrap
-    echo "wrap"
-  endif
-endfunction
-
-function! MapPaste()
-  if &paste == 1
-    set nopaste
-    echo "nopaste"
-  else
-    set paste
-    echo "paste"
-  endif  
 endfunction
 
 """"""""""""""""""""""only for guivim""""""""""""""""""""""""""""""""""""""""""
@@ -240,11 +238,11 @@ map <F8>            :call MapFold()<CR>
 " fold a function 
 map <C-F8>          za<CR>
 
-map <F9>            :call MapWrap()<CR>
+map <F9>            :set wrap!<Bar>set wrap?<CR>
 
-map <F10>           :call MapScrollBind()<CR>
+map <F10>           :set scrollbind!<Bar>set scrollbind?<CR>
 
-map <F11>           :call MapPaste()<CR>
+map <F11>           :set paste!<Bar>set paste?<CR>
 
 " Indent when the cursor is at the beginning '{' of a block.
 map <F12>           =%
