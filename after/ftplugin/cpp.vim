@@ -78,6 +78,7 @@ let OmniCpp_MayCompleteScope = 1
 let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
 
 call omni#cpp#complete#Init()
+call MapCodingBracket()
 
 map <C-b>   :!_my_make.py<CR>
 map <S-b>   :!_my_make.py -c<CR>

@@ -1,4 +1,12 @@
 """"""""""""""""""""""some tricks""""""""""""""""""""""""""""""""""""""""""""""
+":execute "normal! gg/foo\<cr>dd"
+"normal excutes commands in the normal mode;
+"normal! does nonrecursively.
+"Both normal and normal! do not parse <CR> and other non-printable
+"characters, so 'execute' is required, and use '\' to generate the
+"non-printing characters we need.
+"http://learnvimscriptthehardway.stevelosh.com/chapters/30.html
+
 "To number the lines in the file. Try one of these
 ":%! nl -ba
 ":%!cat -n
@@ -91,6 +99,13 @@
 "zt zz zb
 
 """"""""""""""""""""""function definition""""""""""""""""""""""""""""""""""""""
+function! MapCodingBracket()
+  inoremap (  ()<Left>
+  inoremap [  []<Left>
+  inoremap "  ""<Left>
+  inoremap {  {<CR>}<Esc>O
+endfunction
+
 function! LoadExtraVimrc()
 python << endpython
 import vim, os
@@ -196,6 +211,7 @@ filetype plugin on
 au BufRead,BufNewFile *.tpt set filetype=robot_reporter_template
 au BufRead,BufNewFile *.en set filetype=english
 au BufRead,BufNewFile * call LoadExtraVimrc() 
+au FileType call MapCodingBracket() 
 
 set autoindent
 

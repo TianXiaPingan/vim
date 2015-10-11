@@ -57,3 +57,4 @@ syn match Label ":table"
 syn match Label ":text"
 
 call LoadAllTemplateVar()
+call MapCodingBracket()
