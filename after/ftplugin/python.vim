@@ -31,7 +31,9 @@ endfunction
 set softtabstop=2
 set tabstop=2
 set shiftwidth=2
+
 call MapCodingBracket()
+inoremap {  {<CR>}<Esc>O
 
 map <F5>  :!./%<CR>
 map <F6>  :!ctags --exclude="excluded*" -R --c++-kinds=+p --fields=+iaSKlnz --extra=+q .<CR><CR>

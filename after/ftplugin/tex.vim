@@ -94,6 +94,7 @@ setlocal iskeyword+=_
 setlocal textwidth=80
 
 call MapCodingBracket()
+inoremap {  {<CR>}<Esc>O
 
 " Does not convert any math symbols in latex.
 let g:tex_conceal=""

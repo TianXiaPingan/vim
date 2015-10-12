@@ -1,4 +1,15 @@
 """"""""""""""""""""""some tricks""""""""""""""""""""""""""""""""""""""""""""""
+"In a regex expression, use ', instead of ".
+
+"Debug vimscript. All messages are shown in command ":message". 
+"http://inlehmansterms.net/2014/10/31/debugging-vim/
+"Could show potential grammatical errors.
+":12verbose call MyFunction()
+"or
+":call MyFunction()
+"In a pure vimscript, use echom, not echo.
+":echom "Hello again, world!"
+
 ":execute "normal! gg/foo\<cr>dd"
 "normal excutes commands in the normal mode;
 "normal! does nonrecursively.
@@ -99,11 +110,19 @@
 "zt zz zb
 
 """"""""""""""""""""""function definition""""""""""""""""""""""""""""""""""""""
+function! SuperMatch()
+  if getline(".") =~ '\v(for|while|\))'
+    return "{\<CR>}\<Esc>O"
+  else
+    return "{}\<Left>" 
+  endif
+endfunction
+
 function! MapCodingBracket()
   inoremap (  ()<Left>
   inoremap [  []<Left>
   inoremap "  ""<Left>
-  inoremap {  {<CR>}<Esc>O
+  "inoremap {  {<CR>}<Esc>O
 endfunction
 
 function! LoadExtraVimrc()
