@@ -118,6 +118,14 @@ function! SuperMatch()
   endif
 endfunction
 
+function! SuperEndMatch(bracket)
+  if getline(".")[col(".") - 1] == a:bracket
+    return "\<Right>"
+  else
+    return a:bracket
+  end
+endfunction
+
 function! MapCodingBracket()
   inoremap (  ()<Left>
   inoremap [  []<Left>

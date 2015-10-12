@@ -94,7 +94,10 @@ setlocal iskeyword+=_
 setlocal textwidth=80
 
 call MapCodingBracket()
-inoremap {  {<CR>}<Esc>O
+inoremap {  {}<Left>
+inoremap }   <C-R>=SuperEndMatch("}")<CR>
+inoremap )   <C-R>=SuperEndMatch(")")<CR>
+inoremap ]   <C-R>=SuperEndMatch("]")<CR>
 
 " Does not convert any math symbols in latex.
 let g:tex_conceal=""

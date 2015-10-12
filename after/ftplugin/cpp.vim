@@ -81,6 +81,9 @@ call omni#cpp#complete#Init()
 
 call MapCodingBracket()
 inoremap {   <C-R>=SuperMatch()<CR>
+inoremap }   <C-R>=SuperEndMatch("}")<CR>
+inoremap )   <C-R>=SuperEndMatch(")")<CR>
+inoremap ]   <C-R>=SuperEndMatch("]")<CR>
 
 map <C-b>   :!_my_make.py<CR>
 map <S-b>   :!_my_make.py -c<CR>

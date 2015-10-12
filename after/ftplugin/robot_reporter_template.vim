@@ -57,4 +57,9 @@ syn match Label ":table"
 syn match Label ":text"
 
 call LoadAllTemplateVar()
-inoremap {   <C-R>=SuperMatch()<CR>
+
+call MapCodingBracket()
+inoremap {  {<CR>}<Esc>O
+inoremap }   <C-R>=SuperEndMatch("}")<CR>
+inoremap )   <C-R>=SuperEndMatch(")")<CR>
+inoremap ]   <C-R>=SuperEndMatch("]")<CR>

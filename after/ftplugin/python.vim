@@ -34,6 +34,9 @@ set shiftwidth=2
 
 call MapCodingBracket()
 inoremap {  {<CR>}<Esc>O
+inoremap }   <C-R>=SuperEndMatch("}")<CR>
+inoremap )   <C-R>=SuperEndMatch(")")<CR>
+inoremap ]   <C-R>=SuperEndMatch("]")<CR>
 
 map <F5>  :!./%<CR>
 map <F6>  :!ctags --exclude="excluded*" -R --c++-kinds=+p --fields=+iaSKlnz --extra=+q .<CR><CR>
