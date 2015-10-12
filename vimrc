@@ -113,7 +113,9 @@
 function! SuperMatch()
   if getline(".") =~ '\v(for|while|else|\))'
     return "{\<CR>}\<Esc>O"
-  else
+  elseif getline(".") =~ '^class'
+    return "{\<CR>};\<Esc>O"
+  else  
     return "{}\<Left>" 
   endif
 endfunction
