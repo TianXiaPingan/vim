@@ -111,7 +111,7 @@
 
 """"""""""""""""""""""function definition""""""""""""""""""""""""""""""""""""""
 function! SuperMatch()
-  if getline(".") =~ '\v(for|while|\))'
+  if getline(".") =~ '\v(for|while|else|\))'
     return "{\<CR>}\<Esc>O"
   else
     return "{}\<Left>" 
