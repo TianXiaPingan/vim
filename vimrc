@@ -111,9 +111,9 @@
 
 """"""""""""""""""""""function definition""""""""""""""""""""""""""""""""""""""
 function! SuperMatch()
-  if getline(".") =~ '\v(for|while|else|\))'
+  if getline(".") =~ '\v(else|\))'
     return "{\<CR>}\<Esc>O"
-  elseif getline(".") =~ '^class'
+  elseif getline(".") =~ '\v(^class|\=)'
     return "{\<CR>};\<Esc>O"
   else  
     return "{}\<Left>" 
