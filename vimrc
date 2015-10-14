@@ -265,6 +265,8 @@ map <C-e>           :!<Enter>
 nmap     <silent> <C-c>   :call setreg("+", expand("<cword>"), "v") <CR>
 vnoremap <silent> <C-c>   :normal gv"+y<CR>
 
+map <C-l>           "+yy
+
 " reopen the current file.
 map <F2>            :e%<Enter>
 
