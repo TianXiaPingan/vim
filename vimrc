@@ -110,6 +110,26 @@
 "zt zz zb
 
 """"""""""""""""""""""function definition""""""""""""""""""""""""""""""""""""""
+function! MyRename(cur_word, new_word)
+  let b:case_status = &ignorecase
+  if b:case_status
+    set noignorecase
+  endif  
+
+  exec printf('%%s/\<%s\>/%s/g', a:cur_word, a:new_word)
+
+  if b:case_status
+    set ignorecase
+  endif 
+endfunction
+
+function! QuickRename()
+  let b:cur_word = expand("<cword>")
+  let b:new_word = input("input: ")
+  call MyRename(b:cur_word, b:new_word)
+ 
+endfunction
+
 function! SuperMatch()
   if getline(".") =~ '\v(else|\))'
     return "{\<CR>}\<Esc>O"
@@ -253,6 +273,8 @@ set nobackup
 
 " format a paragraph by textwidth
 map <Leader>p       gqq
+
+map <Leader>r       :call QuickRename()<CR>
 
 " quick save file.
 map   <C-s>         :w<CR>
