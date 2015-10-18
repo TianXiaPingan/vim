@@ -276,6 +276,10 @@ map <Leader>p       gqq
 
 map <Leader>r       :call QuickRename()<CR>
 
+map <Leader>gs      :!clear && git status<CR>
+map <Leader>gl      :!clear && git log<CR>
+map <Leader>gb      :!clear && git branch<CR>
+
 " quick save file.
 map   <C-s>         :w<CR>
 imap  <C-s>         <Esc><C-s>gi
