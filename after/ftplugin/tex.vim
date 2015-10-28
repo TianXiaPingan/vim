@@ -57,10 +57,27 @@ function! CompileLatex(pre_compile)
 python << endpython
 import vim
 
-def latex_clean(fn):
-  files_to_delete = ["blg", "bbl", "log", "aux", "pdf"]
-  for suffix in files_to_delete:
-    cmd = '''silent !rm "%s.%s"''' %(fn, suffix)
+file_type = [
+  "aux", 
+  "bbl", 
+  "blg", 
+  "brf",
+  "idx",
+  "loa",
+  "lof",
+  "log", 
+  "lot",
+  "out",
+  "toc",
+  "pdfsync",
+]
+
+def latex_clean(fn, file_type_to_delete):
+  for suffix in file_type_to_delete:
+    if suffix == "pdf":
+      cmd = '''silent !rm "%s.%s"''' %(fn, suffix)
+    else:
+      cmd = '''silent !rm *.%s''' %(suffix)
     vim.command(cmd)
 
 file_name = vim.current.buffer.name.split("/")[-1]
@@ -75,7 +92,7 @@ else:
   cmd3 = '''!open "%s.pdf"''' %file_name
  
   pre_compile = vim.eval("a:pre_compile") == "1"
-  latex_clean(file_name)   
+  latex_clean(file_name, file_type + ["pdf"])   
   if pre_compile:
     vim.command(cmd0) 
     vim.command(cmd3)
@@ -85,13 +102,14 @@ else:
     vim.command(cmd0) 
     vim.command(cmd0) 
     vim.command(cmd3)
+  latex_clean(file_name, file_type)   
 
 endpython
 endfunction
 
 """"""""""""""""""""""both for guivim and vim""""""""""""""""""""""""""""""""""
 setlocal iskeyword+=_
-setlocal textwidth=80
+setlocal textwidth=160
 
 call MapCodingBracket()
 inoremap {  {}<Left>
