@@ -156,6 +156,11 @@ function! MapCodingBracket()
 endfunction
 
 function! LoadExtraVimrc()
+if !has("python")
+  echom "This version does not support python."
+  return 
+endif
+
 python << endpython
 import vim, os
 
