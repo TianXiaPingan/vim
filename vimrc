@@ -1,6 +1,11 @@
 """"""""""""""""""""""some tricks""""""""""""""""""""""""""""""""""""""""""""""
 "In a regex expression, use ', instead of ".
 
+"justify a paragraph.
+":set formatprg=par\ -w80
+":map  <C-p> {v}!par -jw80<CR>
+":vmap <C-p> !par -jw80<CR>
+
 "Debug vimscript. All messages are shown in command ":message". 
 "http://inlehmansterms.net/2014/10/31/debugging-vim/
 "Could show potential grammatical errors.
