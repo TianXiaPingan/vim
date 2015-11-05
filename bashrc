@@ -9,9 +9,9 @@ export LSCOLORS=ExFxCxDxBxegedabagacad
 export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
 # Finished adapting your PATH environment variable for use with MacPorts.
 
-alias l='       ls -lhtr       '
-alias ll='      ls -lhtr      '
-alias la='      ls -lhatr     '
+alias l='       ls -lhr'
+alias ll='      ls -lhtr'
+alias la='      ls -lhatr'
 alias lld='     ls -lhtr | grep "^d"'
 
 alias _git_status='git status'
