@@ -380,6 +380,6 @@ execute pathogen#infect()
 " Have to define here, not in after/ftplugin/python.vim.
 let g:jedi#goto_command = "<C-]>"
 let g:jedi#usages_command = "<C-u>"
-let g:jedi#rename_command = "<leader>r"
+let g:jedi#rename_command = "<leader>R"
 
 let g:VIMHOME = expand('<sfile>:p:h')
