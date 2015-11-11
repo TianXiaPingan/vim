@@ -4,7 +4,7 @@ python << endpython
 import vim, re
 
 labels = {}
-label_heads = ["fig", "eq", "tb", "thm", "sec"]
+label_heads = ["fig", "eq", "tb", "thm", "sec", "alg"]
 for head in label_heads:
   labels.setdefault(head, [])
 
@@ -46,6 +46,8 @@ function! InsertLatexLabel()
     call complete(col('.'), w:latex_labels["tb"])
   elseif context =~ '.*Theorem\s* \\ref'
     call complete(col('.'), w:latex_labels["thm"])
+  elseif context =~ '.*Alg\.\s* \\ref'
+    call complete(col('.'), w:latex_labels["alg"])
   elseif context =~ '.*\\cite'   
     call complete(col('.'), w:latex_labels["citation"])
   endif
