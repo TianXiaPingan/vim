@@ -10,9 +10,9 @@ content = '''\
 from algorithm import *
 
 if __name__ == "__main__":
-  system("clear")
+  os.system("clear")
 
-  parser = OptionParser(usage = "cmd [optons] ..]")
+  parser = optparse.OptionParser(usage = "cmd [optons] ..]")
   #parser.add_option("-q", "--quiet", action = "store_true", dest = "verbose",
                      #default = False, help = "")
   (options, args) = parser.parse_args()
