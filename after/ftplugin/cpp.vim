@@ -86,7 +86,7 @@ inoremap )   <C-R>=SuperEndMatch(")")<CR>
 inoremap ]   <C-R>=SuperEndMatch("]")<CR>
 
 map <C-b>   :!_my_make.py<CR>
-map <S-b>   :!_my_make.py -c<CR>
+map <S-B>   :!_my_make.py -c<CR>
 
 map <F5>    :call ExecuteCplusplusProgram()<CR>
 map <F6>    :!ctags --exclude="excluded*" -R --c++-kinds=+p --fields=+iaSKlnz --extra=+q .<CR><CR>
