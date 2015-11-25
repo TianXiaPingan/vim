@@ -136,7 +136,7 @@ function! QuickRename()
 endfunction
 
 function! SuperMatch()
-  if getline(".") =~ '\v(else|\))'
+  if getline(".") =~ '\v(else|\)|try|do)'
     return "{\<CR>}\<Esc>O"
   elseif getline(".") =~ '\v(^class|\=)'
     return "{\<CR>};\<Esc>O"
