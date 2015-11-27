@@ -79,11 +79,12 @@ let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
 
 call omni#cpp#complete#Init()
 
-call MapCodingBracket()
+"call MapCodingBracket()
 inoremap {   <C-R>=SuperMatch()<CR>
 inoremap }   <C-R>=SuperEndMatch("}")<CR>
 inoremap )   <C-R>=SuperEndMatch(")")<CR>
 inoremap ]   <C-R>=SuperEndMatch("]")<CR>
+inoremap "   <C-R>=SuperEndMatch('"')<CR>
 
 map <C-b>   :!_my_make.py<CR>
 map <S-B>   :!_my_make.py -c<CR>
