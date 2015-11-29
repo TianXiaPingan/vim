@@ -269,6 +269,7 @@ filetype indent on
 filetype plugin on
 au BufRead,BufNewFile *.tpt set filetype=robot_reporter_template
 au BufRead,BufNewFile *.en set filetype=english
+au BufRead,BufNewFile *.text set filetype=text
 au BufRead,BufNewFile * call LoadExtraVimrc() 
 au FileType call MapCodingBracket() 
 
@@ -295,7 +296,7 @@ map   <C-s>         :w<CR>
 imap  <C-s>         <Esc><C-s>gi
 
 " Read console information.
-map <C-e>           :!<Enter>
+map <C-e>           :!<CR>
 
 " copy into global clipboard.
 nmap     <silent> <C-c>   :call setreg("+", expand("<cword>"), "v") <CR>
@@ -304,9 +305,9 @@ vnoremap <silent> <C-c>   :normal gv"+y<CR>
 map <C-l>           "+yy
 
 " reopen the current file.
-map <F2>            :e%<Enter>
+map <F2>            :e%<CR>
 
-map <F3>            :A <Enter>
+map <F3>            :A <CR>
 
 " window manager.
 let g:winManagerWindowLayout='FileExplorer|TagList'
@@ -332,7 +333,7 @@ map <F12>           =%
 map <C-F12>         :set ignorecase!<Bar>set ignorecase?<CR>
 
 " Remove trailing blanks.
-map f0              :%s/\s\+\n/\r/g<Enter>
+map f0              :%s/\s\+\n/\r/g<CR>
 
 " insert locale time
 map time            a<C-R>=strftime("%c")<CR><Esc>a
