@@ -40,6 +40,7 @@ alias _my_server_osc2='echo password G402790G; ssh wsu0170@glenn.osc.edu'
 alias _my_server_new='echo shaojunwang; ssh swang@130.108.87.251'
 alias _my_server_amazon_tokyo="ssh ubuntu@52.68.137.96"
 alias _my_server_wife="ssh ma@192.168.1.139"
+alias _my_java_eclimd="/Applications/EclipseJava.app/Contents/Eclipse/eclimd"
 
 alias _my_beyond_compare='wine "~/.wine/drive_c/Program Files/Beyond Compare 3/BCompare.exe"'
 

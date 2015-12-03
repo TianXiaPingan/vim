@@ -20,16 +20,15 @@ endpython
 return ret ."\<Left>\<Left>"
 endfunction
 """"""""""""""""""""""both for guivim and vim""""""""""""""""""""""""""""""""""
-"call MapCodingBracket()
-inoremap {   <C-R>=SuperMatch()<CR>
-inoremap }   <C-R>=SuperEndMatch("}")<CR>
-inoremap )   <C-R>=SuperEndMatch(")")<CR>
-inoremap ]   <C-R>=SuperEndMatch("]")<CR>
-inoremap "   <C-R>=SuperEndMatch('"')<CR>
+map <F5>              :Java<CR>
 
-map <C-b>   :!javac %<CR>
-map <F5>    :exec printf("!java %s", expand("%:t:r")) <CR>
-map <F6>    :!ctags --exclude="excluded*" -R --c++-kinds=+p --fields=+iaSKlnz --extra=+q .<CR><CR>
+"call MapCodingBracket()
+inoremap {            <C-R>=SuperMatch()<CR>
+inoremap }            <C-R>=SuperEndMatch("}")<CR>
+inoremap )            <C-R>=SuperEndMatch(")")<CR>
+inoremap ]            <C-R>=SuperEndMatch("]")<CR>
+inoremap "            <C-R>=SuperEndMatch('"')<CR>
 
 inoremap print        System.out.println();<left><left>
 inoremap new          <C-R>=ExtendNew()<CR>
+inoremap .            .<C-X><C-U>
