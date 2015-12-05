@@ -27,7 +27,7 @@ python << endpython
 import vim
 
 content = '''\
-#include "rain_algorithm.0x.h"
+#include "rain_algorithm.h"
 
 using namespace rain;
 
