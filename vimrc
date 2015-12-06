@@ -115,6 +115,61 @@
 "zt zz zb
 
 """"""""""""""""""""""function definition""""""""""""""""""""""""""""""""""""""
+function! TextJustification() range
+
+let start = getpos("'<")[1] - 1
+let   end = getpos("'>")[1] - 1
+
+python << endpython
+import vim, os
+
+def is_english(string):
+  string = string.strip()[: 80]
+  if string == "":
+    return True
+  chrs = [ch for ch in string if ord(ch) < 128]
+  #print "ratio:", len(chrs) / float(len(string))
+  return len(chrs) / float(len(string)) > 0.95
+
+def full_justify(words, maxWidth):
+  buff, words_length = [], 0
+  p = 0
+  ret = []
+  while p < len(words):
+    w = words[p]
+    if words_length + len(w) + len(buff) <= maxWidth: 
+      buff.append(w)
+      if p == len(words) - 1:
+        ret.append(" ".join(buff))
+      else:
+        words_length += len(w) 
+      p += 1
+    else:
+      if len(buff) == 1:
+        blank = 0
+      else:  
+        blank = (maxWidth - words_length) / (len(buff) - 1)
+      mod = maxWidth - words_length - blank * (len(buff) - 1)
+      ret.append((" " * (blank + 1)).join(buff[: mod + 1]) +
+                  " " * blank + (" " * blank).join(buff[mod + 1:]))
+      buff = []
+      words_length = 0
+
+  return ret
+
+start, end = int(vim.eval("start")), int(vim.eval("end"))
+lines = vim.current.buffer[start: end + 1]
+indent = len(lines[0]) - len(lines[0].lstrip())
+words = " ".join(lines)
+tw = int(vim.eval("&tw"))
+if is_english(words) and tw != 0:
+  new_lines = full_justify(words.split(), tw - indent)
+  new_lines = [" " * indent + line for line in new_lines]
+  vim.current.buffer[start: end + 1] = new_lines
+
+endpython
+endfunction
+
 function! MyRename(cur_word, new_word)
   let b:case_status = &ignorecase
   if b:case_status
@@ -282,7 +337,9 @@ set ignorecase
 set mouse=a
 set nobackup
 
-" format a paragraph by textwidth
+map <Leader>f       :call TextJustification()<CR>
+
+" format a paragraph by textwidth, mainly for Chinese.
 map <Leader>p       gqq
 
 map <Leader>r       :call QuickRename()<CR>
