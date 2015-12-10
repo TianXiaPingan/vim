@@ -9,11 +9,16 @@ export LSCOLORS=ExFxCxDxBxegedabagacad
 export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
 # Finished adapting your PATH environment variable for use with MacPorts.
 
+alias go='cp ~/leetcode/* .; cp ~/.gitignore .; git init;'
+
 alias l='       ls -lhr'
 alias ll='      ls -lhtr'
 alias la='      ls -lhatr'
 alias lld='     ls -lhtr | grep "^d"'
 
+alias _git_reset='git reset'
+alias _git_init='git init'
+alias _git_add='git add .'
 alias _git_status='git status'
 alias _git_difftool='git difftool'
 alias _git_difftool_name='git difftool --name-status'  # old-commit new-commit
