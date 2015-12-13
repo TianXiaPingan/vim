@@ -383,8 +383,6 @@ map <F9>            :set wrap!<Bar>set wrap?<CR>
 
 map <F10>           :set scrollbind!<Bar>set scrollbind?<CR>
 
-map <F11>           :set paste!<Bar>set paste?<CR>
-
 " Indent when the cursor is at the beginning '{' of a block.
 map <F12>           =%
 map <C-F12>         :set ignorecase!<Bar>set ignorecase?<CR>
