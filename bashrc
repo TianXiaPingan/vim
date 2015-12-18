@@ -87,8 +87,6 @@ alias _my_server_amazon_tokyo="ssh ubuntu@52.68.137.96"
 alias _my_server_wife="ssh ma@192.168.1.149"
 alias _my_java_eclimd="/Applications/EclipseJava.app/Contents/Eclipse/eclimd"
 
-alias _my_beyond_compare='wine "~/.wine/drive_c/Program Files/Beyond Compare 3/BCompare.exe"'
-
 export PATH=~/inf/study/bin:$PATH
 
 export CPLUS_INCLUDE_PATH=~/inf/study/include:$CPLUS_INCLUDE_PATH
@@ -99,7 +97,6 @@ export CPLUS_INCLUDE_PATH=~/Installed/boost_1_54_0:$CPLUS_INCLUDE_PATH
 export CPLUS_INCLUDE_PATH=/System/Library/Frameworks/JavaVM.framework/Versions/A/Headers:$CPLUS_INCLUDE_PATH
 # for google test 1.7.0
 export CPLUS_INCLUDE_PATH=~/Installed/gtest-1.7.0.summer/include:$CPLUS_INCLUDE_PATH
-
 
 export LIBRARY_PATH=/opt/local/Library/Frameworks/Python.framework/Versions/2.7/lib:$LIBRARY_PATH
 export LIBRARY_PATH=~/Installed/boost_1_54_0/stage/lib:$LIBRARY_PATH

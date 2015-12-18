@@ -5,8 +5,8 @@ import vim
 import re 
 
 line = vim.current.line
-r1 =  re.match(r"^\s*(\w+)\s+\w+\s*=\s*$", line)
-r2 =  re.match(r"^\s*(\w+)\[\]\s+\w+\s*=\s*$", line) 
+r1 =  re.match(r"^\s*([\w<>]+)\s+\w+\s*=\s*$", line)
+r2 =  re.match(r"^\s*([\w<>]+)\[\]\s+\w+\s*=\s*$", line) 
 if r1 is not None:
   ret = "new %s();" %r1.group(1)
 elif r2 is not None:
