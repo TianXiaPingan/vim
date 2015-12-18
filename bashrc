@@ -1,3 +1,43 @@
+# 在bash中单引号和双引号的区别：单引号不解释里面的变量。 
+# export file="hello world"; export '$file' ---> $file
+# export file="hello world"; export "$file" ---> hello world
+
+# 至少mac下面，命令行的正则匹配：
+# “." 匹配字面“.”。
+# “?” 匹配任意一个字符。
+# “*" 任意串
+
+# rsync时，如果目标文件夹有空格时，这时候用"\"转义：
+# _my_supdate . "summer@130.108.28.50:/media/inf/web\ services/robot\ reporter/library"
+
+# unzip file.zip -d destination_folder
+
+# How to set default finder view for all windows.
+# sudo find / -name .DS_Store -delete; killall Finder
+
+# Java path in mac: /System/Library/Frameworks/JavaVM.framework/Versions 
+
+# Unlock files. "sudo chflags -R nouchg file-name"
+
+# mdls: look up meta information a file.
+
+# ditto: Copy Files & Directories Intelligently from the Mac Terminal url
+
+# In mac： 'otool -L data_ext.so', while in linux: 'ldd'
+
+# http://guide.macports.org/#using.port
+# port -qv installed > myports.txt
+# sudo port -f uninstall installed
+# 
+# port select --show python
+# port select --list python 
+# sudo port select --set python <the python version>
+# sudo port select --set python python27
+# port select --set pip pip27
+# 
+# sudo port uninstall inactive
+
+###############################################################################
 export CLICOLOR=1 
 export LSCOLORS=ExFxCxDxBxegedabagacad
 
