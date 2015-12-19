@@ -1,4 +1,7 @@
 """"""""""""""""""""""some tricks""""""""""""""""""""""""""""""""""""""""""""""
+"run commands in background,
+"https://github.com/MarcWeber/vim-addon-background-cmd
+
 "In a regex expression, use ', instead of ".
 
 "justify a paragraph.
