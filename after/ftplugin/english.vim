@@ -6,9 +6,8 @@ import vim
 phrase = vim.eval("a:phrase").split()
 phrase = ["\<%s" %w for w in phrase]
 reg = "\_s\+".join(phrase)
-if reg == "":
-  exit()
-vim.command('''syn match Tag "%s"''' %reg)
+if reg != "":
+  vim.command('''syn match Tag "%s"''' %reg)
 
 endpython
 endfunction
@@ -45,9 +44,10 @@ import vim
 try:
   VIMHOME = vim.eval("g:VIMHOME")
   fname = "%s/data/vocabulary.dat" %VIMHOME
-  phrases = set(open(fname).readlines())
+  phrases = sorted(list(set(open(fname))))
   for v in phrases:
     vim.command('''call LoadWord("%s")''' %v)
+  print >> open(fname, "w"), "".join(phrases)
 except IOError:
   print "Can not find '%s'" %fname
 
