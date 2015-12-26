@@ -1,3 +1,13 @@
+# My personal cloud
+# smb://wdmycloud.local
+# ping wdmycloud.local
+# If it is directly connected to my computer, then I have to set the IP
+# manually, to let them be in the same subset.
+# ssh summer@wdmycloud.local, password: common 
+# ssh root@wdmycloud.local, password: common, from welc0me to common.
+# On/|||: means it is on now.
+# |||/Off: means it is off now.
+
 # 在bash中单引号和双引号的区别：单引号不解释里面的变量。 
 # export file="hello world"; export '$file' ---> $file
 # export file="hello world"; export "$file" ---> hello world
@@ -85,6 +95,7 @@ alias _my_server_osc2='echo password G402790G; ssh wsu0170@glenn.osc.edu'
 alias _my_server_new='echo shaojunwang; ssh swang@130.108.87.251'
 alias _my_server_amazon_tokyo="ssh ubuntu@52.68.137.96"
 alias _my_server_wife="ssh ma@192.168.1.149"
+alias _my_server_wd="echo common; ssh summer@wdmycloud.local"
 alias _my_java_eclimd="/Users/world/Installed/EclipseJava.app/Contents/Eclipse/eclimd"
 
 export PATH=~/inf/study/bin:$PATH
