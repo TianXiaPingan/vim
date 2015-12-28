@@ -1,3 +1,17 @@
+# port: https://guide.macports.org
+# sudo port selfupdate
+# port outdated
+# sudo port upgrade outdated
+# port installed inactive
+# sudo port uninstall inactive
+# sudo port uninstall leaves
+# port echo leaves
+
+# Update two folders:
+# rsync -ravutz -e ssh source-dir/ summer@130.108.28.50:dest-dir
+# If want to delete extraneous files in destination folder, add "--delete" option.
+# Note, souce-dir must ends with "/", while dest-dir does not need to ends with "/".
+
 # My personal cloud
 # smb://wdmycloud.local
 # ping wdmycloud.local
