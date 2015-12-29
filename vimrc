@@ -1,4 +1,6 @@
 """"""""""""""""""""""some tricks""""""""""""""""""""""""""""""""""""""""""""""
+" open multi-files in vertical windows:vim file1 file2 -O2; In horizental windows: vim file1 file2 -o2
+
 "run commands in background,
 "https://github.com/MarcWeber/vim-addon-background-cmd
 

@@ -1,3 +1,33 @@
+# df -lh
+# sudo fdisk -l
+
+# get the UUID of each partition: sudo blkid or ls /dev/disk/by-uuid/ -alh
+
+# ls -l /dev/disk/by-label/
+
+# wake up "ctrl + z" programs: fg [1, 2 ..]
+
+# determine the version and name of a linux system: cat /etc/*-release
+
+# How to determine whether a given Linux is 32 bit or 64 bit?
+# "uname -m" ==> "x86_64" ==> 64-bit kernel, "i686" ==> 32-bit kernel
+# or "getconf LONG_BIT"
+
+# /etc/apt/sources.list
+
+# find . -iregex ".*hello.*" -exec ls -lh {} \;
+
+# 环境变量
+# linux PATH,CPLUS_INCLUDE_PATH, LIBRARY_PATH, LD_LIBRARY_PATH
+# mac: PATH, CPLUS_INCLUDE_PATH, LIBRARY_PATH, DYLD_LIBRARY_PATH(better one: DYLD_FALLBACK_LIBRARY_PATH)
+# In OSC server, the LIBRARY_PATH does not work for gcc-4.8 by default.
+# In OSC server, when openning a terminal, the LD_LIBRARY_PATH does not work as we expected. Anyhow, We should ensure our paths to appear in the begin of these environment variables.
+
+# gdb
+# info source
+
+# 查看include的文件的包含关系: g++ -M main.cpp
+
 # port: https://guide.macports.org
 # sudo port selfupdate
 # port outdated
