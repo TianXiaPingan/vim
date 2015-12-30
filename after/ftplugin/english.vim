@@ -96,4 +96,6 @@ vnoremap <silent> + :call Emphasize()<CR>
 command! RandomLine execute 
       \ ': '.(system('/bin/bash -c "echo -n $RANDOM"') % line("$"))
 
+map <silent><C-d>  :execute "!say " . expand("<cword>") <CR><CR>
+
 call LoadAllWords()

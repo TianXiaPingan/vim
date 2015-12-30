@@ -1,4 +1,6 @@
-""""""""""""""""""""""some tricks""""""""""""""""""""""""""""""""""""""""""""""
+" cancel last search lightling.
+" :noh
+
 " open multi-files in vertical windows:vim file1 file2 -O2; In horizental windows: vim file1 file2 -o2
 
 "run commands in background,
