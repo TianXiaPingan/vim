@@ -366,7 +366,7 @@ map <C-e>           :!<CR>
 nmap     <silent> <C-c>   :call setreg("+", expand("<cword>"), "v") <CR>
 vnoremap <silent> <C-c>   :normal gv"+y<CR>
 
-nmap    <silent> <S-l>   :exec "!open dict://" . expand("<cword>")<CR><CR>
+nmap    <silent> <S-l>    <C-c> :exec "!open dict://" . expand("<cword>")<CR><CR>
 
 map <C-l>           "+yy
 
