@@ -1,3 +1,6 @@
+# To jump to the beginning of a C code block (while, switch, if etc), use the [{ command.
+# To jump to the end of a C code block (while, switch, if etc), use the ]} command.
+
 # df -lh
 # sudo fdisk -l
 
@@ -138,7 +141,7 @@ alias _my_server_osc2='echo password G402790G; ssh wsu0170@glenn.osc.edu'
 #alias _my_server_osc='echo password X37fsk-eug14T; ssh wsu0215@oakley.osc.edul'
 alias _my_server_new='echo shaojunwang; ssh swang@130.108.87.251'
 alias _my_server_amazon_tokyo="ssh ubuntu@52.68.137.96"
-alias _my_server_wife="ssh ma@192.168.1.149"
+alias _my_server_wife="ssh ma@192.168.1.130"
 alias _my_server_wd="echo common; ssh summer@wdmycloud.local"
 alias _my_java_eclimd="/Users/world/Installed/EclipseJava.app/Contents/Eclipse/eclimd"
 
