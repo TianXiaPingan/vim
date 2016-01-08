@@ -7,10 +7,13 @@ import re
 line = vim.current.line
 r1 =  re.match(r"^\s*([\w<>]+)\s+\w+\s*=\s*$", line)
 r2 =  re.match(r"^\s*([\w<>]+)\[\]\s+\w+\s*=\s*$", line) 
+r3 =  re.match(r"^\s*([\w<>]+)\[\]\[\]\s+\w+\s*=\s*$", line) 
 if r1 is not None:
   ret = "new %s();" %r1.group(1)
 elif r2 is not None:
   ret = "new %s[];" %r2.group(1)
+elif r3 is not None:
+  ret = "new %s[][];" %r3.group(1)
 else:  
   ret = "new"
 vim.command("let ret = '%s'" %ret)
@@ -20,7 +23,7 @@ endpython
 return ret ."\<Left>\<Left>"
 endfunction
 """"""""""""""""""""""both for guivim and vim""""""""""""""""""""""""""""""""""
-map <F5>              :Java<CR>
+map <F5>              <C-s><CR>:Java<CR>
 
 "call MapCodingBracket()
 inoremap {            <C-R>=SuperMatch()<CR>
