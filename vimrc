@@ -140,25 +140,28 @@ def is_english(string):
 
 def full_justify(words, maxWidth):
   buff, words_length = [], 0
-  p = 0
-  ret = []
+  ret, p = [], 0
   while p < len(words):
     w = words[p]
-    if words_length + len(w) + len(buff) <= maxWidth: 
+    if words_length + len(w) + len(buff) <= maxWidth:
       buff.append(w)
       if p == len(words) - 1:
         ret.append(" ".join(buff))
       else:
-        words_length += len(w) 
+        words_length += len(w)
+      p += 1
+    elif buff == []:
+      assert words_length == 0
+      ret.append(w)
       p += 1
     else:
       if len(buff) == 1:
-        blank = 0
-      else:  
+        ret.append(buff[0].rjust(maxWidth))
+      else:
         blank = (maxWidth - words_length) / (len(buff) - 1)
-      mod = maxWidth - words_length - blank * (len(buff) - 1)
-      ret.append((" " * (blank + 1)).join(buff[: mod + 1]) +
-                  " " * blank + (" " * blank).join(buff[mod + 1:]))
+        mod = maxWidth - words_length - blank * (len(buff) - 1)
+        ret.append((" " * (blank + 1)).join(buff[: mod + 1]) +
+                   " " * blank + (" " * blank).join(buff[mod + 1:]))
       buff = []
       words_length = 0
 
