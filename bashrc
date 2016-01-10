@@ -1,5 +1,11 @@
-# To jump to the beginning of a C code block (while, switch, if etc), use the [{ command.
-# To jump to the end of a C code block (while, switch, if etc), use the ]} command.
+# 挂载iso文件：mount -t iso9660 -o loop xxx.iso /path
+# 拷贝光盘：cp /dev/cdrom xxx.iso 
+
+# 正则表达式grep，是perl语法的一个子集，但正则表达式要加双引号。
+# ls | grep ".*\.c[a-z]?"
+
+# 使用awk提取短语表src、tgt命令：
+# cat phrase.table | awk -F" \|\|\| " '{print $1}' 或者 awk -F" \|\|\| " '{print $1}' phrase.table
 
 # df -lh
 # sudo fdisk -l

@@ -1,12 +1,7 @@
-# date = 2012-1-14 
-
 # stateful programmatic web browsing
    sudo apt-get install python-mechanize
 
 #  sudo update-grub
-
-#  export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/w004txx/install/boost_1_42_0/stage/lib
-#  动态库在链接时，除了-L要加路径之外，这个路径也要加。
 
 # shogun-python 大规模机器学习工具箱。
 # shogun-octave - Large Scale Machine Learning Toolbox
@@ -25,19 +20,11 @@
 # fromdos todos
    sudo apt-get install tofrodos
 
-# Eclim可以将eclipse嵌入到vim中。
-
 # 播放软件，前端软件smplayer特别牛逼，不建议用电影播放器。
    sudo apt-get install mplayer
 
-# e-mail
-   sudo apt-get install thunderbird
-
 # 虚拟软件，必须安装中文字体。
    sudo apt-get install wine
-
-# MSN终端
-   sudo apt-get install emesene
 
 # 编译器
    sudo apt-get install g++ 
@@ -49,7 +36,6 @@
 # 必须安装python-profiler才可以import cProfile。
    sudo apt-get install python-profiler
 
-
 # 调试器
    sudo apt-get install ddd 
    sudo apt-get install gdb 
@@ -60,9 +46,6 @@
 
 # 安装小鱼谚语。
    sudo apt-get install fortune
-
-# 挂载iso文件：mount -t iso9660 -o loop xxx.iso /path
-# 拷贝光盘：cp /dev/cdrom xxx.iso 
 
 # 辞典: stardict
 # 安装辞典：将辞典文件拷贝到/usr/share/stardict/dic下。
@@ -91,8 +74,6 @@
 
 # 测试文件编码:enca
    sudo apt-get install enca
-
-# 在实验室安装打印机:IP: 10.28.0.119
 
 # 分区工具:gparted
    sudo apt-get install gparted
@@ -126,14 +107,6 @@
 # pdf以及给pdf批注的软件
    sudo apt-get install okular
 
-# 使用awk提取短语表src、tgt命令：
-# cat phrase.table | awk -F" \|\|\| " '{print $1}' 或者 awk -F" \|\|\| " '{print $1}' phrase.table
-
-# 使用find命令： find . -iregex ".*hello.*" -exec ls -lh {} \;
-
-# 正则表达式grep，是perl语法的一个子集，但正则表达式要加双引号。
-# ls | grep ".*\.c[a-z]?"
-
 # 查看硬件配置命令：lspci -v，以及lsmod | grep snd
 
 # 查看开机时间: uptime
@@ -156,9 +129,6 @@
    sudo apt-get install rar
    sudo apt-get install unrar 
    sudo apt-get install p7zip    
-
-# 电驴工具:
-# sudo apt-get install amule amule-common amule-utils
 
 # FTP 客户端 gFTP
    sudo apt-get install gftp 
