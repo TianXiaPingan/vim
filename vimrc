@@ -1,3 +1,6 @@
+" Search and replace in a visual selection.
+" :'<,'>s/red/green/g
+
 " To jump to the beginning of a C code block (while, switch, if etc).
 " [{ 
 " To jump to the end of a C code block (while, switch, if etc).
