@@ -112,7 +112,8 @@ export LSCOLORS=ExFxCxDxBxegedabagacad
 export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
 # Finished adapting your PATH environment variable for use with MacPorts.
 
-alias _my_create_cpp_project='cp "/Users/world/Desktop/test program/leetcode_template/"* .; cp ~/.gitignore .; git init;'
+alias _my_create_cpp_project='cp "/Users/world/Desktop/test program/leetcode template/"* .; cp ~/.gitignore .; git init;'
+alias _my_create_java_project='cp "/Users/world/Desktop/test program/java template/"* .; cp ~/.gitignore .; git init;'
 
 alias l='       ls -lhr'
 alias ll='      ls -lhtr'

@@ -211,7 +211,7 @@ endfunction
 function! SuperMatch()
   if getline(".") =~ '\v(else|\)|try|do)'
     return "{\<CR>}\<Esc>O"
-  elseif getline(".") =~ '\v(^class|\=)'
+  elseif getline(".") =~ '\v(class|\=)'
     return "{\<CR>};\<Esc>O"
   else  
     return "{}\<Left>" 

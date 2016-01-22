@@ -72,8 +72,8 @@ set textwidth=80
 " refere to syntax.txt:260
 syn case ignore
 
-syn match Type "sent:"
-syn match Type "dict:"
+syn match Type        "sent:"
+syn match String      "dict:"
 
 syn match Constant "\<adj\."
 syn match Constant "\<adv\."

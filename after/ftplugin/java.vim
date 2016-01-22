@@ -5,15 +5,15 @@ import vim
 import re 
 
 line = vim.current.line
-r1 =  re.match(r"^\s*([\w<>]+)\s+\w+\s*=\s*$", line)
-r2 =  re.match(r"^\s*([\w<>]+)\[\]\s+\w+\s*=\s*$", line) 
-r3 =  re.match(r"^\s*([\w<>]+)\[\]\[\]\s+\w+\s*=\s*$", line) 
-if r1 is not None:
-  ret = "new %s();" %r1.group(1)
-elif r2 is not None:
-  ret = "new %s[];" %r2.group(1)
-elif r3 is not None:
-  ret = "new %s[][];" %r3.group(1)
+r1 =  re.findall(r"([\w<>]+)\s+\w+\s*=", line)
+r2 =  re.findall(r"([\w<>]+)\[\]\s+\w+\s*=", line) 
+r3 =  re.findall(r"([\w<>]+)\[\]\[\]\s+\w+\s*=", line) 
+if r1 != []: 
+  ret = "new %s();" %r1[0]
+elif r2 != []: 
+  ret = "new %s[];" %r2[0]
+elif r3 != []: 
+  ret = "new %s[][];" %r3[0]
 else:  
   ret = "new"
 vim.command("let ret = '%s'" %ret)
@@ -35,3 +35,8 @@ inoremap "            <C-R>=SuperEndMatch('"')<CR>
 inoremap print        System.out.println();<left><left>
 inoremap new          <C-R>=ExtendNew()<CR>
 inoremap .            .<C-X><C-U>
+
+map <Leader>new       :ProjectCreate . -n java<CR>
+map <Leader>o         :ProjectOpen<CR>
+map <Leader>x         :ProjectClose<CR>
+map <Leader>l         :ProjectList<CR>
