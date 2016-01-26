@@ -138,7 +138,8 @@ line, pos = vim.eval("getline('.')"), int(vim.eval("getpos('.')[2]")) - 1
 f, t = line.rfind("[[", 0, pos), line.find("]]", pos)
 if f != -1 and t != -1:
   addr = line[f + 2: t]
-  os.system("open '%s'" %addr)
+  addr = addr.replace(" ", '''\ ''')
+  os.system("open %s" %addr)
 else:
   print "Does not find a link"
 
