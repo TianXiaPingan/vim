@@ -130,6 +130,13 @@
 "zt zz zb
 
 """"""""""""""""""""""function definition""""""""""""""""""""""""""""""""""""""
+function! ConcelLink()
+  set conceallevel=1
+  syn match Content   contained "[^\[\]]*" conceal cchar=L
+  syn match Define    "\[\[.\{-}]]" contains=Content
+  hi conceal ctermfg=Blue ctermbg=none guifg=Blue guibg=none
+endfunction
+
 function! OpenLink()
 python << endpython
 import vim, os
@@ -360,7 +367,7 @@ au BufRead,BufNewFile *.tpt set filetype=robot_reporter_template
 au BufRead,BufNewFile *.en set filetype=english
 au BufRead,BufNewFile *.text set filetype=text
 au BufRead,BufNewFile * call LoadExtraVimrc() 
-au BufRead,BufNewFile * syn match Define "\[\[.\{-}\]\]"
+au BufRead,BufNewFile,FileType * call ConcelLink() 
 au FileType call MapCodingBracket() 
 
 set autoindent
@@ -478,5 +485,4 @@ let g:jedi#usages_command = "<C-u>"
 let g:jedi#rename_command = "<leader>R"
 
 let g:VIMHOME = expand('<sfile>:p:h')
-
 
