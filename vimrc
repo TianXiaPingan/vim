@@ -274,7 +274,6 @@ else:
 
 #print "vimrc:", vimrc
 if os.path.exists(vimrc):
-  vim.command("syntax on")
   for cmd in open(vimrc):
     cmd = cmd.strip()
     #print "executing", cmd
@@ -379,7 +378,7 @@ set ignorecase
 set mouse=a
 set nobackup
 
-map <Leader>o       :call OpenLink()<CR>
+map <C-o>           :call OpenLink()<CR>
 
 map <Leader>f       :call TextJustification()<CR>
 
