@@ -5,15 +5,15 @@ import vim
 import re 
 
 line = vim.current.line
-r1 =  re.findall(r"([\w<>]+)\s+\w+\s*=", line)
-r2 =  re.findall(r"([\w<>]+)\[\]\s+\w+\s*=", line) 
-r3 =  re.findall(r"([\w<>]+)\[\]\[\]\s+\w+\s*=", line) 
+r1 =  re.findall(r"([\w<> ,]+)\s+\w+\s*=", line)
+r2 =  re.findall(r"([\w<> ,]+)\[\]\s+\w+\s*=", line) 
+r3 =  re.findall(r"([\w<> ,]+)\[\]\[\]\s+\w+\s*=", line) 
 if r1 != []: 
-  ret = "new %s();" %r1[0]
+  ret = "new %s();" %r1[0].strip()
 elif r2 != []: 
-  ret = "new %s[];" %r2[0]
+  ret = "new %s[];" %r2[0].strip()
 elif r3 != []: 
-  ret = "new %s[][];" %r3[0]
+  ret = "new %s[][];" %r3[0].strip()
 else:  
   ret = "new"
 vim.command("let ret = '%s'" %ret)
