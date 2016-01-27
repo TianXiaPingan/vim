@@ -365,8 +365,8 @@ filetype plugin on
 au BufRead,BufNewFile *.tpt set filetype=robot_reporter_template
 au BufRead,BufNewFile *.en set filetype=english
 au BufRead,BufNewFile *.text set filetype=text
+au BufRead,BufNewFile *.text call ConcelLink() 
 au BufRead,BufNewFile * call LoadExtraVimrc() 
-au BufRead,BufNewFile,FileType * call ConcelLink() 
 au FileType call MapCodingBracket() 
 
 set autoindent
