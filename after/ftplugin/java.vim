@@ -20,7 +20,11 @@ vim.command("let ret = '%s'" %ret)
 
 endpython
 
-return ret ."\<Left>\<Left>"
+if ret == "new"
+  return ret
+else  
+  return ret ."\<Left>\<Left>"
+endif
 endfunction
 """"""""""""""""""""""both for guivim and vim""""""""""""""""""""""""""""""""""
 map <F5>              <C-s><CR>:Java<CR>
