@@ -4,3 +4,4 @@ map --- O--------------------------------------------------------------------<Es
 syn match Define "^---.*"
 syn match Define ".*---$"
 
+map <C-o>           :call OpenLink()<CR>

@@ -1,3 +1,7 @@
+"set scrollbind!
+"set wrap!
+"set ignorecase!
+ 
 " Search and replace in a visual selection.
 " :'<,'>s/red/green/g
 
@@ -306,7 +310,7 @@ function! SpellCheck()
   endif  
 endfunction
 
-function! MapMatchLongLines()
+function! MatchLongLines()
   if !exists("b:long_lines_matched")
     let b:long_lines_matched = 0
   endif
@@ -378,7 +382,7 @@ set ignorecase
 set mouse=a
 set nobackup
 
-map <C-o>           :call OpenLink()<CR>
+map <Leader>o      :call OpenLink()<CR>
 
 map <Leader>f       :call TextJustification()<CR>
 
@@ -418,21 +422,15 @@ let g:winManagerWindowLayout='FileExplorer|TagList'
 let g:winManagerWidth=36
 map <F4>            :WMToggle<CR>
 
-highlight OverLength ctermbg=darkred ctermfg=white guibg=#FFD9D9
-map <F7>            :call MapMatchLongLines()<CR>
+"<F5> - <F10> is kept for debugging interfaces.
 
 " fold all functions
-map <F8>            :call MapFold()<CR>
+map <F11>            :call MapFold()<CR>
 " fold a function 
-map <C-F8>          za<CR>
-
-map <F9>            :set wrap!<Bar>set wrap?<CR>
-
-map <F10>           :set scrollbind!<Bar>set scrollbind?<CR>
+map <C-F11>          za<CR>
 
 " Indent when the cursor is at the beginning '{' of a block.
 map <F12>           =%
-map <C-F12>         :set ignorecase!<Bar>set ignorecase?<CR>
 
 " Remove trailing blanks.
 map f0              :%s/\s\+\n/\r/g<CR>
@@ -487,3 +485,4 @@ let g:jedi#rename_command = "<leader>R"
 
 let g:VIMHOME = expand('<sfile>:p:h')
 
+highlight OverLength ctermbg=darkred ctermfg=white guibg=#FFD9D9
