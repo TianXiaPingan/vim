@@ -1,3 +1,8 @@
+# port often fail in installing macvim.
+# sudo chmod -R g-w $(xcode-select -p)/Library/PrivateFrameworks/CoreSimulator.framework/Versions/A/XPCServices/com.apple.CoreSimulator.CoreSimulatorService.xpc
+# sudo chown -R root:wheel $(xcode-select -p)/Library/PrivateFrameworks/CoreSimulator.framework/Versions/A/XPCServices/com.apple.CoreSimulator.CoreSimulatorService.xpc
+# https://trac.macports.org/wiki/ProblemHotlist#xcode7.2
+
 # Compile java with debug information: javac -g *.java
 
 # find java installed location: /usr/libexec/java_home -v 1.7 
