@@ -1,3 +1,20 @@
+# Set project with assertion mode.
+# :ProjectSettings or (:EclimSettings)
+# org.eclim.java.run.jvmargs=[-ea]
+
+# Debug java in a GUI jdb.
+# 1) mvim --servername debug *.java
+# 2) _my_jdb_server.py 
+# Note, I did not use vim, instead macvim, as console vim does not support client server mode.
+# Though, I could complile vim with X11, but that would ruin the system global clipboard.
+
+# Support python, cscope
+# vim --version, check if python is supported.
+# port variant vim
+# port installed | grep vim
+# sudo port install vim +python27 +cscope +huge (for mac at least)
+# sudo port activate vim version.
+
 # port often fail in installing macvim.
 # sudo chmod -R g-w $(xcode-select -p)/Library/PrivateFrameworks/CoreSimulator.framework/Versions/A/XPCServices/com.apple.CoreSimulator.CoreSimulatorService.xpc
 # sudo chown -R root:wheel $(xcode-select -p)/Library/PrivateFrameworks/CoreSimulator.framework/Versions/A/XPCServices/com.apple.CoreSimulator.CoreSimulatorService.xpc
@@ -10,7 +27,6 @@
 # How to let jdb support up/down/left/right
 # 1. sudo port install jline
 # 2. java -classpath /opt/local/share/java/jline.jar:/Library/Java/JavaVirtualMachines/jdk1.7.0_45.jdk/Contents/Home/lib/tools.jar jline.ConsoleRunner com.sun.tools.example.debug.tty.TTY your-main-class 
-
 # Check content in a jar package: vim *.jar
 
 # 挂载iso文件：mount -t iso9660 -o loop xxx.iso /path
