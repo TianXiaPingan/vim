@@ -1,3 +1,13 @@
+# Compile java with debug information: javac -g *.java
+
+# find java installed location: /usr/libexec/java_home -v 1.7 
+
+# How to let jdb support up/down/left/right
+# 1. sudo port install jline
+# 2. java -classpath /opt/local/share/java/jline.jar:/Library/Java/JavaVirtualMachines/jdk1.7.0_45.jdk/Contents/Home/lib/tools.jar jline.ConsoleRunner com.sun.tools.example.debug.tty.TTY your-main-class 
+
+# Check content in a jar package: vim *.jar
+
 # 挂载iso文件：mount -t iso9660 -o loop xxx.iso /path
 # 拷贝光盘：cp /dev/cdrom xxx.iso 
 
@@ -45,6 +55,7 @@
 # sudo port uninstall inactive
 # sudo port uninstall leaves
 # port echo leaves
+# Look up install location of port: port content [jline]
 
 # Update two folders:
 # rsync -ravutz -e ssh source-dir/ summer@130.108.28.50:dest-dir
@@ -114,6 +125,7 @@ export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
 
 alias _my_create_cpp_project='cp "/Users/world/Desktop/test program/leetcode template/"* .; cp ~/.gitignore .; git init;'
 alias _my_create_java_project='cp "/Users/world/Desktop/test program/java template/"* .; cp ~/.gitignore .; git init;'
+alias jdb='java -classpath /opt/local/share/java/jline.jar:/Library/Java/JavaVirtualMachines/jdk1.7.0_45.jdk/Contents/Home/lib/tools.jar jline.ConsoleRunner com.sun.tools.example.debug.tty.TTY'
 
 alias l='       ls -lhr'
 alias ll='      ls -lhtr'

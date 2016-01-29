@@ -40,7 +40,8 @@ inoremap print        System.out.println();<left><left>
 inoremap new          <C-R>=ExtendNew()<CR>
 inoremap .            .<C-X><C-U>
 
-map <Leader>new       :ProjectCreate . -n java<CR>
-map <Leader>o         :ProjectOpen<CR>
-map <Leader>x         :ProjectClose<CR>
-map <Leader>l         :ProjectList<CR>
+map <Leader>jnew       :ProjectCreate . -n java<CR>
+map <Leader>jo         :ProjectOpen<CR>
+map <Leader>jx         :ProjectClose<CR>
+map <Leader>jl         :ProjectList<CR>
+

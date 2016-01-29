@@ -398,6 +398,8 @@ imap  <C-s>         <Esc><C-s>gi
 " Read console information.
 map <C-e>           :!<CR>
 
+map <C-x>           :x<CR>
+
 " copy into global clipboard.
 nmap     <silent> <C-c>   :call setreg("+", expand("<cword>"), "v") <CR>
 vnoremap <silent> <C-c>   :normal gv"+y<CR>
