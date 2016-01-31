@@ -30,7 +30,7 @@ endfunction
 map <F5>              <C-s><CR>:Java<CR>
 
 "debug run
-nmap  <C-F5>        :Vdb run Main<CR>      
+nmap  <C-F5>        :Vdb run<CR>      
 
 "next line
 nmap  <F6>          :Vdb next<CR>
@@ -43,8 +43,8 @@ nmap  <F8>          :Vdb step up<CR>
 nmap  <C-F6>        :Vdb cont<CR>
 
 "set a break point.
-nmap  <F9>          :execute "Vdb stop at " . substitute(bufname("%"), ".java", "", "") . ":" . line(".")<CR>
-nmap  <C-F9>        :execute "Vdb clear " . substitute(bufname("%"), ".java", "", "") . ":" . line(".")<CR>
+nmap  <F9>          :execute "Vdb stop at " . substitute(bufname("%"), ".java", "", "") . ":" . line(".")<CR><CR>
+nmap  <C-F9>        :execute "Vdb clear " . substitute(bufname("%"), ".java", "", "") . ":" . line(".")<CR><CR>
 
 "print variable.
 vmap  <F10>         "gy:Vdb print <C-R>g<CR>
@@ -61,8 +61,11 @@ inoremap print        System.out.println();<left><left>
 inoremap new          <C-R>=ExtendNew()<CR>
 inoremap .            .<C-X><C-U>
 
-map <Leader>jnew       :ProjectCreate . -n java<CR>
-map <Leader>jo         :ProjectOpen<CR>
-map <Leader>jx         :ProjectClose<CR>
-map <Leader>jl         :ProjectList<CR>
+map <Leader>jnew      :ProjectCreate . -n java<CR>
+map <Leader>jo        :ProjectOpen<CR>
+map <Leader>jx        :ProjectClose<CR>
+map <Leader>jl        :ProjectList<CR>
+
+map <C-]>             :JavaSearch<CR>
+map <C-b>             :ProjectBuild<CR>
 

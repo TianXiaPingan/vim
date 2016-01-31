@@ -36,31 +36,32 @@
   lab Wiki [[http://130.108.28.50/Welcome%20Page]]
 
 ---programming---
-  Java API [[http://docs.oracle.com/javase/7/docs/api/]]
   C++ STL [[http://www.cplusplus.com/reference/]]
+  Java API [[http://docs.oracle.com/javase/7/docs/api/]]
   Java tutorials [[http://docs.oracle.com/javase/tutorial/java/index.html]]
   Java for Python Programmers [[http://interactivepython.org/courselib/static/java4python/Java4Python.html#]]
 
 ---algorithm---
   Project Euler [[http://projecteuler.net/]]
+
   LeetCode [[https://oj.leetcode.com/problems/]]
   LintCode [[http://www.lintcode.com/en/problem/]]
-  CareerCup [[http://www.careercup.com/question?id=4285682]]
+
   HackerRank [[https://www.hackerrank.com/domains]]
+
+  CareerCup [[http://www.careercup.com/question?id=4285682]]
   codeforces [[http://codeforces.com/gyms]]
   codechef [[https://www.codechef.com/]]
 
 ---data science---
-  (delete?) MIT statistical learning theory, 9.520, Spring 2008 [[http://www.mit.edu/~9.520/spring08/]]
-  (delete?) ML: Reading Group - Fall 2009 [[http://pages.cs.wisc.edu/~goldberg/npB.html]]
-  (delete?) CMU 15-859 Machine Learning Theory [[http://www.machinelearning.com/]]
-  Category: Machine Learning - videolectures.net [[http://videolectures.net/Top/Computer_Science/Machine_Learning/]]
+  videolectures [[http://videolectures.net/Top/Computer_Science/Machine_Learning/]]
   Data Science Tutorials – topcoder [[https://www.topcoder.com/community/data-science/data-science-tutorials/]]
+
   Deep Learning, A tutorial [[http://videolectures.net/jul09_hinton_deeplearn/]]
   Deep learning [[http://deeplearning.stanford.edu/wiki/index.php/UFLDL_Tutorial]]
   Deep learning博客园 [[http://www.cnblogs.com/shouhuxianjian/]]
   Deep learning, Neural networks (online) [[http://neuralnetworksanddeeplearning.com/]]
-  Edwin Chen's Blog [[http://blog.echen.me/]]
+
   Edwin Chen's blog [[http://blog.echen.me/2012/07/31/edge-prediction-in-a-social-graph-my-solution-to-facebooks-user-recommendation-contest-on-kaggle/]]
   Foundations of Machine Learning -- G22.2566-001 [[http://www.cs.nyu.edu/~mohri/ml10/]]
   Foundations of Nonparametric Bayesian Methods - videolectures.net [[http://videolectures.net/mlss09uk_orbanz_fnbm/]]

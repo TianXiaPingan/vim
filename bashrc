@@ -55,7 +55,8 @@
 
 # /etc/apt/sources.list
 
-# find . -iregex ".*hello.*" -exec ls -lh {} \;
+# -H in grep means outputting filenames.
+# find . -iregex ".*java" -exec grep -iH main {} \;
 
 # 环境变量
 # linux PATH,CPLUS_INCLUDE_PATH, LIBRARY_PATH, LD_LIBRARY_PATH
