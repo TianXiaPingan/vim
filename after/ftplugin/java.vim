@@ -1,4 +1,18 @@
 """"""""""""""""""""""function definition""""""""""""""""""""""""""""""""""""""
+function! CompileJar()
+python << endpython
+import os
+
+class_files = os.popen("find . -iregex '.*\.class'").read().split()
+path = os.getcwd()
+jar_name = os.path.split(path)[1].replace(" ", "-")
+cmd = '''jar cvf %s.jar %s 1>/dev/null''' %(jar_name, " ".join(class_files)) 
+#print cmd
+os.system(cmd)
+
+endpython
+endfunction
+
 function! ExtendNew()
 python << endpython
 import vim
@@ -67,5 +81,5 @@ map <Leader>jx        :ProjectClose<CR>
 map <Leader>jl        :ProjectList<CR>
 
 map <C-]>             :JavaSearch<CR>
-map <C-b>             :ProjectBuild<CR>
+map <C-b>             :ProjectBuild<CR>: call CompileJar()<CR>
 
