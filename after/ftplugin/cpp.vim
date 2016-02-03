@@ -87,6 +87,29 @@ inoremap ]   <C-R>=SuperEndMatch("]")<CR>
 inoremap "   <C-R>=SuperEndMatch('"')<CR>
 
 map <C-b>         :!_my_make.py<CR>
+map <C-F2>        :!ctags --exclude="excluded*" -R --c++-kinds=+p --fields=+iaSKlnz --extra=+q .<CR><CR>
 
 map <F5>          :call ExecuteCplusplusProgram()<CR>
-map <F6>          :!ctags --exclude="excluded*" -R --c++-kinds=+p --fields=+iaSKlnz --extra=+q .<CR><CR>
+
+"debug run
+nmap  <C-F5>        :Vdb run<CR>      
+
+"next line
+nmap  <F6>          :Vdb next<CR>:Vdb where<CR>
+"next function
+nmap  <F7>          :Vdb step<CR>:Vdb where<CR>:Vdb info source<CR>
+"jump out of function
+nmap  <F8>          :Vdb finish<CR>
+
+"continue
+nmap  <C-F6>        :Vdb c<CR>
+
+"set a break point.
+nmap  <F9>          :execute "Vdb break " . expand("%:p") . ":" . line(".")<CR><CR>
+nmap  <C-F9>        :execute "Vdb clear " . expand("%:p") . ":" . line(".")<CR><CR>
+
+"print variable.
+vmap  <F10>         "gy:Vdb print <C-R>g<CR>
+nmap  <F10>         :Vdb print <C-R><C-W><CR>
+
+
