@@ -48,6 +48,7 @@
   LintCode [[http://www.lintcode.com/en/problem/]]
 
   HackerRank [[https://www.hackerrank.com/domains]]
+  program creek (有一些Data Scientist的资料) [[http://www.programcreek.com/2012/11/top-10-algorithms-for-coding-interview/]]
 
   CareerCup [[http://www.careercup.com/question?id=4285682]]
   codeforces [[http://codeforces.com/gyms]]
@@ -87,18 +88,18 @@
 
 ---Job hunting---
   Interview question forums---
-  一亩三分地论坛面经版 [[http://www.1point3acres.com/bbs/forum-145-1.html]]
+  一亩三分地 [[http://www.1point3acres.com/bbs/forum-145-1.html]]
   面经网 [[http://www.themianjing.com/]]
-  Dice.com [[https://www.dice.com/jobs?q=data+scientist&l=CA&searchid=9177680078428]]
   mitbbs.com [[http://www.mitbbs.com/bbsdoc/JobHunting.html]]
   GeeksforGeeks (各个大公司的面试题目) [[http://www.geeksforgeeks.org/about/interview-corner/]]
 
-  Search | LinkedIn [[https://www.linkedin.com/vsearch/j?keywords=data%20scientist&company=Walmart&openAdvancedForm=true&locationType=I&countryCode=us&f_L=us%3A0,us%3A70,us%3A84,us%3A49,us%3A91&f_TP=1,2,3,4&rsid=2795828391445981474462&orig=FCTD&openFacets=L,C,TP]]
-  system design - HiredInTech [[http://www.hiredintech.com/system-design]]
-  Glassdoor – Get Hired. Love Your Job. [[http://www.glassdoor.com/index.htm]]
-  Tech Jobs and IT Recruiters | CyberCoders [[http://www.cybercoders.com/]]
-  program creek (有一些Data Scientist的资料) [[http://www.programcreek.com/2012/11/top-10-algorithms-for-coding-interview/]]
-  checkcheckzz/system-design-interview · GitHub [[https://github.com/checkcheckzz/system-design-interview]]
+  LinkedIn [[https://www.linkedin.com/vsearch/j?keywords=data%20scientist&company=Walmart&openAdvancedForm=true&locationType=I&countryCode=us&f_L=us%3A0,us%3A70,us%3A84,us%3A49,us%3A91&f_TP=1,2,3,4&rsid=2795828391445981474462&orig=FCTD&openFacets=L,C,TP]]
+  Dice.com [[https://www.dice.com/jobs?q=data+scientist&l=CA&searchid=9177680078428]]
+  Glassdoor [[http://www.glassdoor.com/index.htm]]
+  CyberCoders [[http://www.cybercoders.com/]]
+
+  system design - HiredInTech (basic) [[http://www.hiredintech.com/system-design]]
+  system design GitHub (cool) [[https://github.com/checkcheckzz/system-design-interview]]
   System Design Study Group [[http://systemdesigns.blogspot.com/?view=snapshot]]
 
 ---tool---
@@ -106,7 +107,6 @@
   Build your Personalized Training Program - Lumosity [[http://www.lumosity.com/app/v4/personalization/surveys/training-program/survey_categories/your-memory/user_survey_responses/new]]
   Entity Extraction [[http://www.alchemyapi.com/api/entity-extraction/]]
   LETOR [[http://research.microsoft.com/en-us/um/beijing/projects/letor//letor3baseline.aspx]]
-  Lumosity [[http://www.lumosity.com/]]
   Paddle Palace [[http://www.paddlepalace.com/Optimum-MP/productinfo/RSOPT/]]
   Speedtest [[http://www.speedtest.net/]]
   Stanford CoreNLP [[http://nlp.stanford.edu:8080/corenlp/process]]
