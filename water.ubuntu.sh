@@ -3,16 +3,6 @@
 
 #  sudo update-grub
 
-# shogun-python 大规模机器学习工具箱。
-# shogun-octave - Large Scale Machine Learning Toolbox
-#  PyBrain is a modular Machine Learning Library for Python
-#  SymPy is a symbolic manipulation package, written in pure Python
-#  CVXOPT, Python Software for Convex Optimization
-#  CVXMOD, lingo-like programming pack 
-   sudo apt-get install shogun-python*
-   sudo apt-get install shogun-octave*
-   sudo apt-get install python-scipy
-
 # 命令行浏览器
    sudo apt-get install w3m
 

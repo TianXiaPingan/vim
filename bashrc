@@ -1,3 +1,26 @@
+# Python Library    
+
+# import pip
+# installed_packages = pip.get_installed_distributions()
+# installed_packages_list = sorted(["%s==%s" % (i.key, i.version) for i in installed_packages])
+# print(installed_packages_list)
+
+# cvxmod: lingo-like programming pack 
+# cvxopt: python software for convex optimization
+# gensim: Python framework for fast Vector Space Modelling
+# matplotlib: a mature and popular plotting package, that provides publication-quality 2d plotting as well as rudimentary 3d plotting
+# nltk: a libray for NLP. 
+# numpy: the fundamental package for numerical computation. it defines the numerical array and matrix types and basic operations on them.
+# pandas: powerful python data analysis toolkit, including time series analysis.
+# pybrain: a modular machine learning library for Reinforcement Learning, Artificial Intelligence and Neural Network.
+# scipy: scientific computation. 
+# seaborn: statistical data visualization
+# shogun-octave: large scale machine learning toolbox
+# shogun-python: 大规模机器学习工具箱。
+# sklearn: scikit-learn machine learning package.
+# sklearn_pandas: this module provides a bridge between scikit-learn's machine learning methods and pandas-style data frames.
+# sympy: a symbolic manipulation package, written in pure python
+
 # Set project with assertion mode.
 # :ProjectSettings or (:EclimSettings)
 # org.eclim.java.run.jvmargs=[-ea]
