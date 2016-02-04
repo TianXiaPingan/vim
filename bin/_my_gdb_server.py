@@ -168,7 +168,7 @@ if __name__ == "__main__":
   parser.add_option("--servername", dest = "server_name",
                      default = "debug", help = "default 'debug'")
   parser.add_option("--mainclass", dest = "main_class",
-                     default = "Main", help = "default 'Main'")
+                     default = "test", help = "default 'test'")
   (options, args) = parser.parse_args()
 
   debug = options.debug

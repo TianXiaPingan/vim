@@ -69,13 +69,17 @@ class VimJavaDebugger(object):
     '''Filtering status from jdb and send to Vim.'''
     line = ""
     while True:
-      line = jdb_pipe.fromchild.readline()
-      print line
+      char = jdb_pipe.fromchild.read(1)
+      sys.stdout.write(char)
       sys.stdout.flush()
 
-      if debug:
-        print "_monitor_jdb:", line
-      self._parse_jdb_status(jdb_pipe, line)
+      if char == '\n':
+        if debug:
+          print "_monitor_jdb:", line
+        self._parse_jdb_status(jdb_pipe, line)
+        line = ""
+      else:
+        line += char
 
       with self._lock:
         if self._quit: 
