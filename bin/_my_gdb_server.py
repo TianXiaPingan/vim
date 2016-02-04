@@ -65,48 +65,57 @@ class VimCppDebugger(object):
         if self._quit:
           break
 
+  def _parse_gdb_status(self, gdb_pipe, line):
+    m1 = re.search('''Breakpoint (\d+) at .*?: file (.*?), line (\d+)''', line)
+    m2 = re.search('''(#0|Breakpoint \d+,).*? at ([a-zA-Z_\.\d]+):(\d+)''', line)
+    m3 = re.search('''Deleted breakpoint (\d+)''', line)
+
+    if m1 is not None:
+      shortfile, lineID = m1.group(2), m1.group(3)
+      fullfile = self._fullfile.get(shortfile, "<no-found>")
+      self._file2bp[fullfile + ":" + lineID] = int(m1.group(1))
+      self._bp2file[int(m1.group(1))] = fullfile + ":" + lineID
+
+      self.log("Breakpoint Set Detected:", m1.groups())
+      self._send_to_vim("VDBBreakSet(%s, '%s', %s)" %(lineID, fullfile, lineID))
+    elif m2 is not None:
+      shortfile, lineID = m2.group(2), m2.group(3)
+      self.log("Line Step Detected:", m2.groups())
+
+      # We require "step" is followed by "where" and "info source".
+      if shortfile not in self._fullfile:
+        while "Located in" not in line:
+          line = gdb_pipe.fromchild.readline()
+        fullfile = line[len("Located in"):].strip()
+        self._store_fullfile(fullfile)
+        self.log("fullname found:", fullfile)
+      else:
+        fullfile = self._fullfile.get(shortfile, "<no-found>")
+
+      self._send_to_vim("VDBHighlightLine(%s, '%s')" %(lineID, fullfile))
+    elif m3 is not None:
+      bp = int(m3.group(1))
+      fullfile, lineID = self._bp2file[bp].split(":") 
+      self.log("Breakpoint Clear Detected:", m3.groups())
+      self._send_to_vim("VDBBreakClear(%s, '%s')" %(lineID, fullfile))
+    else:
+      self.log("Ignoring '%s'" %line)
+
   def _monitor_gdb(self, gdb_pipe):
     '''Filtering status from gdb and send to Vim.'''
+    line = ""
     while True:
-      line = gdb_pipe.fromchild.readline()
-      print line
+      char = gdb_pipe.fromchild.read(1)
+      sys.stdout.write(char)
       sys.stdout.flush()
-      self.log("_monitor_gdb: '%s'" %line)
 
-      m1 = re.search('''Breakpoint (\d+) at .*?: file (.*?), line (\d+)''', line)
-      m2 = re.search('''(#0|Breakpoint \d+,).*? at ([a-zA-Z_\.\d]+):(\d+)''', line)
-      m3 = re.search('''Deleted breakpoint (\d+)''', line)
-
-      if m1 is not None:
-        shortfile, lineID = m1.group(2), m1.group(3)
-        fullfile = self._fullfile.get(shortfile, "<no-found>")
-        self._file2bp[fullfile + ":" + lineID] = int(m1.group(1))
-        self._bp2file[int(m1.group(1))] = fullfile + ":" + lineID
-
-        self.log("Breakpoint Set Detected:", m1.groups())
-        self._send_to_vim("VDBBreakSet(%s, '%s', %s)" %(lineID, fullfile, lineID))
-      elif m2 is not None:
-        shortfile, lineID = m2.group(2), m2.group(3)
-        self.log("Line Step Detected:", m2.groups())
-
-        # We require "step" is followed by "where" and "info source".
-        if shortfile not in self._fullfile:
-          while "Located in" not in line:
-            line = gdb_pipe.fromchild.readline()
-          fullfile = line[len("Located in"):].strip()
-          self._store_fullfile(fullfile)
-          self.log("fullname found:", fullfile)
-        else:
-          fullfile = self._fullfile.get(shortfile, "<no-found>")
-
-        self._send_to_vim("VDBHighlightLine(%s, '%s')" %(lineID, fullfile))
-      elif m3 is not None:
-        bp = int(m3.group(1))
-        fullfile, lineID = self._bp2file[bp].split(":") 
-        self.log("Breakpoint Clear Detected:", m3.groups())
-        self._send_to_vim("VDBBreakClear(%s, '%s')" %(lineID, fullfile))
+      if char == '\n':
+        if debug:
+          print "_monitor_jdb:", line
+        self._parse_gdb_status(gdb_pipe, line)   
+        line = ""
       else:
-        self.log("Ignoring '%s'" %line)
+        line += char
 
       with self._lock:
         if self._quit: 
