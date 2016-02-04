@@ -209,7 +209,7 @@ alias _my_server_wife="ssh ma@192.168.1.130"
 alias _my_server_wd="echo common; ssh summer@wdmycloud.local"
 alias _my_java_eclimd="/Users/world/Installed/EclipseJava.app/Contents/Eclipse/eclimd"
 
-export PATH=~/inf/study/bin:$PATH
+export PATH=~/inf/study/bin:/Users/world/.vim/bin:$PATH
 
 export CPLUS_INCLUDE_PATH=~/inf/study/include:$CPLUS_INCLUDE_PATH
 export CPLUS_INCLUDE_PATH=/opt/local/include:$CPLUS_INCLUDE_PATH

@@ -105,8 +105,8 @@ inoremap )            <C-R>=SuperEndMatch(")")<CR>
 inoremap ]            <C-R>=SuperEndMatch("]")<CR>
 inoremap "            <C-R>=SuperEndMatch('"')<CR>
 
-inoremap print        System.out.println();<left><left>
-inoremap new          <C-R>=ExtendNew()<CR>
+inoremap _print       System.out.println();<left><left>
+inoremap _new         <C-R>=ExtendNew()<CR>
 inoremap .            .<C-X><C-U>
 
 map <Leader>jnew      :ProjectCreate . -n java<CR>
