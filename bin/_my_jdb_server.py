@@ -112,7 +112,7 @@ class VimJavaDebugger(object):
                           self._debugger_type))
       # Monitoring jdb.
       jdb = "java -classpath /opt/local/share/java/jline.jar:"\
-            "/Library/Java/JavaVirtualMachines/jdk1.7.0_45.jdk"\
+            "/Library/Java/JavaVirtualMachines/jdk1.8.0_71.jdk"\
             "/Contents/Home/lib/tools.jar "\
             "jline.ConsoleRunner com.sun.tools.example.debug.tty.TTY %s '%s'" \
             %(self._main_class, params)
