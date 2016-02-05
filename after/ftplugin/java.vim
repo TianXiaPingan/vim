@@ -64,6 +64,7 @@ elif r3 != []:
   ret = "new %s[][];" %r3[0].strip()
 else:  
   ret = "new"
+ret = re.sub("<.*>", "<>", ret)  
 vim.command("let ret = '%s'" %ret)
 
 endpython

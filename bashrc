@@ -1,5 +1,16 @@
-# Python Library    
+# How to add a new library in Java.
+# 1. export CLASSPATH=library-path:./:$CLASSPATH
+#    Note, we have to add "./" to it.
+# 2. Setting in eclim:
+#    Add a newline in .classpath:
+#    <classpathentry kind="lib" path="library-path"/>
+#    Make sure you put all sources and classes in the same directory, then in 
+#    JDB source files could be conveniently found.
+# 3. In JDB, when running, you could input "classpath" to see all library paths.
 
+
+
+# Python Library    
 # import pip
 # installed_packages = pip.get_installed_distributions()
 # installed_packages_list = sorted(["%s==%s" % (i.key, i.version) for i in installed_packages])
@@ -20,6 +31,8 @@
 # sklearn: scikit-learn machine learning package.
 # sklearn_pandas: this module provides a bridge between scikit-learn's machine learning methods and pandas-style data frames.
 # sympy: a symbolic manipulation package, written in pure python
+
+
 
 # Set project with assertion mode.
 # :ProjectSettings or (:EclimSettings)
@@ -242,5 +255,7 @@ export PYTHONIOENCODING=utf8
 
 export PROMPT_COMMAND='echo -ne "\033]0;$PWD\007"'
 export PS1='\u@\W\$ '
+
+export CLASSPATH=/Users/world/Installed/commons-lang3-3.4-src/src/main/java:./:$CLASSPATH
 
 echo "a healthy of disregarding of impossible"
