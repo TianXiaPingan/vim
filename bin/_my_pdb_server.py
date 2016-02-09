@@ -14,7 +14,6 @@ debug = None
 
 class VimPythonDebugger(object):
   def __init__(self, server_name, main_class):
-    self._debugger_type = "pdb"
     self._server_name   = server_name 
     self._quit          = False
     self._lock          = thread.allocate_lock()
@@ -122,9 +121,8 @@ class VimPythonDebugger(object):
     try:
       # Monitoring commands from Vim.
       os.mkfifo(".%s" % self._server_name, 0600)
-      self._send_to_vim('''VDBInit('.%s', '%s', '%s')''' 
-                        %(self._server_name, os.path.realpath(os.curdir), 
-                          self._debugger_type))
+      self._send_to_vim('''VDBInit('.%s', '%s')''' 
+                        %(self._server_name, os.path.realpath(os.curdir)))
       # Monitoring pdb.
       pdb = "python -m pdb %s '%s'" %(self._main_class, params)
       pdb_pipe = popen2.Popen3(pdb, capturestderr = False, bufsize = 0)

@@ -14,7 +14,6 @@ debug = None
 
 class VimJavaDebugger(object):
   def __init__(self, server_name, main_class):
-    self._debugger_type = "jdb"
     self._server_name   = server_name 
     self._quit          = False
     self._lock          = thread.allocate_lock()
@@ -107,9 +106,8 @@ class VimJavaDebugger(object):
     try:
       # Monitoring commands from Vim.
       os.mkfifo(".%s" % self._server_name, 0600)
-      self._send_to_vim('''VDBInit('.%s', '%s', '%s')''' 
-                        %(self._server_name, os.path.realpath(os.curdir), 
-                          self._debugger_type))
+      self._send_to_vim('''VDBInit('.%s', '%s')''' 
+                        %(self._server_name, os.path.realpath(os.curdir)))
       # Monitoring jdb.
       jdb = "java -classpath /opt/local/share/java/jline.jar:"\
             "/Library/Java/JavaVirtualMachines/jdk1.8.0_71.jdk"\
