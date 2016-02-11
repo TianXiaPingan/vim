@@ -99,7 +99,7 @@ class VimJavaDebugger(object):
     '''In cmd, only ' is permitted, instead of ".'''
     silent = "silent" if silent else ""
     self.system('''vim --servername %s -u NONE -U NONE '''\
-                '''--remote-send "<C-\\><C-N>:%s call %s<CR><CR>"'''
+                '''--remote-send "<C-\\><C-N>:%s call %s<CR>"'''
                 %(self._server_name, silent, cmd));
 
   def run(self, params):
@@ -126,11 +126,11 @@ class VimJavaDebugger(object):
             self._quit = True
             break
           time.sleep(1)
-      except KeyboardInterrupt, ex:
+      finally:
         with self._lock:
           self._quit = True
 
-      time.sleep(0.3)
+      time.sleep(0.5)
       self._send_to_vim("VDBClose()")
 
     finally:
