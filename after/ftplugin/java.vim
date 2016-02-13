@@ -56,7 +56,7 @@ line = vim.current.line
 r1 =  re.findall(r"([\w<> ,]+)\s+\w+\s*=", line)
 r2 =  re.findall(r"([\w<> ,]+)\[\]\s+\w+\s*=", line) 
 r3 =  re.findall(r"([\w<> ,]+)\[\]\[\]\s+\w+\s*=", line) 
-if r1 != []: 
+if r1 != [] and r1[0].strip() != "":
   ret = "new %s();" %r1[0].strip()
 elif r2 != []: 
   ret = "new %s[];" %r2[0].strip()
