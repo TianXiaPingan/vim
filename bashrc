@@ -251,6 +251,9 @@ export PYTHONPATH=~/bin:$PYTHONPATH
 # Activate ctrl+s in vim.
 stty stop undef
 
+# activate ctrl-q, which is occupied in stty.
+stty -ixon > /dev/null 2>/dev/null
+
 export PYTHONIOENCODING=utf8
 
 export PROMPT_COMMAND='echo -ne "\033]0;$PWD\007"'

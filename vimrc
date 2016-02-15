@@ -402,6 +402,7 @@ imap  <C-s>         <Esc><C-s>gi
 " Read console information.
 map <C-e>           :!<CR>
 
+map <C-q>           :q<CR>
 map <C-x>           :x<CR>
 
 " copy into global clipboard.
