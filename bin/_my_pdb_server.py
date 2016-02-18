@@ -113,7 +113,7 @@ class VimPythonDebugger(object):
   def _send_to_vim(self, cmd, silent = True):
     '''In cmd, only ' is permitted, instead of ".'''
     silent = "silent" if silent else ""
-    self.system('''vim --servername %s -u NONE -U NONE '''\
+    self.system('''mvim --servername %s -u NONE -U NONE '''\
                 '''--remote-send "<C-\\><C-N>:%s call %s<CR><CR>"'''
                 %(self._server_name, silent, cmd));
 
