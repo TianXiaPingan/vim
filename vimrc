@@ -380,6 +380,7 @@ set ignorecase
 
 " control the cursor with mouse.
 set mouse=a
+set mousetime=2000
 set nobackup
 
 map <Leader>o      :call OpenLink()<CR>
