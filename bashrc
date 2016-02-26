@@ -13,7 +13,7 @@
 #    JDB source files could be conveniently found.
 # 3. In JDB, when running, you could input "classpath" to see all library paths.
 
-
+# Python debugger: ipdb
 
 # Python Library    
 # import pip
@@ -54,6 +54,7 @@
 # port variant vim
 # port installed | grep vim
 # sudo port install vim +python27 +cscope +huge (for mac at least)
+# sudo port install vim +python27 +cscope +huge +x11 (for mac at least)
 # sudo port activate vim version.
 
 # port often fail in installing macvim.
@@ -188,6 +189,7 @@ export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
 
 alias _my_create_cpp_project='cp "/Users/world/Desktop/test program/leetcode template/"* .; cp ~/.gitignore .; git init;'
 alias _my_create_java_project='cp "/Users/world/Desktop/test program/java template/"* .; cp ~/.gitignore .; git init;'
+alias _my_create_python_project='cp "/Users/world/Desktop/test program/python template/"* .; cp ~/.gitignore .; git init;'
 alias _my_jdb='java -classpath /opt/local/share/java/jline.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_71.jdk/Contents/Home/lib/tools.jar jline.ConsoleRunner com.sun.tools.example.debug.tty.TTY'
 
 alias l='       ls -lhr'
@@ -217,7 +219,7 @@ alias _my_supdate='rsync -ravutzh --progress -e ssh'
 alias _my_server_nimbus='echo password: shaojunwang; ssh w004txx@nimbus.cs.wright.edu '
 alias _my_server_knoesis='echo password: commonSummer; ssh xia@knoesis1.wright.edu '
 # in wsj server: account: wsj, password: wsj
-alias _my_server_wsj='echo password: common; ssh summer@130.108.28.50'
+alias _my_server_wsj='echo password: summer; ssh summer@130.108.28.50'
 alias _my_server_osc='echo password Y36fsk-eag04Y or commonRain; ssh wsu0215@glenn.osc.edu' 
 alias _my_server_osc2='echo password G402790G; ssh wsu0170@glenn.osc.edu' 
 #alias _my_server_osc='echo password X37fsk-eug14T; ssh wsu0215@oakley.osc.edul'
