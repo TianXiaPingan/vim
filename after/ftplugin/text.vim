@@ -44,3 +44,4 @@ syn match Define          ".*---$"
 syn match String          "^\d\+\..*"
 
 map <F5>        :call GenEnumerationIndex()<CR>
+call ConcelLink() 

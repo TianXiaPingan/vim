@@ -149,7 +149,9 @@ line, pos = vim.eval("getline('.')"), int(vim.eval("getpos('.')[2]")) - 1
 f, t = line.rfind("[[", 0, pos), line.find("]]", pos)
 if f != -1 and t != -1:
   addr = line[f + 2: t]
-  addr = addr.replace(" ", '''\ ''')
+  addr = addr.replace(" ", '''\ ''')\
+             .replace("(", "\\(")\
+             .replace(")", "\\)")
   os.system("open %s" %addr)
 else:
   print "Does not find a link"
@@ -368,8 +370,6 @@ filetype indent on
 filetype plugin on
 au BufRead,BufNewFile *.tpt set filetype=robot_reporter_template
 au BufRead,BufNewFile *.en set filetype=english
-au BufRead,BufNewFile *.text set filetype=text
-au BufRead,BufNewFile *.text call ConcelLink() 
 au BufRead,BufNewFile * call LoadExtraVimrc() 
 au FileType call MapCodingBracket() 
 
