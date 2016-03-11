@@ -9,7 +9,7 @@ buff = vim.current.buffer
 line_ID = 0
 while line_ID < len(buff):
   ln = buff[line_ID]
-  if ln.startswith("---") or ln.endswith("---"):
+  if ln.startswith("---") or ln.endswith("---") or ln.startswith("!."):
     indent_stack = [[-1, -1]]
     line_ID += 1
     continue
@@ -42,6 +42,7 @@ map --- O--------------------------------------------------------------------<Es
 syn match Define          "^---.*"
 syn match Define          ".*---$"
 syn match String          "^\d\+\..*"
+syn match String          "^!\..*"
 
 map <F5>        :call GenEnumerationIndex()<CR>
 call ConcelLink() 

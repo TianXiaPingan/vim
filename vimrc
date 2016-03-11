@@ -150,6 +150,7 @@ f, t = line.rfind("[[", 0, pos), line.find("]]", pos)
 if f != -1 and t != -1:
   addr = line[f + 2: t]
   addr = addr.replace(" ", '''\ ''')\
+             .replace("'", "\\'")\
              .replace("(", "\\(")\
              .replace(")", "\\)")
   os.system("open %s" %addr)

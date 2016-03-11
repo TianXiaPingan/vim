@@ -226,7 +226,7 @@ alias _my_server_osc2='echo password G402790G; ssh wsu0170@glenn.osc.edu'
 alias _my_server_new='echo shaojunwang; ssh swang@130.108.87.251'
 alias _my_server_amazon_tokyo="ssh ubuntu@52.68.137.96"
 alias _my_server_wife="ssh ma@192.168.1.130"
-alias _my_server_wd="echo common; ssh summer@wdmycloud.local"
+alias _my_server_wd="ssh summer@192.168.1.116"
 alias _my_java_eclimd="/Users/world/Installed/EclipseJava.app/Contents/Eclipse/eclimd"
 
 export PATH=~/inf/study/bin:/Users/world/.vim/bin:$PATH
@@ -234,20 +234,20 @@ export PATH=~/inf/study/bin:/Users/world/.vim/bin:$PATH
 export CPLUS_INCLUDE_PATH=~/inf/study/include:$CPLUS_INCLUDE_PATH
 export CPLUS_INCLUDE_PATH=/opt/local/include:$CPLUS_INCLUDE_PATH
 export CPLUS_INCLUDE_PATH=/opt/local/Library/Frameworks/Python.framework/Versions/2.7/Headers:$CPLUS_INCLUDE_PATH
-export CPLUS_INCLUDE_PATH=~/Installed/boost_1_54_0:$CPLUS_INCLUDE_PATH
+export CPLUS_INCLUDE_PATH=~/Installed/boost_1_60_0:$CPLUS_INCLUDE_PATH
 # for installing python library: json
 export CPLUS_INCLUDE_PATH=/System/Library/Frameworks/JavaVM.framework/Versions/A/Headers:$CPLUS_INCLUDE_PATH
 # for google test 1.7.0
 export CPLUS_INCLUDE_PATH=~/Installed/gtest-1.7.0.summer/include:$CPLUS_INCLUDE_PATH
 
 export LIBRARY_PATH=/opt/local/Library/Frameworks/Python.framework/Versions/2.7/lib:$LIBRARY_PATH
-export LIBRARY_PATH=~/Installed/boost_1_54_0/stage/lib:$LIBRARY_PATH
+export LIBRARY_PATH=~/Installed/boost_1_60_0/stage/lib:$LIBRARY_PATH
 export LIBRARY_PATH=/opt/local/lib:$LIBRARY_PATH
 # for google test 1.7.0
 export LIBRARY_PATH=~/Installed/gtest-1.7.0.summer/lib/:$LIBRARY_PATH
 
 export DYLD_FALLBACK_LIBRARY_PATH=/opt/local/Library/Frameworks/Python.framework/Versions/2.7/lib:$DYLD_FALLBACK_LIBRARY_PATH
-export DYLD_FALLBACK_LIBRARY_PATH=~/Installed/boost_1_54_0/stage/lib:$DYLD_FALLBACK_LIBRARY_PATH
+export DYLD_FALLBACK_LIBRARY_PATH=~/Installed/boost_1_60_0/stage/lib:$DYLD_FALLBACK_LIBRARY_PATH
 export DYLD_FALLBACK_LIBRARY_PATH=/opt/local/lib:$DYLD_FALLBACK_LIBRARY_PATH
 
 export PYTHONPATH=~/include:$PYTHONPATH
