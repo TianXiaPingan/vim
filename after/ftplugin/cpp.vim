@@ -86,8 +86,8 @@ inoremap )   <C-R>=SuperEndMatch(")")<CR>
 inoremap ]   <C-R>=SuperEndMatch("]")<CR>
 inoremap "   <C-R>=SuperEndMatch('"')<CR>
 
-map <C-b>         :!_my_make.py<CR>
-map <C-b><C-c>    :!_my_make.py -c<CR>
+map <C-b>         :!_make.py<CR>
+map <C-b><C-c>    :!_make.py -c<CR>
 
 map <C-F2>        :!ctags --exclude="excluded*" -R --c++-kinds=+defgpstux --fields=+iaSKlnz --extra=+q .<CR><CR>
 

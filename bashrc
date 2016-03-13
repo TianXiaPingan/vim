@@ -1,3 +1,7 @@
+# mount GPT disk
+# sudo parted /dev/sda print
+# mount some parition in it.
+
 # gprof (not working in mac)
 # 1. Add -g in both compiling and linking of g++.
 # 2. run and generate gmon.out.
@@ -23,6 +27,7 @@
 
 # cvxmod: lingo-like programming pack 
 # cvxopt: python software for convex optimization
+# gensim, a topic modeling package containing our LDA model. https://rstudio-pubs-static.s3.amazonaws.com/79360_850b2a69980c4488b1db95987a24867a.html
 # gensim: Python framework for fast Vector Space Modelling
 # matplotlib: a mature and popular plotting package, that provides publication-quality 2d plotting as well as rudimentary 3d plotting
 # nltk: a libray for NLP. 
@@ -45,7 +50,7 @@
 
 # Debug java in a GUI jdb.
 # 1) mvim --servername debug *.java
-# 2) _my_jdb_server.py 
+# 2) _jdb_server.py 
 # Note, I did not use vim, instead macvim, as console vim does not support client server mode.
 # Though, I could complile vim with X11, but that would ruin the system global clipboard.
 
@@ -146,7 +151,7 @@
 # “*" 任意串
 
 # rsync时，如果目标文件夹有空格时，这时候用"\"转义：
-# _my_supdate . "summer@130.108.28.50:/media/inf/web\ services/robot\ reporter/library"
+# _supdate . "summer@130.108.28.50:/media/inf/web\ services/robot\ reporter/library"
 
 # unzip file.zip -d destination_folder
 
@@ -187,10 +192,10 @@ export LSCOLORS=ExFxCxDxBxegedabagacad
 export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
 # Finished adapting your PATH environment variable for use with MacPorts.
 
-alias _my_create_cpp_project='cp "/Users/world/Desktop/test program/leetcode template/"* .; cp ~/.gitignore .; git init;'
-alias _my_create_java_project='cp "/Users/world/Desktop/test program/java template/"* .; cp ~/.gitignore .; git init;'
-alias _my_create_python_project='cp "/Users/world/Desktop/test program/python template/"* .; cp ~/.gitignore .; git init;'
-alias _my_jdb='java -classpath /opt/local/share/java/jline.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_71.jdk/Contents/Home/lib/tools.jar jline.ConsoleRunner com.sun.tools.example.debug.tty.TTY'
+alias _create_cpp_project='cp "/Users/world/Desktop/test program/leetcode template/"* .; cp ~/.gitignore .; git init;'
+alias _create_java_project='cp "/Users/world/Desktop/test program/java template/"* .; cp ~/.gitignore .; git init;'
+alias _create_python_project='cp "/Users/world/Desktop/test program/python template/"* .; cp ~/.gitignore .; git init;'
+alias _jdb='java -classpath /opt/local/share/java/jline.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_71.jdk/Contents/Home/lib/tools.jar jline.ConsoleRunner com.sun.tools.example.debug.tty.TTY'
 
 alias l='       ls -lhr'
 alias ll='      ls -lhtr'
@@ -214,20 +219,20 @@ alias du1='clear; du -h -d 1'
 alias gvim='/Applications/MacPorts/MacVim.app/Contents/MacOS/Vim -g'
 
 # e.g. rsync --size-only -ravutz -e ssh source-dir/ summer@130.108.28.50:dest-dir/
-alias _my_supdate='rsync -ravutzh --progress -e ssh'
+alias _supdate='rsync -ravutzh --progress -e ssh'
 
-alias _my_server_nimbus='echo password: shaojunwang; ssh w004txx@nimbus.cs.wright.edu '
-alias _my_server_knoesis='echo password: commonSummer; ssh xia@knoesis1.wright.edu '
+alias _server_nimbus='echo password: shaojunwang; ssh w004txx@nimbus.cs.wright.edu '
+alias _server_knoesis='echo password: commonSummer; ssh xia@knoesis1.wright.edu '
 # in wsj server: account: wsj, password: wsj
-alias _my_server_wsj='echo password: summer; ssh summer@130.108.28.50'
-alias _my_server_osc='echo password Y36fsk-eag04Y or commonRain; ssh wsu0215@glenn.osc.edu' 
-alias _my_server_osc2='echo password G402790G; ssh wsu0170@glenn.osc.edu' 
-#alias _my_server_osc='echo password X37fsk-eug14T; ssh wsu0215@oakley.osc.edul'
-alias _my_server_new='echo shaojunwang; ssh swang@130.108.87.251'
-alias _my_server_amazon_tokyo="ssh ubuntu@52.68.137.96"
-alias _my_server_wife="ssh ma@192.168.1.130"
-alias _my_server_wd="ssh summer@192.168.1.116"
-alias _my_java_eclimd="/Users/world/Installed/EclipseJava.app/Contents/Eclipse/eclimd"
+alias _server_wsj='echo password: summer; ssh summer@130.108.28.50'
+alias _server_osc='echo password Y36fsk-eag04Y or commonRain; ssh wsu0215@glenn.osc.edu' 
+alias _server_osc2='echo password G402790G; ssh wsu0170@glenn.osc.edu' 
+alias _server_new='echo shaojunwang; ssh swang@130.108.87.251'
+alias _server_amazon_tokyo="ssh ubuntu@52.68.137.96"
+alias _server_wife="ssh ma@192.168.1.130"
+alias _server_wd="ssh summer@192.168.1.116"
+
+alias _java_eclimd="/Users/world/Installed/EclipseJava.app/Contents/Eclipse/eclimd"
 
 export PATH=~/inf/study/bin:/Users/world/.vim/bin:$PATH
 
