@@ -234,9 +234,9 @@ alias _server_wd="ssh summer@192.168.1.116"
 
 alias _java_eclimd="/Users/world/Installed/EclipseJava.app/Contents/Eclipse/eclimd"
 
-export PATH=~/inf/study/bin:/Users/world/.vim/bin:$PATH
+export PATH=~/bin:$PATH
 
-export CPLUS_INCLUDE_PATH=~/inf/study/include:$CPLUS_INCLUDE_PATH
+export CPLUS_INCLUDE_PATH=~/include:$CPLUS_INCLUDE_PATH
 export CPLUS_INCLUDE_PATH=/opt/local/include:$CPLUS_INCLUDE_PATH
 export CPLUS_INCLUDE_PATH=/opt/local/Library/Frameworks/Python.framework/Versions/2.7/Headers:$CPLUS_INCLUDE_PATH
 export CPLUS_INCLUDE_PATH=~/Installed/boost_1_60_0:$CPLUS_INCLUDE_PATH
