@@ -435,9 +435,6 @@ map <C-F11>          za<CR>
 " Indent when the cursor is at the beginning '{' of a block.
 map <F12>           =%
 
-" Remove trailing blanks.
-map f0              :%s/\s\+\n/\r/g<CR>
-
 " insert locale time
 map time            a<C-R>=strftime("%c")<CR><Esc>a
 

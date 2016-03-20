@@ -1,3 +1,13 @@
+# Python debugger.
+# 
+# vim /opt/local/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/cmd.py
+# use_rawinput = 1
+#   set to
+# use_rawinput = 0
+# 
+# But this method seems to permit the command history.
+# We could define my own pdb.py version.
+
 # mount GPT disk
 # sudo parted /dev/sda print
 # mount some parition in it.
@@ -25,6 +35,7 @@
 # installed_packages_list = sorted(["%s==%s" % (i.key, i.version) for i in installed_packages])
 # print(installed_packages_list)
 
+# PIL image-rendering commands
 # cvxmod: lingo-like programming pack 
 # cvxopt: python software for convex optimization
 # gensim, a topic modeling package containing our LDA model. https://rstudio-pubs-static.s3.amazonaws.com/79360_850b2a69980c4488b1db95987a24867a.html
@@ -41,6 +52,7 @@
 # sklearn: scikit-learn machine learning package.
 # sklearn_pandas: this module provides a bridge between scikit-learn's machine learning methods and pandas-style data frames.
 # sympy: a symbolic manipulation package, written in pure python
+# theano: Theano is a python library that makes writing deep learning models easy, and gives the option of training them on a GPU
 
 
 
@@ -229,8 +241,8 @@ alias _server_osc='echo password Y36fsk-eag04Y or commonRain; ssh wsu0215@glenn.
 alias _server_osc2='echo password G402790G; ssh wsu0170@glenn.osc.edu' 
 alias _server_new='echo shaojunwang; ssh swang@130.108.87.251'
 alias _server_amazon_tokyo="ssh ubuntu@52.68.137.96"
-alias _server_wife="ssh ma@192.168.1.130"
-alias _server_wd="ssh summer@192.168.1.116"
+alias _server_wife="ssh ma@192.168.1.115"
+alias _server_wd="ssh summer@192.168.1.118"
 
 alias _java_eclimd="/Users/world/Installed/EclipseJava.app/Contents/Eclipse/eclimd"
 
