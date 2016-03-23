@@ -24,7 +24,7 @@ else:
     if stack[0] != 1:
       stack = [1] + stack
     if stack[-1] != len(buff):
-      stack.append(len(buff))
+      stack.append(len(buff) + 1)
 
     for p in xrange(1, len(stack)):
       vim.command(":%d, %d fold" %(stack[p - 1], stack[p] - 1))
