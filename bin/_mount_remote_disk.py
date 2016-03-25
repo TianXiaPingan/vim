@@ -11,8 +11,10 @@ if __name__ == "__main__":
                      #default = False, help = "")
   parser.add_option("--server_dir", dest = "server_dir", 
                     default = "summer@192.168.1.118:/media/WareHouse",
-                    help = ("account@IP:dir, not blanks permitted in dir, "
-                            "default 'summer@192.168.1.118:/media/WareHouse'"))
+                    help = ("account@IP:dir, no blanks permitted in dir, "
+                            "default summer@192.168.1.118:/media/WareHouse, "
+                            "or summer@74.140.222.43:/media/WareHouse "
+                            "from internet"))
   parser.add_option("--local_name", dest = "local_name", 
                     default = "WareHouse",
                     help = ("/Volumes/local_name, "
