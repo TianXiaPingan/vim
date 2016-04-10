@@ -131,6 +131,7 @@ using boost::format;
 #define EPSILON             1e-6
 #define DOUBLE_MAX          numeric_limits<double>::max()
 #define DOUBLE_MIN          -numeric_limits<double>::max()
+#define VVec(type)          vector<vector<type>>
 
 typedef long long           int64;
 typedef unsigned long long  uint64;
@@ -246,7 +247,7 @@ ostream& operator << (ostream &stream, const vector<Type> &vec) {
 // log_sum(vector) or log_sum<initializer_list<double>>({1, 2, 3, 4});
 template<class Type>
 double log_sum(const Type &data) {
-  double maxv = *max_element(data.begin(), data.end());
+  double maxv = *max_element(begin(data), end(data));
   double ret = 0;
   for (auto e: data) {
     ret += exp(e - maxv);
