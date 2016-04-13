@@ -1,3 +1,9 @@
+# GPU related
+# cat /proc/driver/nvidia/gpus/0000\:0f\:00.0/information
+# lspci -vnn | grep -i VGA -A 12
+# nvidia-smi
+# THEANO_FLAGS=mode=FAST_RUN,device=gpu,floatX=float32 python code.py
+
 # Python debugger.
 # 
 # vim /opt/local/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/cmd.py

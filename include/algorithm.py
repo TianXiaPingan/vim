@@ -96,7 +96,8 @@ def eq(v1, v2, prec = EPSILON):
 
 def get_memory(size_type = "rss"):
   '''Generalization; memory sizes (MB): rss, rsz, vsz.'''
-  content = popen('ps -p %d -o %s | tail -1' %(getpid(), size_type)).read()
+  content = os.popen('ps -p %d -o %s | tail -1' 
+                     %(os.getpid(), size_type)).read()
   return round(float(content) / 1024, 3)
 
 def norm1(vec):
