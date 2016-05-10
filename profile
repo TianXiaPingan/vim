@@ -253,6 +253,7 @@ alias _server_wd="ssh summer@192.168.1.118"
 alias _java_eclimd="/Users/world/Installed/EclipseJava.app/Contents/Eclipse/eclimd"
 
 export PATH=~/bin:$PATH
+export PATH=/opt/local/bin:$PATH
 
 export CPLUS_INCLUDE_PATH=~/include:$CPLUS_INCLUDE_PATH
 export CPLUS_INCLUDE_PATH=/opt/local/include:$CPLUS_INCLUDE_PATH
