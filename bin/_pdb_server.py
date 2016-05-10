@@ -150,16 +150,15 @@ class VimPythonDebugger(object):
 if __name__ == "__main__":
   os.system("clear")
 
-  parser = optparse.OptionParser(usage = "cmd [optons] parameters")
+  parser = optparse.OptionParser(usage = "cmd [optons] mainclass")
   #parser.add_option("-q", "--quiet", action = "store_true", dest = "verbose",
                      #default = False, help = "")
   parser.add_option("--debug", action = "store_true", dest = "debug",
                      default = False, help = "debug mode")
   parser.add_option("--servername", dest = "server_name",
                      default = "debug", help = "default 'debug'")
-  parser.add_option("--mainclass", dest = "main_class",
-                     default = "main.py", help = "default 'main.py'")
   (options, args) = parser.parse_args()
 
   debug = options.debug
-  VimPythonDebugger(options.server_name, options.main_class).run(" ".join(args))
+  main_class = args[0] if args != [] else "main.py"
+  VimPythonDebugger(options.server_name, main_class).run(" ".join(args))

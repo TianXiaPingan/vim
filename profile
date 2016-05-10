@@ -248,7 +248,7 @@ alias _server_osc2='echo password G402790G; ssh wsu0170@glenn.osc.edu'
 alias _server_new='echo shaojunwang; ssh swang@130.108.87.251'
 alias _server_amazon_tokyo="ssh ubuntu@52.68.137.96"
 alias _server_wife="ssh ma@192.168.1.115"
-alias _server_wd="ssh summer@192.168.1.118"
+alias _server_wd="ssh summer@192.168.1.55"
 
 alias _java_eclimd="/Users/world/Installed/EclipseJava.app/Contents/Eclipse/eclimd"
 
