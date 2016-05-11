@@ -250,7 +250,7 @@ alias _server_amazon_tokyo="ssh ubuntu@52.68.137.96"
 alias _server_wife="ssh ma@192.168.1.115"
 alias _server_wd="ssh summer@192.168.1.55"
 
-alias _java_eclimd="/Users/world/Installed/EclipseJava.app/Contents/Eclipse/eclimd"
+alias _java_eclimd="~/Installed/EclipseJava.app/Contents/Eclipse/eclimd"
 
 export PATH=~/bin:$PATH
 export PATH=/opt/local/bin:$PATH
@@ -290,6 +290,6 @@ export PYTHONIOENCODING=utf8
 export PROMPT_COMMAND='echo -ne "\033]0;$PWD\007"'
 export PS1='\u@\W\$ '
 
-export CLASSPATH=/Users/world/Installed/commons-lang3-3.4-src/src/main/java:./:$CLASSPATH
+export CLASSPATH=~/Installed/commons-lang3-3.4-src/src/main/java:./:$CLASSPATH
 
 echo "a healthy of disregarding of impossible"
