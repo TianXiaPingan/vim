@@ -12,8 +12,8 @@ if __name__ == "__main__":
 
   os.chdir("/Users/world/inf")
   cmd = ("time rsync -ravutzh --progress -e ssh "
-         ". summer@192.168.1.118:"
-         '''"/media/WareHouse/in\ the\ laptop.inf"''')
+         ". summer@192.168.1.100:"
+         '''"/media/summer/WareHouse/in\ the\ laptop.inf"''')
   if options.is_delete:
     cmd += " --delete"
   print cmd
