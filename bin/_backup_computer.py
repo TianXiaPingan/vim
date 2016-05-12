@@ -10,7 +10,7 @@ if __name__ == "__main__":
                     "target directory.")
   (options, args) = parser.parse_args()
 
-  os.chdir("/Users/world/inf")
+  os.chdir("/Users/%s/inf" %os.getlogin())
   cmd = ("time rsync -ravutzh --progress -e ssh "
          ". summer@192.168.1.100:"
          '''"/media/summer/WareHouse/in\ the\ laptop.inf"''')

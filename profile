@@ -1,3 +1,11 @@
+# maven [[http://www.mkyong.com/maven/how-to-create-a-java-project-with-maven/]]
+# 1. Create a Project from Maven Template
+# mvn archetype:generate -DgroupId=xt  -DartifactId=HelloWorld -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false
+#
+# 2. Eclipse IDE
+# mvn eclipse:eclipse
+# To import the project into Eclipse IDE, select "File -> Import… -> General->Existing Projects into Workspace"
+
 # GPU related
 # cat /proc/driver/nvidia/gpus/0000\:0f\:00.0/information
 # lspci -vnn | grep -i VGA -A 12
