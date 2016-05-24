@@ -377,6 +377,7 @@ filetype indent on
 filetype plugin on
 au BufRead,BufNewFile *.tpt set filetype=robot_reporter_template
 au BufRead,BufNewFile *.en set filetype=english
+au BufRead,BufNewFile *.scala set filetype=scala
 au BufRead,BufNewFile * call LoadExtraVimrc() 
 au FileType call MapCodingBracket() 
 
