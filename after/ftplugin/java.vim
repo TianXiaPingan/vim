@@ -76,13 +76,13 @@ else
 endif
 endfunction
 """"""""""""""""""""""both for guivim and vim""""""""""""""""""""""""""""""""""
-map <F5>              <C-s><CR>:Java<CR>
+map <F5>            <C-s><CR>:Java<CR>
 
 "debug run
-nmap  <C-F5>        :Vdb run<CR>      
+nmap  <C-F5>          :Vdb run<CR>      
 
 "next line
-nmap  <F6>          :Vdb next<CR>
+nmap  <F6>            :Vdb next<CR>
 "next function
 nmap  <F7>          :Vdb step<CR>
 "jump out of function
@@ -114,6 +114,7 @@ map <Leader>jnew      :ProjectCreate . -n java<CR>
 map <Leader>jo        :ProjectOpen<CR>
 map <Leader>jx        :ProjectClose<CR>
 map <Leader>jl        :ProjectList<CR>
+map <Leader>r         :call QuickJavaRename()<CR>
 
 map <C-]>             :JavaSearch<CR>
 map <C-b>             :ProjectBuild<CR>

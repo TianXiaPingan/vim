@@ -14,6 +14,9 @@
 #     <artifactId>commons-lang3</artifactId>
 #     <version>3.4</version>
 #   </dependency>
+#
+# Or download packages directly:
+#   mvn -DgroupId=commons-io -DartifactId=commons-io -Dversion=1.4 dependency:get
 # 
 # Download sources: 
 #   1. mvn dependency:sources

@@ -238,6 +238,12 @@ function! QuickRename()
  
 endfunction
 
+function! QuickJavaRename()
+  let b:new_word = input("input: ")
+  exec printf('JavaRename %s', b:new_word)
+ 
+endfunction
+
 function! SuperMatch()
   if getline(".") =~ '\v(else|\)|try|do)'
     return "{\<CR>}\<Esc>O"
