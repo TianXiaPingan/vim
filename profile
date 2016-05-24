@@ -1,10 +1,45 @@
-# maven [[http://www.mkyong.com/maven/how-to-create-a-java-project-with-maven/]]
-# 1. Create a Project from Maven Template
-# mvn archetype:generate -DgroupId=xt  -DartifactId=HelloWorld -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false
+# Maven for Java 
+# Create a maven project [[http://www.mkyong.com/maven/how-to-create-a-java-project-with-maven/]]
+#   mvn archetype:generate -DgroupId={package-name}  -DartifactId={foldername} -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false
 #
-# 2. Eclipse IDE
-# mvn eclipse:eclipse
-# To import the project into Eclipse IDE, select "File -> Import… -> General->Existing Projects into Workspace"
+# Common commands:
+#   1. mvn clean
+#   2. mvn compile
+#   3. mvn package
+#   4. mvn clean install
+# 
+# Download packages:
+#   <dependency>
+#     <groupId>org.apache.commons</groupId>
+#     <artifactId>commons-lang3</artifactId>
+#     <version>3.4</version>
+#   </dependency>
+# 
+# Download sources: 
+#   1. mvn dependency:sources
+#   2. mvn dependency:resolve -Dclassifier=javadoc
+# 
+#   The first command will attempt to download source code for each of the dependencies in your pom file.
+#   The second command will attempt to download the Javadocs.
+#
+# Converted for Eclipse IDE
+#   mvn eclipse:eclipse
+#   To import the project into Eclipse IDE, select "File -> Import… -> General->Existing Projects into Workspace"
+
+# Eclim for Java
+# How to add a new library in Java.
+# 1. export CLASSPATH=library-path:./:$CLASSPATH
+#    Note, we have to add "./" to it.
+# 2. Setting in eclim:
+#    Add a newline in .classpath:
+#    <classpathentry kind="lib" path="library-path"/>
+#    Make sure you put all sources and classes in the same directory, then in 
+#    JDB source files could be conveniently found.
+# 3. In JDB, when running, you could input "classpath" to see all library paths.
+# 
+# Set project with assertion mode.
+# :ProjectSettings or (:EclimSettings)
+# org.eclim.java.run.jvmargs=[-ea]
 
 # GPU related
 # cat /proc/driver/nvidia/gpus/0000\:0f\:00.0/information
@@ -13,7 +48,6 @@
 # THEANO_FLAGS=mode=FAST_RUN,device=gpu,floatX=float32 python code.py
 
 # Python debugger.
-# 
 # vim /opt/local/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/cmd.py
 # use_rawinput = 1
 #   set to
@@ -31,16 +65,6 @@
 # 2. run and generate gmon.out.
 # 3. gprof test > prof.text
 
-# How to add a new library in Java.
-# 1. export CLASSPATH=library-path:./:$CLASSPATH
-#    Note, we have to add "./" to it.
-# 2. Setting in eclim:
-#    Add a newline in .classpath:
-#    <classpathentry kind="lib" path="library-path"/>
-#    Make sure you put all sources and classes in the same directory, then in 
-#    JDB source files could be conveniently found.
-# 3. In JDB, when running, you could input "classpath" to see all library paths.
-
 # Python debugger: ipdb
 
 # Python Library    
@@ -48,7 +72,7 @@
 # installed_packages = pip.get_installed_distributions()
 # installed_packages_list = sorted(["%s==%s" % (i.key, i.version) for i in installed_packages])
 # print(installed_packages_list)
-
+#
 # PIL image-rendering commands
 # cvxmod: lingo-like programming pack 
 # cvxopt: python software for convex optimization
@@ -69,16 +93,20 @@
 # theano: Theano is a python library that makes writing deep learning models easy, and gives the option of training them on a GPU
 
 
-
-# Set project with assertion mode.
-# :ProjectSettings or (:EclimSettings)
-# org.eclim.java.run.jvmargs=[-ea]
-
 # Debug java in a GUI jdb.
 # 1) mvim --servername debug *.java
 # 2) _jdb_server.py 
 # Note, I did not use vim, instead macvim, as console vim does not support client server mode.
 # Though, I could complile vim with X11, but that would ruin the system global clipboard.
+
+# Compile java with debug information: javac -g *.java
+
+# find java installed location: /usr/libexec/java_home -v 1.7 
+
+# How to let jdb support up/down/left/right
+# 1. sudo port install jline
+# 2. java -classpath /opt/local/share/java/jline.jar:/Library/Java/JavaVirtualMachines/jdk1.7.0_45.jdk/Contents/Home/lib/tools.jar jline.ConsoleRunner com.sun.tools.example.debug.tty.TTY your-main-class 
+# Check content in a jar package: vim *.jar
 
 # Support python, cscope
 # vim --version, check if python is supported.
@@ -92,15 +120,6 @@
 # sudo chmod -R g-w $(xcode-select -p)/Library/PrivateFrameworks/CoreSimulator.framework/Versions/A/XPCServices/com.apple.CoreSimulator.CoreSimulatorService.xpc
 # sudo chown -R root:wheel $(xcode-select -p)/Library/PrivateFrameworks/CoreSimulator.framework/Versions/A/XPCServices/com.apple.CoreSimulator.CoreSimulatorService.xpc
 # https://trac.macports.org/wiki/ProblemHotlist#xcode7.2
-
-# Compile java with debug information: javac -g *.java
-
-# find java installed location: /usr/libexec/java_home -v 1.7 
-
-# How to let jdb support up/down/left/right
-# 1. sudo port install jline
-# 2. java -classpath /opt/local/share/java/jline.jar:/Library/Java/JavaVirtualMachines/jdk1.7.0_45.jdk/Contents/Home/lib/tools.jar jline.ConsoleRunner com.sun.tools.example.debug.tty.TTY your-main-class 
-# Check content in a jar package: vim *.jar
 
 # 挂载iso文件：mount -t iso9660 -o loop xxx.iso /path
 # 拷贝光盘：cp /dev/cdrom xxx.iso 

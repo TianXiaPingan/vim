@@ -116,5 +116,5 @@ map <Leader>jx        :ProjectClose<CR>
 map <Leader>jl        :ProjectList<CR>
 
 map <C-]>             :JavaSearch<CR>
-map <C-b>             :ProjectBuild<CR>: call CompileJar()<CR>
+map <C-b>             :ProjectBuild<CR>
 

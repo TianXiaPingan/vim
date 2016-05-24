@@ -14,7 +14,7 @@ if __name__ == "__main__":
                     help = "default java|scala|c|cpp|hpp|py")
   (options, args) = parser.parse_args()
 
-  cmd_tpt = r"find . -iregex '.*\.%s' -exec grep -iHn %s {} \;"
+  cmd_tpt = r"find . -iregex '.*\.%s' -exec grep -iHn '%s' {} \;"
   if len(args) > 0:
     for fn_ext in options.fn_ext.split("|"):
       cmd = cmd_tpt %(fn_ext, args[0])  
