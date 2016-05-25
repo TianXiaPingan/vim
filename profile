@@ -1,3 +1,11 @@
+# SSH without password
+# 1. ssh-keygen -t rsa
+#   生成的过程中提示输入，直接回车，接受默认值就行了。
+#   其中公共密钥保存在 ~/.ssh/id_rsa.pub， 私有密钥保存在 ~/.ssh/id_rsa
+# 2. 然后改一下 .ssh 目录的权限，使用命令 "chmod 755 ~/.ssh"
+# 3. 之后把这个密钥对中的公共密钥复制到你要访问的机器上去，并保存为~/.ssh/authorized_keys.
+# 4. 设置权限: chmod 644 ~/.ssh/authorized_keys
+
 # Maven for Java 
 # Create a maven project [[http://www.mkyong.com/maven/how-to-create-a-java-project-with-maven/]]
 #   mvn archetype:generate -DgroupId={package-name}  -DartifactId={foldername} -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false
@@ -179,16 +187,6 @@
 # If want to delete extraneous files in destination folder, add "--delete" option.
 # Note, souce-dir must ends with "/", while dest-dir does not need to ends with "/".
 
-# My personal cloud
-# smb://wdmycloud.local
-# ping wdmycloud.local
-# If it is directly connected to my computer, then I have to set the IP
-# manually, to let them be in the same subset.
-# ssh summer@wdmycloud.local, password: common 
-# ssh root@wdmycloud.local, password: common, from welc0me to common.
-# On/|||: means it is on now.
-# |||/Off: means it is off now.
-
 # 在bash中单引号和双引号的区别：单引号不解释里面的变量。 
 # export file="hello world"; export '$file' ---> $file
 # export file="hello world"; export "$file" ---> hello world
@@ -250,6 +248,14 @@ alias ll='      ls -lhtr'
 alias la='      ls -lhatr'
 alias lld='     ls -lhtr | grep "^d"'
 
+#[[http://hadoop.apache.org/docs/current/hadoop-project-dist/hadoop-common/FileSystemShell.html]]
+alias hls='hadoop fs -ls -h'
+alias hlsr='hadoop fs -ls -h -R'
+alias hcat='hadoop fs -cat'
+alias hcp='hadoop fs -cp'
+alias hmkdir='hadoop fs -mkdir'
+alias hrm='hadoop fs -rm'
+
 alias _git_reset='git reset'
 alias _git_init='git init'
 alias _git_add='git add .'
@@ -279,6 +285,13 @@ alias _server_new='echo shaojunwang; ssh swang@130.108.87.251'
 alias _server_amazon_tokyo="ssh ubuntu@52.68.137.96"
 alias _server_wife="ssh ma@192.168.1.115"
 alias _server_wd="ssh summer@192.168.1.55"
+
+alias _server_dev1="ssh txia@g1dlfinddev01.dev.glbt1.gdg"
+alias _server_dev2="ssh txia@g1dlfinddev02.dev.glbt1.gdg"
+alias _server_dev3="ssh txia@g1dlfinddev03.dev.glbt1.gdg"
+alias _server_dev4="ssh txia@g1dlfinddev04.dev.glbt1.gdg"
+alias _server_dev5="ssh txia@g1dlfinddev05.dev.glbt1.gdg"
+alias _server_hadoop="ssh txia@p3plpashl01.prod.phx3.gdg"
 
 alias _java_eclimd="~/Installed/EclipseJava.app/Contents/Eclipse/eclimd"
 
