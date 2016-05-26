@@ -109,11 +109,8 @@ class VimJavaDebugger(object):
       self._send_to_vim('''VDBInit('.%s', '%s')''' 
                         %(self._server_name, os.path.realpath(os.curdir)))
       # Monitoring jdb.
-      jdb = "java -classpath /opt/local/share/java/jline.jar:"\
-            "/Library/Java/JavaVirtualMachines/jdk1.8.0_71.jdk"\
-            "/Contents/Home/lib/tools.jar "\
-            "jline.ConsoleRunner com.sun.tools.example.debug.tty.TTY %s '%s'" \
-            %(self._main_class, params)
+      jdb = ("java jline.ConsoleRunner com.sun.tools.example.debug.tty.TTY "
+             "%s '%s'") %(self._main_class, params)
       jdb_pipe = popen2.Popen3(jdb, capturestderr = False, bufsize = 0)
 
       thread.start_new_thread(self._monitor_jdb, (jdb_pipe,))

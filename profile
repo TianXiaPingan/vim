@@ -230,18 +230,10 @@
 export CLICOLOR=1 
 export LSCOLORS=ExFxCxDxBxegedabagacad
 
-##
-# Your previous ~/.profile file was backed up as ~/.profile.macports-saved_2015-04-01_at_14:05:36
-##
-
-# MacPorts Installer addition on 2015-04-01_at_14:05:36: adding an appropriate PATH variable for use with MacPorts.
-export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
-# Finished adapting your PATH environment variable for use with MacPorts.
-
 alias _create_cpp_project='cp "/Users/world/Desktop/test program/leetcode template/"* .; cp ~/.gitignore .; git init;'
 alias _create_java_project='cp "/Users/world/Desktop/test program/java template/"* .; cp ~/.gitignore .; git init;'
 alias _create_python_project='cp "/Users/world/Desktop/test program/python template/"* .; cp ~/.gitignore .; git init;'
-alias _jdb='java -classpath /opt/local/share/java/jline.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_71.jdk/Contents/Home/lib/tools.jar jline.ConsoleRunner com.sun.tools.example.debug.tty.TTY'
+alias _jdb='java jline.ConsoleRunner com.sun.tools.example.debug.tty.TTY'
 
 alias l='       ls -lhr'
 alias ll='      ls -lhtr'
@@ -295,8 +287,9 @@ alias _server_hadoop="ssh txia@p3plpashl01.prod.phx3.gdg"
 
 alias _java_eclimd="~/Installed/EclipseJava.app/Contents/Eclipse/eclimd"
 
-export PATH=~/bin:$PATH
 export PATH=/opt/local/bin:$PATH
+export PATH=/opt/local/sbin:$PATH
+export PATH=~/bin:$PATH
 
 export CPLUS_INCLUDE_PATH=~/include:$CPLUS_INCLUDE_PATH
 export CPLUS_INCLUDE_PATH=/opt/local/include:$CPLUS_INCLUDE_PATH
@@ -320,6 +313,10 @@ export DYLD_FALLBACK_LIBRARY_PATH=/opt/local/lib:$DYLD_FALLBACK_LIBRARY_PATH
 export PYTHONPATH=~/include:$PYTHONPATH
 export PYTHONPATH=~/bin:$PYTHONPATH
 
+export CLASSPATH=~/.m2/repository/org/scala-lang/scala-library/2.11.7/scala-library-2.11.7.jar:$CLASSPATH
+export CLASSPATH=/opt/local/share/java/jline.jar:$CLASSPATH
+export CLASSPATH=/Library/Java/JavaVirtualMachines/jdk1.8.0_91.jdk/Contents/Home/lib/tools.jar:$CLASSPATH
+
 #export PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME%%.*}: ${PWD/#$HOME/~}\007"'
 
 # Activate ctrl+s in vim.
@@ -332,7 +329,5 @@ export PYTHONIOENCODING=utf8
 
 export PROMPT_COMMAND='echo -ne "\033]0;$PWD\007"'
 export PS1='\u@\W\$ '
-
-export CLASSPATH=~/Installed/commons-lang3-3.4-src/src/main/java:./:$CLASSPATH
 
 echo "a healthy of disregarding of impossible"
