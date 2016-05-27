@@ -9,6 +9,7 @@ import string
 import sys
 import thread
 import time
+from xml.etree import ElementTree 
 
 debug = None
 
@@ -102,8 +103,27 @@ class VimJavaDebugger(object):
                 '''--remote-send "<C-\\><C-N>:%s call %s<CR>"'''
                 %(self._server_name, silent, cmd));
 
+  def _set_classpath(self):
+    if not os.path.exists(".classpath"):
+      return
+
+    lib_paths = []
+    for node in ElementTree.parse(".classpath").findall("classpathentry"):
+      if node.get("kind") in ["lib", "var", "output"]:
+        lib_paths.append(node.get("path"))
+      elif node.get("kind") == "src" and "output" in node.keys():
+        lib_paths.append(node.get("output"))
+
+    lib_paths = ":".join(lib_paths).replace("M2_REPO", 
+                                            "/Users/%s/.m2/repository" 
+                                            %os.getlogin())
+    os.environ["CLASSPATH"] += ":" + lib_paths
+    #print os.environ["CLASSPATH"]
+
   def run(self, params):
     try:
+      self._set_classpath()
+
       # Monitoring commands from Vim.
       os.mkfifo(".%s" % self._server_name, 0600)
       self._send_to_vim('''VDBInit('.%s', '%s')''' 
