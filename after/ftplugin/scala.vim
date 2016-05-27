@@ -11,74 +11,64 @@
 " Remove any old syntax stuff
 syn clear
 
-" syntax highlighting for words that are not identifiers:
-" int unit double String Array byte short char long float
-syn keyword scalaExternal		import package
+syn keyword scalaExternal		  import package
 syn keyword scalaConditional	if then else
-syn keyword scalaRepeat			while for do
-syn keyword scalaType			boolean int double byte short char long float
-syn keyword scalaType			unit
-syn keyword scalaType			val with type var yield
-
+syn keyword scalaRepeat			  while for do
+syn keyword scalaType			    Boolean Int Double Byte Short Char Long Float String Any 
+syn keyword scalaType			    val with type var yield
 syn keyword scalaStatement		return
-syn keyword	scalaBoolean		true false
-syn keyword scalaConstant		null
-syn keyword	scalaTypedef		this super
-syn keyword scalaLangClass		String Array
+syn keyword	scalaBoolean		  true false
+syn keyword scalaConstant		  null
+syn keyword	scalaTypedef		  this super
 syn keyword scalaScopeDecl		private protected override
 syn keyword scalaStorageClass	abstract final sealed
 syn keyword	scalaExceptions		throw try catch finally
 syn keyword scalaClassDecl		extends
-" TODO differentiate the keyword class from MyClass.class -> use a match here
-syn keyword   scalaTypedef      class
-syn keyword   scalaTypedef      case
-syn keyword   scalaTypedef      trait
+syn keyword scalaTypedef      class
+syn keyword scalaTypedef      case match
+syn keyword scalaTypedef      trait
+syn keyword	scalaOperator		  new
 
-syn match   scalaTypedef		"\s*\<object\>"
-
-syn keyword	scalaOperator		new
-
+syn match   scalaTypedef		  "\s*\<object\>"
 " same number definition as in java.vim
-syn match   scalaNumber		"\<\(0[0-7]*\|0[xX]\x\+\|\d\+\)[lL]\=\>"
-syn match   scalaNumber     "\(\<\d\+\.\d*\|\.\d\+\)\([eE][-+]\=\d\+\)\=[fFdD]\="
-syn match   scalaNumber     "\<\d\+[eE][-+]\=\d\+[fFdD]\=\>"
-syn match   scalaNumber     "\<\d\+\([eE][-+]\=\d\+\)\=[fFdD]\>"
+syn match   scalaNumber		    "\<\(0[0-7]*\|0[xX]\x\+\|\d\+\)[lL]\=\>"
+syn match   scalaNumber       "\(\<\d\+\.\d*\|\.\d\+\)\([eE][-+]\=\d\+\)\=[fFdD]\="
+syn match   scalaNumber       "\<\d\+[eE][-+]\=\d\+[fFdD]\=\>"
+syn match   scalaNumber       "\<\d\+\([eE][-+]\=\d\+\)\=[fFdD]\>"
 
-syn region  scalaString		start=+"+ end=+"+
+syn region  scalaString		    start=+"+ end=+"+
 
 " Functions
 "	def [name] [(prototype)] {
-"
-syn match   scalaFunction	"\s*\<def\>"
+syn match   scalaFunction	    "\s*\<def\>"
 
 " Comments
-syn region scalaComment		start="/\*"	end="\*/"
-syn match	scalaLineComment	"//.*"
-
+syn region  scalaComment		    start="/\*"	end="\*/"
+syn match	  scalaLineComment	  "//.*"
 
 if !exists("did_scala_syntax_inits")
-    let did_scala_syntax_inits = 1
-    
-    " The default methods for highlighting. Can be overridden later
-    hi link scalaExternal		Include
-    hi link scalaStatement		Statement
-    hi link scalaConditional	Conditional
-	hi link scalaRepeat			Repeat
-    hi link scalaType			Type
-    hi link scalaTypedef		Typedef
-	hi link	scalaBoolean		Boolean
-    hi link scalaFunction		Function
-    hi link scalaLangClass		Constant
-	hi link	scalaConstant		Constant
-	hi link scalaScopeDecl		scalaStorageClass
-	hi link scalaClassDecl		scalaStorageClass
-	hi link scalaStorageClass 	StorageClass
-	hi link scalaExceptions		Exception
-	hi link scalaOperator		Operator
-    hi link scalaNumber			Number
-    hi link scalaString			String
-	hi link	scalaComment		Comment
-	hi link	scalaLineComment	Comment
+  let did_scala_syntax_inits = 1
+
+  " The default methods for highlighting. Can be overridden later
+  hi link	scalaBoolean		  Boolean
+  hi link	scalaComment		  Comment
+  hi link	scalaConstant		  Constant
+  hi link	scalaLineComment	Comment
+  hi link scalaClassDecl		scalaStorageClass
+  hi link scalaConditional	Conditional
+  hi link scalaExceptions		Exception
+  hi link scalaExternal		  Include
+  hi link scalaFunction		  Function
+  hi link scalaLangClass		Constant
+  hi link scalaNumber			  Number
+  hi link scalaOperator		  Operator
+  hi link scalaRepeat			  Repeat
+  hi link scalaScopeDecl		scalaStorageClass
+  hi link scalaStatement		Statement
+  hi link scalaStorageClass StorageClass
+  hi link scalaString			  String
+  hi link scalaType			    Type
+  hi link scalaTypedef		  Typedef
 endif
 
 let b:current_syntax = "scala"
