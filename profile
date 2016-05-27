@@ -164,8 +164,6 @@
 # 环境变量
 # linux PATH,CPLUS_INCLUDE_PATH, LIBRARY_PATH, LD_LIBRARY_PATH
 # mac: PATH, CPLUS_INCLUDE_PATH, LIBRARY_PATH, DYLD_LIBRARY_PATH(better one: DYLD_FALLBACK_LIBRARY_PATH)
-# In OSC server, the LIBRARY_PATH does not work for gcc-4.8 by default.
-# In OSC server, when openning a terminal, the LD_LIBRARY_PATH does not work as we expected. Anyhow, We should ensure our paths to appear in the begin of these environment variables.
 
 # gdb
 # info source
@@ -260,8 +258,8 @@ alias _git_branch='git branch'
 alias _git_checkout='git checkout'
 alias _git_log='git log'
 
-alias du='clear; du -h -d 1'
 alias du1='clear; du -h -d 1'
+alias du2='clear; du -h --max-depth 1'
 alias gvim='/Applications/MacPorts/MacVim.app/Contents/MacOS/Vim -g'
 
 # e.g. rsync --size-only -ravutz -e ssh source-dir/ summer@130.108.28.50:dest-dir/
@@ -271,8 +269,6 @@ alias _server_nimbus='echo password: shaojunwang; ssh w004txx@nimbus.cs.wright.e
 alias _server_knoesis='echo password: commonSummer; ssh xia@knoesis1.wright.edu '
 # in wsj server: account: wsj, password: wsj
 alias _server_wsj='echo password: summer; ssh summer@130.108.28.50'
-alias _server_osc='echo password Y36fsk-eag04Y or commonRain; ssh wsu0215@glenn.osc.edu' 
-alias _server_osc2='echo password G402790G; ssh wsu0170@glenn.osc.edu' 
 alias _server_new='echo shaojunwang; ssh swang@130.108.87.251'
 alias _server_amazon_tokyo="ssh ubuntu@52.68.137.96"
 alias _server_wife="ssh ma@192.168.1.115"
@@ -330,4 +326,3 @@ export PYTHONIOENCODING=utf8
 export PROMPT_COMMAND='echo -ne "\033]0;$PWD\007"'
 export PS1='\u@\W\$ '
 
-echo "a healthy of disregarding of impossible"
