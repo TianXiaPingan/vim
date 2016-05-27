@@ -1,3 +1,10 @@
+# Install gcc4.9 and python in CentOS 6.5
+# cd /etc/yum.repos.d; sudo wget http://linuxsoft.cern.ch/cern/scl/slc6-scl.repo; sudo yum -y --nogpgcheck install devtoolset-3-gcc devtoolset-3-gcc-c++
+# /opt/rh/devtoolset-3/root/usr/bin/gcc --version
+# sudo yum -y update  
+# sudo yum groupinstall -y 'development tools'  
+# sudo yum install -y zlib-devel bzip2-devel openssl-devel xz-libs wget  
+
 # SSH without password
 # 1. ssh-keygen -t rsa
 #   生成的过程中提示输入，直接回车，接受默认值就行了。
@@ -286,6 +293,7 @@ alias _java_eclimd="~/Installed/EclipseJava.app/Contents/Eclipse/eclimd"
 export PATH=/opt/local/bin:$PATH
 export PATH=/opt/local/sbin:$PATH
 export PATH=~/bin:$PATH
+export PATH=/opt/rh/devtoolset-3/root/usr/bin:$PATH
 
 export CPLUS_INCLUDE_PATH=~/include:$CPLUS_INCLUDE_PATH
 export CPLUS_INCLUDE_PATH=/opt/local/include:$CPLUS_INCLUDE_PATH
