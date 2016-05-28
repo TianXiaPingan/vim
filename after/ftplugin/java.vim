@@ -76,7 +76,7 @@ else
 endif
 endfunction
 """"""""""""""""""""""both for guivim and vim""""""""""""""""""""""""""""""""""
-map <F5>            <C-s><CR>:Java<CR>
+map <F5>              :Java<CR>
 
 "debug run
 nmap  <C-F5>          :Vdb run<CR>      

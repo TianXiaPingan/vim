@@ -238,7 +238,6 @@ export LSCOLORS=ExFxCxDxBxegedabagacad
 alias _create_cpp_project='cp "/Users/world/Desktop/test program/leetcode template/"* .; cp ~/.gitignore .; git init;'
 alias _create_java_project='cp "/Users/world/Desktop/test program/java template/"* .; cp ~/.gitignore .; git init;'
 alias _create_python_project='cp "/Users/world/Desktop/test program/python template/"* .; cp ~/.gitignore .; git init;'
-alias _jdb='java jline.ConsoleRunner com.sun.tools.example.debug.tty.TTY'
 
 alias l='       ls -lhr'
 alias ll='      ls -lhtr'

@@ -11,6 +11,7 @@ import thread
 import time
 from xml.etree import ElementTree 
 
+# Do NOT change here. Set in the cmd.
 debug = None
 
 class VimJavaDebugger(object):
@@ -88,8 +89,8 @@ class VimJavaDebugger(object):
   def _monitor_cmd_input(self, jdb_pipe):
     while True:
       char = sys.stdin.read(1)
-      if debug:
-        print "_monitor_cmd_input:", char
+      #if debug:
+        #print "_monitor_cmd_input:", char
       jdb_pipe.tochild.write(char)
       with self._lock:
         if self._quit:
@@ -118,7 +119,8 @@ class VimJavaDebugger(object):
                                             "/Users/%s/.m2/repository" 
                                             %os.getlogin())
     os.environ["CLASSPATH"] += ":" + lib_paths
-    #print os.environ["CLASSPATH"]
+    if debug:
+      print os.environ["CLASSPATH"]
 
   def run(self, params):
     try:
