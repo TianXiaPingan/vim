@@ -17,10 +17,18 @@ while True:
   if clineID == lineID or main_class != []:
     break
 
+package = ""
+for line in vim.current.buffer:
+  if line.startswith("import"):
+    break
+  if line.startswith("package"):
+    package = re.findall("package\s* ([^ ]*?)\s*;", line)[0]
+
 vim.current.window.cursor = (int(lineID), 0)
 if main_class != []:
   action = vim.eval("a:action")
-  cmd = ":call VDBCommand('%s %s:%s')" %(action, main_class[0], lineID)
+  main_class = main_class[0] if package == "" else package + "." + main_class[0]
+  cmd = ":call VDBCommand('%s %s:%s')" %(action, main_class, lineID)
   vim.command(cmd)
 
   if action == "stop at":
@@ -84,20 +92,20 @@ nmap  <C-F5>          :Vdb run<CR>
 "next line
 nmap  <F6>            :Vdb next<CR>
 "next function
-nmap  <F7>          :Vdb step<CR>
+nmap  <F7>            :Vdb step<CR>
 "jump out of function
-nmap  <F8>          :Vdb step up<CR>
+nmap  <F8>            :Vdb step up<CR>
 
 "continue
-nmap  <C-F6>        :Vdb cont<CR>
+nmap  <C-F6>          :Vdb cont<CR>
 
 "set a break point.
-nmap  <F9>          :call SetBreakPoint("stop at")<CR>
-nmap  <C-F9>        :call SetBreakPoint("clear")<CR>
+nmap  <F9>            :call SetBreakPoint("stop at")<CR>
+nmap  <C-F9>          :call SetBreakPoint("clear")<CR>
 
 "print variable.
-vmap  <F10>         "gy:Vdb print <C-R>g<CR>
-nmap  <F10>         :Vdb print <C-R><C-W><CR>
+vmap  <F10>           "gy:Vdb print <C-R>g<CR>
+nmap  <F10>           :Vdb print <C-R><C-W><CR>
 
 "call MapCodingBracket()
 inoremap {            <C-R>=SuperMatch()<CR>

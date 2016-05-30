@@ -19,12 +19,34 @@ class VimJavaDebugger(object):
     self._server_name   = server_name 
     self._quit          = False
     self._lock          = thread.allocate_lock()
-    self._main_class    = main_class 
+    self._main_class    = self._get_main_class(main_class)
+    self._srcs          = set()
+
+  def _get_main_class(self, main_class):
+    if main_class is not None:
+      return main_class
+    if os.path.isfile(".settings/org.eclim.prefs"):
+      txt = open(".settings/org.eclim.prefs").read()
+      rst = re.findall("org.eclim.java.run.mainclass=([^ ]+)", txt)
+      if rst != []:
+        return rst[0] 
+    return "Main"    
 
   def system(self, cmd):
     if debug:
       print "cmd: %s" %cmd
     os.system(cmd)
+
+  def _get_abs_file_path(self, fn, class2fname = dict()):
+    print "_get_abs_file_path:", fn
+    if fn in class2fname:
+      return class2fname[fn]
+    for src in self._srcs:
+      absfn = os.path.join(src, fn).replace(".", "/") + ".java"
+      if os.path.isfile(absfn):
+        class2fname[fn] = absfn
+        return absfn
+    return None   
 
   def _get_file_position(self, jdb_pipe):
     jdb_pipe.tochild.write("where\n")
@@ -32,9 +54,10 @@ class VimJavaDebugger(object):
       line = jdb_pipe.fromchild.readline()
       if debug:
         print "_get_file_position:", line
-      filename = re.findall("\[1\] .*? \((.*?):(\d+)\)", line)
-      if filename != []:
-        return filename[0]
+      matches = re.findall("\[1\] ([^ ]*)\.\w+ \(.*?:(\d+)\)", line)
+      if len(matches) > 0:
+        fn, lineID = matches[0] 
+        return self._get_abs_file_path(fn), lineID
 
   def _parse_jdb_status(self, jdb_pipe, line):
     '''Parsing commands from jdb and send to Vim'''
@@ -112,8 +135,11 @@ class VimJavaDebugger(object):
     for node in ElementTree.parse(".classpath").findall("classpathentry"):
       if node.get("kind") in ["lib", "var", "output"]:
         lib_paths.append(node.get("path"))
-      elif node.get("kind") == "src" and "output" in node.keys():
-        lib_paths.append(node.get("output"))
+      elif node.get("kind") == "src":
+        self._srcs.add(node.get("path"))
+        
+        if "output" in node.keys():
+          lib_paths.append(node.get("output"))
 
     lib_paths = ":".join(lib_paths).replace("M2_REPO", 
                                             "/Users/%s/.m2/repository" 
@@ -162,12 +188,14 @@ if __name__ == "__main__":
   #parser.add_option("-q", "--quiet", action = "store_true", dest = "verbose",
                      #default = False, help = "")
   parser.add_option("--debug", action = "store_true", dest = "debug",
-                     default = False, help = "debug mode")
+                    default = False, help = "debug mode")
   parser.add_option("--servername", dest = "server_name",
-                     default = "debug", help = "default 'debug'")
-  parser.add_option("--mainclass", dest = "main_class",
-                     default = "Main", help = "default 'Main'")
+                    default = "debug", help = "default 'debug'")
+  parser.add_option("--mainclass", dest = "main_class", default = None, 
+                    help = "By default, read .settings/org.eclim.prefs. " 
+                    "Otherwise, use 'Main'.") 
   (options, args) = parser.parse_args()
 
   debug = options.debug
+ 
   VimJavaDebugger(options.server_name, options.main_class).run(" ".join(args))
