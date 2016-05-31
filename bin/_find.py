@@ -17,7 +17,7 @@ if __name__ == "__main__":
 
   if len(args) > 0:
     if options.global_search:
-      os.chdir("/Users/world/inf")
+      os.chdir("/Users/%s/inf" %os.getlogin())
 
     args = [kw.lower() for kw in args]
     search_dir = "-type d" if options.search_dir else ""

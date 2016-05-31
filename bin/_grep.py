@@ -10,8 +10,8 @@ if __name__ == "__main__":
   #parser.add_option("-q", "--quiet", action = "store_true", dest = "verbose",
                      #default = False, help = "")
   parser.add_option("-t", dest = "fn_ext",
-                    default = "java|scala|c|cpp|hpp|py", 
-                    help = "default java|scala|c|cpp|hpp|py")
+                    default = "java|scala|c|cpp|hpp|h|py", 
+                    help = "default java|scala|c|cpp|hpp|h|py")
   (options, args) = parser.parse_args()
 
   cmd_tpt = r"find . -iregex '.*\.%s' -exec grep -iHn '%s' {} \;"

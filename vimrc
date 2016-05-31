@@ -122,6 +122,7 @@
 
 ":args *.c
 ":argdo %s/\<x_cnt\>/x_counter/ge | update
+"Use :bufdo! 
 "Put all the relevant files in the argument list: >
 "This finds all C files and edits the first one.  Now you can perform a
 "substitution command on all these files: >

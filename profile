@@ -1,3 +1,15 @@
+# Debug scala with jdb
+# compile: scalac -g:vars [source]
+# set breakpoint: stop in HelloWorld$.main
+#
+# Another usuage is 
+# run and it should ouput a port: 
+#   env JAVA_OPTS="-agentlib:jdwp=transport=dt_socket,server=y,suspend=n" scala [class]
+# attach to the port
+#   jdb -attach [port]
+# disassembles class file to assist set breakpoints
+#   javap [class]
+
 # Install gcc4.9 and python in CentOS 6.5
 # cd /etc/yum.repos.d; sudo wget http://linuxsoft.cern.ch/cern/scl/slc6-scl.repo; sudo yum -y --nogpgcheck install devtoolset-3-gcc devtoolset-3-gcc-c++
 # /opt/rh/devtoolset-3/root/usr/bin/gcc --version
@@ -304,10 +316,8 @@ export CPLUS_INCLUDE_PATH=/System/Library/Frameworks/JavaVM.framework/Versions/A
 export CPLUS_INCLUDE_PATH=~/Installed/gtest-1.7.0.summer/include:$CPLUS_INCLUDE_PATH
 
 export LIBRARY_PATH=/opt/local/Library/Frameworks/Python.framework/Versions/2.7/lib:$LIBRARY_PATH
-export LIBRARY_PATH=~/Installed/boost_1_60_0/stage/lib:$LIBRARY_PATH
 export LIBRARY_PATH=/opt/local/lib:$LIBRARY_PATH
-# for google test 1.7.0
-export LIBRARY_PATH=~/Installed/gtest-1.7.0.summer/lib/:$LIBRARY_PATH
+export LIBRARY_PATH=/usr/local/lib:$LIBRARY_PATH
 
 export DYLD_FALLBACK_LIBRARY_PATH=/opt/local/Library/Frameworks/Python.framework/Versions/2.7/lib:$DYLD_FALLBACK_LIBRARY_PATH
 export DYLD_FALLBACK_LIBRARY_PATH=~/Installed/boost_1_60_0/stage/lib:$DYLD_FALLBACK_LIBRARY_PATH
