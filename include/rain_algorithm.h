@@ -186,13 +186,11 @@ class DisjointSet {
 
 class RandInt {
  public:
-  RandInt(unsigned seed = 0) {
-    seed = seed == 0 ? unsigned(time(0)) : seed;
-    srand(seed);
-  }
+  // We should do srand(seed) at first beginning of our program.
 
   // [begin, end)
   int operator ()(int begin, int end) {
+    assert(begin < end);
     auto rnd = rand() ^ (unsigned(rand()) << 15) ^ (unsigned(rand()) << 30);
     return rnd % (end - begin) + begin;
   }
@@ -242,6 +240,28 @@ ostream& operator << (ostream &stream, const vector<Type> &vec) {
     stream << d << " ";
   }
   return stream;
+}
+
+template<class Type>
+void reservoirSample(const vector<Type> &data, vector<Type> &out, int k) {
+  out.clear();
+  if (k < 1) {
+    return;
+  }
+
+  for (int p = 0; p < k; ++p) {
+    out.push_back(data[p]);
+  }
+
+  //auto myrand = RandInt(0);
+  auto myrand = RandInt();
+  for (int p = k; p < SIZE(data); ++p) {
+    auto pos = myrand(0, p);
+    //cout << "p: " << p << ", " << pos << endl;
+    if (pos < k) {
+      out[pos] = data[p];
+    }
+  }
 }
 
 // log_sum(vector) or log_sum<initializer_list<double>>({1, 2, 3, 4});
