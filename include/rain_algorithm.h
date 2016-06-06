@@ -153,7 +153,7 @@ class DisjointSet {
   // For example, combine(0, 1), combine(1, 2), ..., combine(m, m + 1), ...
   // This would lead to maximum recursion limit exceeded.
   void combine(int a, int b) {
-    int f1 = get_father(a), f2 = get_father(b);
+    int f1 = getFather(a), f2 = getFather(b);
     if (f1 != f2) {
       if (sizes_[f1] >= sizes_[f2]) {
         fathers_[f2] = f1;
@@ -171,11 +171,11 @@ class DisjointSet {
     return cluster_size_;
   }
 
-  int get_father(int a) {
+  int getFather(int a) {
     if (fathers_[a] == -1) {
       return a;
     }
-    fathers_[a] = get_father(fathers_[a]);
+    fathers_[a] = getFather(fathers_[a]);
     return fathers_[a];
   }
 
@@ -210,13 +210,13 @@ class IndexManager {
     }
   }
 
-  int get_index(const string &label) const {
+  int getIndex(const string &label) const {
     auto ite = label2index_.find(label);
     assert(ite != label2index_.end());
     return ite->second;
   }
 
-  string get_name(int index) const {
+  string getName(int index) const {
     return labels_.at(index);
   }
 
@@ -264,9 +264,9 @@ void reservoirSample(const vector<Type> &data, vector<Type> &out, int k) {
   }
 }
 
-// log_sum(vector) or log_sum<initializer_list<double>>({1, 2, 3, 4});
+// logSum(vector) or logSum<initializer_list<double>>({1, 2, 3, 4});
 template<class Type>
-double log_sum(const Type &data) {
+double logSum(const Type &data) {
   double maxv = *max_element(begin(data), end(data));
   double ret = 0;
   for (auto e: data) {
@@ -348,7 +348,7 @@ inline vector<string> split(const string &src) {
 
 // The precision of double is 17;   1.234567891234567e20;
 // The precision of float  is 9;    1.23456789e20;
-// No need to define strict_greater and strict_less;
+// No need to define strictGreater and strictLess;
 // In "The art of computer programming by Knuth", this is also called \
 // approximatelyEqual;
 // bool approximatelyEqual(float a, float b, float epsilon) {
@@ -378,35 +378,35 @@ inline bool eq(double a, double b) {
   return fabs(a - b) <= EPSILON;
 }
 
-inline bool strict_less(double a, double b) {
+inline bool strictLess(double a, double b) {
   return !eq(a, b) && a < b;
 }
 
-inline bool strict_greater(double a, double b) {
+inline bool strictGreater(double a, double b) {
   return !eq(a, b) && a > b;
 }
 
-inline bool less_and_eq(double a, double b) {
-  return !strict_greater(a, b);
+inline bool lessAndEq(double a, double b) {
+  return !strictGreater(a, b);
 }
 
-inline bool greater_and_eq(double a, double b) {
-  return !strict_less(a, b);
+inline bool greaterAndEq(double a, double b) {
+  return !strictLess(a, b);
 }
 
-inline bool startswith(const string &str, string prefix) {
+inline bool startsWith(const string &str, string prefix) {
   return (prefix.size() <= str.size() && 
           str.compare(0, prefix.size(), prefix) == 0);
 }
 
-inline bool endswith(const string &str, string postfix) {
+inline bool endsWith(const string &str, string postfix) {
   return (postfix.size() <= str.size() && 
           str.compare(str.size() - postfix.size(), 
                       postfix.size(), postfix) == 0);
 }
 
 // return memory used, MB
-inline double get_memory() {
+inline double getMemory() {
 #ifdef __APPLE__
   cerr << "Cannot get memory in Mac" << endl;
   return -3.1415926;
@@ -419,7 +419,7 @@ inline double get_memory() {
   }
   else {
     string line;
-    while (getline(fin, line) && !startswith(line, "VmSize")) {
+    while (getline(fin, line) && !startsWith(line, "VmSize")) {
     }
     return stod(split(line).at(1)) / 1000;
   }
@@ -437,15 +437,15 @@ class CountTime {
         }
       }
 
-  double get_hours() const {
-    return get_seconds() / 3600;
+  double getHours() const {
+    return getSeconds() / 3600;
   }
 
-  double get_minutes() const {
-    return get_seconds() / 60;
+  double getMinutes() const {
+    return getSeconds() / 60;
   }
 
-  double get_seconds() const {
+  double getSeconds() const {
     auto finish = clock();
     double tsecond = (finish - start_) / (double)CLOCKS_PER_SEC;
     return tsecond;
@@ -453,7 +453,7 @@ class CountTime {
 
   ~CountTime() {
     if (alive_) {
-      double tsecond = get_seconds();
+      double tsecond = getSeconds();
       int h = (int)(tsecond / (60 * 60));
       int m = (int)((tsecond - h * 60 * 60) / 60);
       double s = tsecond - h * 60 * 60 - m * 60;

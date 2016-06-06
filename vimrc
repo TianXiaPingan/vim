@@ -87,8 +87,8 @@
 "complex repeat
 "1. In normal mode, qa
 "2. do something...
-"3. In normal mode, q.
-"4. @a or 1000@@
+"3. In normal mode, q
+"4. @a or 1000@a
 
 "Open file in a binary form
 "vim -b datafile
