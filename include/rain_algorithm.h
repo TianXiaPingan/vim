@@ -469,6 +469,24 @@ class CountTime {
   string              inf_;
   decltype(clock())   start_;
 };
+
+void l1Norm(VecDouble &weight, double norm = 1) {
+  double wsum = 0;
+  for (auto w: weight) {
+    wsum += fabs(w);    
+  }
+ 
+  if (eq(wsum, 0)) {
+    cout << "Warning in l1Norm: 0 vector found" << endl;
+    return;
+  }
+
+  double ratio = norm / wsum; 
+  for (auto &w: weight) {
+    w *= ratio;
+  }
+}
+
 }
 
 #endif
