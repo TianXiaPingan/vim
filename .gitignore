@@ -2,3 +2,4 @@ spell
 .DS_Store
 *.swp
 *.pyc
+.netrwhist

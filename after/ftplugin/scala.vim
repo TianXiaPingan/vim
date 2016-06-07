@@ -75,3 +75,10 @@ let b:current_syntax = "scala"
 
 " if you want to override default methods for highlighting
 "hi Conditional	term=bold ctermfg=Cyan guifg=#80a0ff
+
+map <Leader>jnew      :ProjectCreate . -n scala<CR>
+map <Leader>jo        :ProjectOpen<CR>
+map <Leader>jx        :ProjectClose<CR>
+map <Leader>jl        :ProjectList<CR>
+map <C-b>             :ProjectBuild<CR>
+inoremap .            .<C-X><C-U>

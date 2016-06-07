@@ -1,3 +1,6 @@
+# vim repository
+# git clone git@52.68.137.96:"/home/git/Tian Xia/personal/vim"
+
 # Debug scala with jdb
 # compile: scalac -g:vars [source]
 # set breakpoint: stop in HelloWorld$.main
@@ -298,6 +301,7 @@ alias _server_dev3="ssh txia@g1dlfinddev03.dev.glbt1.gdg"
 alias _server_dev4="ssh txia@g1dlfinddev04.dev.glbt1.gdg"
 alias _server_dev5="ssh txia@g1dlfinddev05.dev.glbt1.gdg"
 alias _server_hadoop="ssh txia@p3plpashl01.prod.phx3.gdg"
+alias _server_spark="ssh txia@g1dlemllab01-02.dev.glbt1.gdg"
 
 alias _java_eclimd="~/Installed/EclipseJava.app/Contents/Eclipse/eclimd"
 
