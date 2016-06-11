@@ -130,6 +130,7 @@
 "/19[0-9][0-9]\|20[0-9][0-9]
 "Using the same text as above, search for a year: 
 "Now press CTRL-A.  The year will be increased by one.
+"CTRL-X, decrease by one.
 
 "把光标所在行移到窗口的顶端、中间或底部，这时就可以用到”zt“、”zz“和”zb“。
 "zt zz zb
@@ -414,7 +415,6 @@ imap  <C-s>         <Esc><C-s>gi
 map <C-e>           :!<CR>
 
 map <C-q>           :q<CR>
-map <C-x>           :x<CR>
 
 " copy into global clipboard.
 nmap     <silent> <C-c>   :call setreg("+", expand("<cword>"), "v") <CR>

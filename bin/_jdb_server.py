@@ -54,9 +54,10 @@ class VimJavaDebugger(object):
       line = jdb_pipe.fromchild.readline()
       if debug:
         print "_get_file_position:", line
-      matches = re.findall("\[1\] ([^ ]*)\.\w+ \(.*?:(\d+)\)", line)
+      matches = re.findall("\[1\] ([^ ]*) \((.*?).java:(\d+)\)", line)
       if len(matches) > 0:
-        fn, lineID = matches[0] 
+        package, fn, lineID = matches[0] 
+        fn = ".".join(package.split(".")[: -2] + [fn])
         return self._get_abs_file_path(fn), lineID
 
   def _parse_jdb_status(self, jdb_pipe, line):

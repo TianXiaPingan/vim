@@ -3,3 +3,6 @@ spell
 *.swp
 *.pyc
 .netrwhist
+*.class
+.project
+.settings/*
