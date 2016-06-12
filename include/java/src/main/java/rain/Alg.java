@@ -40,6 +40,27 @@ public class Alg {
     }
   }
 
+  public static void l1Norm(List<Double> weight, double norm) {
+    double wsum = 0.;
+    for (double w: weight) {
+      wsum += Math.abs(w);
+    }
+
+    if (eq(wsum, 0)) {
+      System.out.println("Warning in l1Norm: 0 vector found");
+      return;
+    }
+
+    double ratio = norm / wsum;
+    for (int p = 0; p < weight.size(); ++p) {
+      weight.set(p, weight.get(p) * ratio);
+    }
+  }
+
+  //public static <Type> void update(List<Type> data, int pos, Type value) {
+    //data.set(pos, data.get(pos) + value);
+  //}
+
   public static double EPSILON = 1e-6;
 
   public static void main(String[] argv) {

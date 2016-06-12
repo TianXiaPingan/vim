@@ -424,6 +424,8 @@ nmap    <silent> <S-l>    <C-c> :exec "!open dict://" . expand("<cword>")<CR><CR
 
 map <C-l>           "+yy
 
+map <C-M>           :call MatchLongLines()<CR>
+
 " reopen the current file.
 map <F2>            :e%<CR>
 

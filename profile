@@ -333,6 +333,7 @@ export PYTHONPATH=~/bin:$PYTHONPATH
 export CLASSPATH=~/.m2/repository/org/scala-lang/scala-library/2.11.7/scala-library-2.11.7.jar:$CLASSPATH
 export CLASSPATH=/opt/local/share/java/jline.jar:$CLASSPATH
 export CLASSPATH=/Library/Java/JavaVirtualMachines/jdk1.8.0_91.jdk/Contents/Home/lib/tools.jar:$CLASSPATH
+#export CLASSPATH=~/include/java/bin:$CLASSPATH
 
 #export PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME%%.*}: ${PWD/#$HOME/~}\007"'
 
