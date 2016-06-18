@@ -6,3 +6,6 @@ spell
 *.class
 .project
 .settings/*
+.idea
+*.iml
+META-INF

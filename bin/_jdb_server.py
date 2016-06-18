@@ -27,7 +27,7 @@ class VimJavaDebugger(object):
       return main_class
     if os.path.isfile(".settings/org.eclim.prefs"):
       txt = open(".settings/org.eclim.prefs").read()
-      rst = re.findall("org.eclim.java.run.mainclass=([^ ]+)", txt)
+      rst = re.findall("org.eclim.java.run.mainclass=([^\s]+)", txt)
       if rst != []:
         return rst[0] 
     return "Main"    

@@ -296,10 +296,6 @@ alias _server_wife="ssh ma@192.168.1.115"
 alias _server_wd="ssh summer@192.168.1.100"
 
 alias _server_dev1="ssh txia@g1dlfinddev01.dev.glbt1.gdg"
-alias _server_dev2="ssh txia@g1dlfinddev02.dev.glbt1.gdg"
-alias _server_dev3="ssh txia@g1dlfinddev03.dev.glbt1.gdg"
-alias _server_dev4="ssh txia@g1dlfinddev04.dev.glbt1.gdg"
-alias _server_dev5="ssh txia@g1dlfinddev05.dev.glbt1.gdg"
 alias _server_hadoop="ssh txia@p3plpashl01.prod.phx3.gdg"
 alias _server_spark="ssh txia@g1dlemllab01-02.dev.glbt1.gdg"
 

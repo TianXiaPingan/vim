@@ -1,6 +1,7 @@
 package rain;
 
 import java.util.*;
+import org.apache.commons.lang3.ArrayUtils;
 
 public class Alg {
   public static <Type> void reverse(Type[] data, int f, int t) {
@@ -40,7 +41,7 @@ public class Alg {
     }
   }
 
-  public static void l1Norm(List<Double> weight, double norm) {
+  public static double[] l1Norm(double[] weight, double norm) {
     double wsum = 0.;
     for (double w: weight) {
       wsum += Math.abs(w);
@@ -48,22 +49,25 @@ public class Alg {
 
     if (eq(wsum, 0)) {
       System.out.println("Warning in l1Norm: 0 vector found");
-      return;
+      return weight; 
     }
 
     double ratio = norm / wsum;
-    for (int p = 0; p < weight.size(); ++p) {
-      weight.set(p, weight.get(p) * ratio);
+    double[] ret = new double[weight.length];
+    for (int p = 0; p < weight.length; ++p) {
+      ret[p] = weight[p] * ratio;
     }
+    return ret;
   }
 
   //public static <Type> void update(List<Type> data, int pos, Type value) {
     //data.set(pos, data.get(pos) + value);
   //}
 
-  public static double EPSILON = 1e-6;
+  public static double EPSILON = 1e-8;
 
   public static void main(String[] argv) {
+    Timer timer = new Timer("Test Alg");
     System.out.println("Hello rain.Alg");
 
     List<Integer> list = Arrays.asList(1, 2, 3, 4, 5);
@@ -73,5 +77,14 @@ public class Alg {
     List<Double> data = new ArrayList<>();
     Alg.reSize(data, 10, 0.);
     System.out.println(data.size());
+
+    double[] weights = {
+      1, 2, 3, 4, 
+    };
+    double[] weightsL1 = Alg.l1Norm(weights, 1.);
+
+    System.out.println(Arrays.asList(ArrayUtils.toObject(weightsL1)));
+    
+    timer.stop();
   }
 };

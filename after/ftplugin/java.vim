@@ -123,6 +123,7 @@ map <Leader>jo        :ProjectOpen<CR>
 map <Leader>jx        :ProjectClose<CR>
 map <Leader>jl        :ProjectList<CR>
 map <Leader>r         :call QuickJavaRename()<CR>
+map <Leader>q         :Vdb exit<CR>
 
 map <C-]>             :JavaSearch<CR>
 map <C-b>             :ProjectBuild<CR>

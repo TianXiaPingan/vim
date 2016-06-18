@@ -394,7 +394,7 @@ set mouse=a
 set mousetime=2000
 set nobackup
 
-map <Leader>o      :call OpenLink()<CR>
+map <Leader>o       :call OpenLink()<CR>
 
 map <Leader>f       :call TextJustification()<CR>
 
@@ -425,6 +425,9 @@ nmap    <silent> <S-l>    <C-c> :exec "!open dict://" . expand("<cword>")<CR><CR
 map <C-l>           "+yy
 
 map <C-M>           :call MatchLongLines()<CR>
+
+map <C-up>          [{
+map <C-down>        ]}
 
 " reopen the current file.
 map <F2>            :e%<CR>
