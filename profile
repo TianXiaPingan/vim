@@ -1,3 +1,19 @@
+# Run spark java on YARN
+# for example:
+# export SPARK_CLASSPATH=/etc/hadoop/conf
+# /home/nhowell/spark-1.6.0-SNAPSHOT-bin-2.2.0/bin/spark-submit \
+#  --class main-class-name \
+#  --master yarn \
+#  --deploy-mode cluster \
+#  --driver-memory 10g \
+#  --executor-memory 10g \
+#  --executor-cores 2 \
+#  --queue thequeue \
+#  my-application-jar args 
+#
+#  See the log: 
+#  yarn logs -applicationId  application_1459392377141_1777898 | vim -
+
 # vim repository
 # git clone git@52.68.137.96:"/home/git/Tian Xia/personal/vim"
 
@@ -266,6 +282,7 @@ alias hcat='hadoop fs -cat'
 alias hcp='hadoop fs -cp'
 alias hmkdir='hadoop fs -mkdir'
 alias hrm='hadoop fs -rm'
+alias hlog='yarn logs -applicationId'
 
 alias _git_reset='git reset'
 alias _git_init='git init'
@@ -344,3 +361,5 @@ export PYTHONIOENCODING=utf8
 export PROMPT_COMMAND='echo -ne "\033]0;$PWD\007"'
 export PS1='\u@\W\$ '
 
+# for spark.
+export SPARK_CLASSPATH=/etc/hadoop/conf
