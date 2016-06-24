@@ -1,4 +1,4 @@
-# Run spark java on YARN
+# Run spark Java on YARN
 # for example:
 # export SPARK_CLASSPATH=/etc/hadoop/conf
 # /home/nhowell/spark-1.6.0-SNAPSHOT-bin-2.2.0/bin/spark-submit \
@@ -11,7 +11,13 @@
 #  --queue thequeue \
 #  my-application-jar args 
 #
-#  See the log: 
+# Run spark Python on YARN
+# export PYSPARK_PYTHON=/usr/bin/python27-virtual-hadoop
+# spark-submit python-script args
+#
+# Not no need to set 'master = "local[1]"';
+#
+# See the log: 
 #  yarn logs -applicationId  application_1459392377141_1777898 | vim -
 
 # vim repository
@@ -276,12 +282,13 @@ alias la='      ls -lhatr'
 alias lld='     ls -lhtr | grep "^d"'
 
 #[[http://hadoop.apache.org/docs/current/hadoop-project-dist/hadoop-common/FileSystemShell.html]]
+alias hfs='hadoop fs'
 alias hls='hadoop fs -ls -h'
 alias hlsr='hadoop fs -ls -h -R'
 alias hcat='hadoop fs -cat'
 alias hcp='hadoop fs -cp'
 alias hmkdir='hadoop fs -mkdir'
-alias hrm='hadoop fs -rm'
+alias hrm='hadoop fs -rm -r'
 alias hlog='yarn logs -applicationId'
 
 alias _git_reset='git reset'
@@ -361,5 +368,7 @@ export PYTHONIOENCODING=utf8
 export PROMPT_COMMAND='echo -ne "\033]0;$PWD\007"'
 export PS1='\u@\W\$ '
 
-# for spark.
+# for spark Java.
 export SPARK_CLASSPATH=/etc/hadoop/conf
+# for spark Python.
+export PYSPARK_PYTHON=/usr/bin/python27-virtual-hadoop
