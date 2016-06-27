@@ -282,14 +282,20 @@ alias la='      ls -lhatr'
 alias lld='     ls -lhtr | grep "^d"'
 
 #[[http://hadoop.apache.org/docs/current/hadoop-project-dist/hadoop-common/FileSystemShell.html]]
-alias hfs='hadoop fs'
-alias hls='hadoop fs -ls -h'
-alias hlsr='hadoop fs -ls -h -R'
-alias hcat='hadoop fs -cat'
-alias hcp='hadoop fs -cp'
-alias hmkdir='hadoop fs -mkdir'
-alias hrm='hadoop fs -rm -r'
-alias hlog='yarn logs -applicationId'
+alias _hadoop='hadoop fs'
+alias _hls='hadoop fs -ls -h'
+alias _hlsr='hadoop fs -ls -h -R'
+alias _hcat='hadoop fs -cat'
+alias _hcp='hadoop fs -cp'
+alias _hmv='hadoop fs -mv'
+alias _hmkdir='hadoop fs -mkdir'
+alias _hrm='hadoop fs -rm -r'
+alias _hdu='hadoop fs -du -h'
+alias _hcopyFromLocal='hadoop fs -copyFromLocal'
+alias _hcopyToLocal='hadoop fs -copyToLocal'
+
+alias _hlog='yarn logs -applicationId'
+alias _hadoop_yarn_kill='yarn application -kill'
 
 alias _git_reset='git reset'
 alias _git_init='git init'
@@ -329,6 +335,7 @@ export PATH=/opt/local/bin:$PATH
 export PATH=/opt/local/sbin:$PATH
 export PATH=~/bin:$PATH
 export PATH=/opt/rh/devtoolset-3/root/usr/bin:$PATH
+export PATH=/home/txia/installed/jdk1.8.0_91/bin:$PATH
 
 export CPLUS_INCLUDE_PATH=~/include:$CPLUS_INCLUDE_PATH
 export CPLUS_INCLUDE_PATH=/opt/local/include:$CPLUS_INCLUDE_PATH
