@@ -1,20 +1,18 @@
 # Run spark Java on YARN
 # for example:
-# export SPARK_CLASSPATH=/etc/hadoop/conf
-# /home/nhowell/spark-1.6.0-SNAPSHOT-bin-2.2.0/bin/spark-submit \
+# /opt/spark/1.5.1/bin/spark-submit \
 #  --class main-class-name \
-#  --master yarn \
-#  --deploy-mode cluster \
+#  --conf spark.dynamicAllocation.maxExecutors=100 \
+#  --master yarn --deploy-mode cluster \
+#     or 
+#  --master yarn-client \
 #  --driver-memory 10g \
 #  --executor-memory 10g \
-#  --executor-cores 2 \
-#  --queue thequeue \
 #  my-application-jar args 
 #
 # Run spark Python on YARN
 # export PYSPARK_PYTHON=/usr/bin/python27-virtual-hadoop
 # spark-submit python-script args
-#
 # Not no need to set 'master = "local[1]"';
 #
 # See the log: 
@@ -376,6 +374,6 @@ export PROMPT_COMMAND='echo -ne "\033]0;$PWD\007"'
 export PS1='\u@\W\$ '
 
 # for spark Java.
-export SPARK_CLASSPATH=/etc/hadoop/conf
+#export SPARK_CLASSPATH=/etc/hadoop/conf
 # for spark Python.
 export PYSPARK_PYTHON=/usr/bin/python27-virtual-hadoop
