@@ -1,5 +1,8 @@
 #!/usr/bin/env python
 
+from collections import Counter, defaultdict, namedtuple
+from operator import methodcaller, attrgetter, itemgetter 
+from optparse import OptionParser
 import bisect
 import cPickle
 import collections
@@ -8,8 +11,7 @@ import heapq
 import itertools
 import math 
 import multiprocessing 
-import operator 
-import optparse 
+import optparse
 import os 
 import pprint
 import random

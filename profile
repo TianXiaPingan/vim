@@ -282,7 +282,6 @@ alias lld='     ls -lhtr | grep "^d"'
 #[[http://hadoop.apache.org/docs/current/hadoop-project-dist/hadoop-common/FileSystemShell.html]]
 alias _hadoop='hadoop fs'
 alias _hls='hadoop fs -ls -h'
-alias _hlsr='hadoop fs -ls -h -R'
 alias _hcat='hadoop fs -cat'
 alias _hcp='hadoop fs -cp'
 alias _hmv='hadoop fs -mv'
