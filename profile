@@ -1,3 +1,5 @@
+# brew installation directory: /usr/local/Cellar
+
 # Run spark Java on YARN
 # for example:
 # /opt/spark/1.5.1/bin/spark-submit \

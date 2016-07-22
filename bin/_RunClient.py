@@ -24,10 +24,10 @@ class Client:
     self._port   = port
     self._topN   = topN
 
-  def fetchSerp(self, query, countrySite, geoLoc):
+  def fetchSerp(self, query, country, geoLoc):
     querytext = (Client.findUrl %(self._server, self._port) + 
                  urllib.urlencode({"q":query}) + 
-                 Client.findUrlSetting %(countrySite, geoLoc, self._topN))
+                 Client.findUrlSetting %(country, geoLoc, self._topN))
     if debug:
       print querytext
     request = urllib2.Request(querytext) 
@@ -41,7 +41,7 @@ class Client:
                   "Ext", "SLD", "Domain", "Score"]]
     for b in domains :
       display = []
-      display.append(str(b["index"]))
+      display.append(str(b["index"] - 1))
       if b["inventory"] == "extensions" :
         display.append("ext")
         summary["ext"] = summary.get("ext",0) + 1
@@ -87,7 +87,7 @@ class Client:
         for i in range(len(name),len(query)+9) :
           name = name + " "
       display.append(name)
-      display.append(str(round(b["domain_score"], 3)))
+      display.append(str(round(b["domain_score"], 10)))
 
       assert len(display) == 8
       display = map(methodcaller("strip"), display)
@@ -118,7 +118,7 @@ if __name__ == "__main__":
                     help = "8080 by default")
   parser.add_option("--server", dest = "server", default = "localhost", 
                     help = "localhost default")
-  parser.add_option("--countrysite", dest = "countrySite", default = "in", 
+  parser.add_option("--country", dest = "country", default = "in", 
                     help = "in by default")
   parser.add_option("--geo", dest = "geoLoc", default = "us", 
                     help = "us by default")
@@ -128,12 +128,12 @@ if __name__ == "__main__":
 
   client = Client(options.server, options.port, options.topN)
   segs, summary, results = client.fetchSerp(options.query, 
-                                            options.countrySite, 
+                                            options.country, 
                                             options.geoLoc)
 
-  print "Query: %s, countrySite: %s, geo: %s" %(options.query, 
-                                                options.countrySite, 
-                                                options.geoLoc)
+  print "Query: %s, country: %s, geo: %s" %(options.query.lower(),
+                                            options.country, 
+                                            options.geoLoc)
   print "Segmentation:", " ".join(segs)
   print
 
