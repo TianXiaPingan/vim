@@ -66,7 +66,7 @@
 
 // input-output header files
 #include <fstream>
-//#include <iomanip>
+#include <iomanip>
 #include <iostream>
 #include <sstream>
 
@@ -470,7 +470,7 @@ class CountTime {
   decltype(clock())   start_;
 };
 
-void l1Norm(VecDouble &weight, double norm = 1) {
+inline void l1Norm(VecDouble &weight, double norm = 1) {
   double wsum = 0;
   for (auto w: weight) {
     wsum += fabs(w);    

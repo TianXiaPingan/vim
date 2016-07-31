@@ -5,7 +5,7 @@ import json
 import urllib2
 import urllib
 
-debug = False
+debug = True 
 
 class Client:
   findUrl = "http://%s:%s/v3/name/find?" 
@@ -16,6 +16,7 @@ class Client:
                     "&user_shopper_status=PUBLIC""&server_private_label_id=1"
                     "&server_currency=USD&server_ip=127.0.0.1"
                     "&server_name=anonymous&domain_source=ALL"
+                    "&geo_longitude=%f&geo_latitude=%f"
                     "&user_vguid=strange-visitor-session-ID"
                     "&user_shopper_id=52563262")
 
@@ -24,18 +25,19 @@ class Client:
     self._port   = port
     self._topN   = topN
 
-  def fetchSerp(self, query, country, geoLoc):
+  def fetchSerp(self, query, country, geoLoc, longitude, latitude):
     querytext = (Client.findUrl %(self._server, self._port) + 
                  urllib.urlencode({"q":query}) + 
-                 Client.findUrlSetting %(country, geoLoc, self._topN))
+                 Client.findUrlSetting %(country, geoLoc, self._topN, 
+                                         longitude, latitude))
     if debug:
       print querytext
     request = urllib2.Request(querytext) 
     handler = urllib2.urlopen(request)
-    p = json.loads(handler.read())
+    jasonResult = json.loads(handler.read())
 
-    domains = p["domains"]
-    segs = p["keys"]
+    domains = jasonResult["domains"]
+    segs = jasonResult["keys"]
     summary = {}
     results = [["ID", "Inventory", "Match", "Source", 
                   "Ext", "SLD", "Domain", "Score"]]
@@ -93,7 +95,7 @@ class Client:
       display = map(methodcaller("strip"), display)
       results.append(display)
 
-    return segs, summary, results  
+    return jasonResult["diagnostic"], segs, summary, results  
 
   def beautifulPrint(self, results):
     fieldNum = len(results[0])
@@ -124,12 +126,18 @@ if __name__ == "__main__":
                     help = "us by default")
   parser.add_option("-n", dest = "topN", type = int, default = 20, 
                     help = "20 by default")
+  parser.add_option("--long", dest = "longitude", type = float, default = 0,
+                    help = "longitude")
+  parser.add_option("--lat", dest = "latitude", type = float, default = 0,
+                    help = "latitude")
   (options, args) = parser.parse_args()
 
   client = Client(options.server, options.port, options.topN)
-  segs, summary, results = client.fetchSerp(options.query, 
-                                            options.country, 
-                                            options.geoLoc)
+  diag, segs, summary, results = client.fetchSerp(options.query, 
+                                                  options.country, 
+                                                  options.geoLoc,
+                                                  options.longitude,
+                                                  options.latitude)
 
   print "Query: %s, country: %s, geo: %s" %(options.query.lower(),
                                             options.country, 
@@ -140,4 +148,6 @@ if __name__ == "__main__":
   client.beautifulPrint(results)
   for key in summary.keys():
     print key + "=" + str(summary[key]) + "  ",
-  print
+  print "\n"
+  print diag
+
