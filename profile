@@ -307,6 +307,8 @@ alias _git_commit_amend='git commit -a --amend'
 alias _git_branch='git branch'
 alias _git_checkout='git checkout'
 alias _git_log='git log'
+alias _git_log_graph='git log --graph --decorate'
+alias _git_log_graph_oneline='git log --graph --oneline --decorate'
 
 alias du1='clear; du -h -d 1'
 alias du2='clear; du -h --max-depth 1'

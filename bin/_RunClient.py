@@ -8,30 +8,30 @@ import urllib
 debug = True 
 
 class Client:
-  findUrl = "http://%s:%s/v3/name/find?" 
-  findUrlSetting = ("&user_country_site=%s&geo_country_code=%s"
-                    "&pagination_size=%d"
-                    "&pagination_start=0&max_price=2147483647&min_price=0"
-                    "&max_sld_length=2147483647&min_sld_length=1"
-                    "&user_shopper_status=PUBLIC""&server_private_label_id=1"
-                    "&server_currency=USD&server_ip=127.0.0.1"
-                    "&server_name=anonymous&domain_source=ALL"
-                    "&geo_longitude=%f&geo_latitude=%f"
-                    "&user_vguid=strange-visitor-session-ID"
-                    "&user_shopper_id=52563262")
+  findUrl = ("http://%s:%s/v3/name/find?%s" 
+             "&user_country_site=%s&geo_country_code=%s"
+             "&pagination_size=%d"
+             "&pagination_start=0&max_price=2147483647&min_price=0"
+             "&max_sld_length=2147483647&min_sld_length=1"
+             "&user_shopper_status=PUBLIC""&server_private_label_id=1"
+             "&server_currency=USD&server_ip=127.0.0.1"
+             "&server_name=anonymous&domain_source=ALL"
+             "&user_vguid=strange-visitor-session-ID"
+             "&user_shopper_id=52563262")
 
   def __init__(self, server, port, topN):
     self._server = server
     self._port   = port
     self._topN   = topN
-
+  
   def fetchSerp(self, query, country, geoLoc, longitude, latitude):
-    querytext = (Client.findUrl %(self._server, self._port) + 
-                 urllib.urlencode({"q":query}) + 
-                 Client.findUrlSetting %(country, geoLoc, self._topN, 
-                                         longitude, latitude))
-    if debug:
-      print querytext
+    querytext = Client.findUrl %(self._server, self._port, 
+                                 urllib.urlencode({"q":query}),
+                                 country, geoLoc, self._topN)
+    if longitude is not None and latitude is not None:
+      querytext += "&geo_longitude=%f&geo_latitude=%f" %(longitude, latitude)
+    print querytext
+
     request = urllib2.Request(querytext) 
     handler = urllib2.urlopen(request)
     jasonResult = json.loads(handler.read())
@@ -126,9 +126,9 @@ if __name__ == "__main__":
                     help = "us by default")
   parser.add_option("-n", dest = "topN", type = int, default = 20, 
                     help = "20 by default")
-  parser.add_option("--long", dest = "longitude", type = float, default = 0,
+  parser.add_option("--long", dest = "longitude", type = float, default = None,
                     help = "longitude")
-  parser.add_option("--lat", dest = "latitude", type = float, default = 0,
+  parser.add_option("--lat", dest = "latitude", type = float, default = None,
                     help = "latitude")
   (options, args) = parser.parse_args()
 
