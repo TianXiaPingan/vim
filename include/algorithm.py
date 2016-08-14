@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
-from collections import Counter, defaultdict, namedtuple
-from operator import methodcaller, attrgetter, itemgetter 
+from collections import defaultdict, namedtuple
+from operator import methodcaller, attrgetter, itemgetter, add
 from optparse import OptionParser
 import bisect
 import cPickle
@@ -50,44 +50,13 @@ class DisjointSet:
         self._sizes[f2] += self._sizes[f1]
       self._cluster_size -= 1    
 
-class Stemmer:
-  def __init__(self, dictionary = ("/Users/world/inf/study/bin/"
-                                   "lex_to_lemma_63522.txt")):
-    self.dic = dict(map(methodcaller("split"), open(dictionary)))
-      
-  def restore(self, word):
-    return self.dic.get(word, word)
 
-class HtmlDrawer:
-  def __init__(self):
-    '''color url:   http://www.w3schools.com/html/html_colors.asp
-       color codes: http://html-color-codes.info'''
-    self.content = []
-    self.colors  = {
-      "black": "#000000", 
-      "red"  : "#FF0000",
-      "green": "#00FF00",
-      "blue" : "#0000FF",
-      "light": "#00FFFF",
-      "pink" : "#FF00FF"
-    }
+def extractAttribute(toks, keys = None):
+  items = map(lambda tok: map(methodcaller("strip"), tok.split("=")), toks)
+  items = filter(lambda pair: keys is None or pair[0] in keys, items)
+  return dict(items)
 
-    print "available colors:", self.colors.keys()
-
-  def append(self, ln):
-    self.content.append(ln)
-
-  def get_pattern(self, item, color = "blue"):
-    return ('''<span style="color:%s">%s</span>''' 
-            %(self.colors[color], item))
-
-  def save(self, fname):
-    width   = int(log(len(self.content)) / log(10)) + 2
-    content = ["%s %s <br>" %(str(ite).ljust(width), ln) 
-               for ite, ln in enumerate(self.content)]
-    print >> open(fname, "w"), "\n".join(content)
-
-def get_installed_packages():
+def getInstalledPackages():
   import pip
   packages = pip.get_installed_distributions()
   packages = sorted(["%s==%s" % (i.key, i.version) for i in packages])
@@ -96,7 +65,7 @@ def get_installed_packages():
 def eq(v1, v2, prec = EPSILON):
   return abs(v1 - v2) < EPSILON
 
-def get_memory(size_type = "rss"):
+def getMemory(size_type = "rss"):
   '''Generalization; memory sizes (MB): rss, rsz, vsz.'''
   content = os.popen('ps -p %d -o %s | tail -1' 
                      %(os.getpid(), size_type)).read()
@@ -116,10 +85,10 @@ def norm2(vec):
   else:
     return array([e / nm for e in vec])
 
-def discrete_sample(dists):        
+def discreteSample(dists):        
   '''each probability must be greater than 0'''
   sumv = sum(dists)
-  prob = sumv * random()
+  prob = sumv * random.random()
   asum = 0.0
   for p in xrange(len(dists)):
     asum += dists[p]
@@ -128,7 +97,7 @@ def discrete_sample(dists):
   for p in dists:
     assert p >= 0
 
-def n_fold_split(data, N = 10):
+def nFoldSplit(data, N = 10):
   seed(0)
   shuffle(data)
   ret   = []
@@ -139,7 +108,7 @@ def n_fold_split(data, N = 10):
     yield [sum(pdata, []), test_data]
     pdata.insert(fi, test_data)
 
-def logsum(ds):
+def logSum(ds):
   '''input: [d1, d2, d3..] = [log(p1), log(p2), log(p3)..]
       output: log(p1 + p2 + p3..)
   '''
@@ -147,7 +116,7 @@ def logsum(ds):
   e = log(sum([exp(d - dv) for d in ds]))
   return dv + e
 
-def logfprime(fss, weight):
+def logFPrime(fss, weight):
   '''input: fss: a list of feature vectors
       weight: scipy.array
       output: return log-gradient of log-linear model.
@@ -170,17 +139,17 @@ def unique(data, key = lambda d: d):
   return data[: ph + 1]    
 
 if __name__ == "__main__":
-  print "general memory:", get_memory()
+  print "general memory:", getMemory()
 
   print unique([(0, 1), (0, 1), (1, 1)], key = lambda d: d[0])
   print eq(0, 0, EPSILON)
   print eq(1.2345678912345678e30, 1.23456789123456689e30, 1e-13)
 
-  stemmer = Stemmer()
-  print stemmer.restore("doing")
-  print stemmer.restore("starts")
-  print stemmer.restore("started")
-
   dists = [1, 2, 3, 4]
-  print Counter([discrete_sample(dists) for freq in xrange(100000)])
+  print collections.Counter([discreteSample(dists) for freq in xrange(100000)])
+
+  toks = "name=TianXia\tage=16\theight=1.76".split("\t")
+  print extractAttribute(toks, set(["name"])).items()
+  print extractAttribute(toks, set(["name", "age"])).items()
+  print extractAttribute(toks).items()
 
