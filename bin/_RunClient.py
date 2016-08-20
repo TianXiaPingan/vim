@@ -92,7 +92,10 @@ class Client:
         for i in range(len(name),len(query)+9) :
           name = name + " "
       display.append(name)
-      display.append(str(round(b["domain_score"], 10)))
+      try:
+        display.append(str(round(b["domain_score"], 10)))
+      except:
+        display.append("Null")
 
       assert len(display) == 8
       display = map(methodcaller("strip"), display)
