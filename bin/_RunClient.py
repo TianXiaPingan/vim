@@ -6,8 +6,12 @@ import urllib2
 import urllib
 
 debug = True 
-newUserId       = "52563262"
-repeatedUserID  = "5847060"
+
+user2ID = {
+  "new"     : "52563262",
+  "repeated": "5847060",
+  "unknown" : "",
+}
 
 class Client:
   findUrl = ("http://%s:%s/v3/name/find?%s" 
@@ -26,11 +30,11 @@ class Client:
     self._port   = port
     self._topN   = topN
   
-  def fetchSerp(self, query, country, geoLoc, isNewUser, longitude, latitude):
+  def fetchSerp(self, query, country, geoLoc, user, longitude, latitude):
     querytext = Client.findUrl %(self._server, self._port, 
                                  urllib.urlencode({"q":query}),
                                  country, geoLoc, self._topN,
-                                 newUserId if isNewUser else repeatedUserID)
+                                 user2ID[user])
     if longitude is not None and latitude is not None:
       querytext += "&geo_longitude=%f&geo_latitude=%f" %(longitude, latitude)
     print querytext
@@ -132,8 +136,8 @@ if __name__ == "__main__":
                     help = "us by default")
   parser.add_option("-n", dest = "topN", type = int, default = 20, 
                     help = "20 by default")
-  parser.add_option("--user", dest = "user", default = "newUser",
-                   help = "default 'newUser'.")
+  parser.add_option("--user", dest = "user", default = "new",
+                   help = "default 'new'.")
   parser.add_option("--long", dest = "longitude", type = float, default = None,
                     help = "longitude")
   parser.add_option("--lat", dest = "latitude", type = float, default = None,
@@ -144,7 +148,7 @@ if __name__ == "__main__":
   diag, segs, summary, results = client.fetchSerp(options.query, 
                                                   options.country, 
                                                   options.geoLoc,
-                                                  options.user == "newUser",
+                                                  options.user,
                                                   options.longitude,
                                                   options.latitude)
 

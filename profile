@@ -331,6 +331,8 @@ alias _server_spark="ssh txia@g1dlemllab01-02.dev.glbt1.gdg"
 
 alias _java_eclimd="~/Installed/EclipseJava.app/Contents/Eclipse/eclimd"
 
+alias _submit_spark='/opt/spark/1.5.1/bin/spark-submit --master yarn-client --conf spark.driver.maxResultSize=2G --conf spark.dynamicAllocation.maxExecutors=100 --driver-memory 10g --executor-memory 2g'
+
 export PATH=/opt/local/bin:$PATH
 export PATH=/opt/local/sbin:$PATH
 export PATH=~/bin:$PATH
