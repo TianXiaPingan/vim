@@ -322,8 +322,7 @@ alias _server_knoesis='echo password: commonSummer; ssh xia@knoesis1.wright.edu 
 alias _server_wsj='echo password: summer; ssh summer@130.108.28.50'
 alias _server_new='echo shaojunwang; ssh swang@130.108.87.251'
 alias _server_amazon_tokyo="ssh ubuntu@52.68.137.96"
-alias _server_wife="ssh ma@192.168.1.115"
-alias _server_wd="ssh summer@192.168.1.100"
+alias _server_wd="ssh summer@192.168.1.91"
 
 alias _server_dev1="ssh txia@g1dlfinddev01.dev.glbt1.gdg"
 alias _server_hadoop="ssh txia@p3plpashl01.prod.phx3.gdg"
@@ -331,7 +330,7 @@ alias _server_spark="ssh txia@g1dlemllab01-02.dev.glbt1.gdg"
 
 alias _java_eclimd="~/Installed/EclipseJava.app/Contents/Eclipse/eclimd"
 
-alias _submit_spark='/opt/spark/1.5.1/bin/spark-submit --master yarn-client --conf spark.driver.maxResultSize=2G --conf spark.dynamicAllocation.maxExecutors=100 --driver-memory 10g --executor-memory 2g'
+alias _submit_spark='/opt/spark/1.5.1/bin/spark-submit --master yarn-client --conf spark.driver.maxResultSize=2G --conf spark.dynamicAllocation.maxExecutors=100 --driver-memory 10g --executor-memory 2g --py-files /home/txia/include/algorithm.py'
 
 export PATH=/opt/local/bin:$PATH
 export PATH=/opt/local/sbin:$PATH

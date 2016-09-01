@@ -394,6 +394,8 @@ set mouse=a
 set mousetime=2000
 set nobackup
 
+map <Leader>0       :%s/\s\+$//g<CR>
+
 map <Leader>o       :call OpenLink()<CR>
 
 map <Leader>f       :call TextJustification()<CR>
