@@ -4,6 +4,21 @@ import java.util.*;
 import org.apache.commons.lang3.ArrayUtils;
 
 public class Alg {
+  public static Map<String, String> extractAttribute(String[] blocks) {
+    Map<String, String> ret = new TreeMap<>();
+    String[] tokens;
+    for (String block: blocks) {
+      tokens = block.split("=");
+      if (tokens.length != 2) {
+        System.out.println("found wrong block: " + block);
+        continue;
+      }
+
+      ret.put(tokens[0].trim(), tokens[1].trim());
+    }
+    return ret;
+  }
+
   public static <Type> void reverse(Type[] data, int f, int t) {
     while (f < t - 1) {
       Type v = data[f];
@@ -84,6 +99,8 @@ public class Alg {
     double[] weightsL1 = Alg.l1Norm(weights, 1.);
 
     System.out.println(Arrays.asList(ArrayUtils.toObject(weightsL1)));
+
+    System.out.println(Alg.extractAttribute("name=summer\tage=30   ".split("\t")));
     
     timer.stop();
   }

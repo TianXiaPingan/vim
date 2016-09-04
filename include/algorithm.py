@@ -30,13 +30,13 @@ class DisjointSet:
     self._sizes   = [1] * size
     self._cluster_size = size
 
-  def get_father(self, p):
+  def getFather(self, p):
     if self._fathers[p] is None:
       return p
     self._fathers[p] = self.get_father(self._fathers[p])
     return self._fathers[p]
 
-  def is_together(self, p1, p2):
+  def isTogether(self, p1, p2):
     return self.get_father(p1) == self.get_father(p2)
 
   def combine(self, p1, p2):
@@ -49,7 +49,6 @@ class DisjointSet:
         self._fathers[f1] = f2 
         self._sizes[f2] += self._sizes[f1]
       self._cluster_size -= 1    
-
 
 def extractAttribute(toks, keys = None):
   items = map(lambda tok: map(methodcaller("strip"), tok.split("=")), toks)
