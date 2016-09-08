@@ -1,9 +1,21 @@
 package rain;
 
+import java.io.Serializable;
 import java.util.*;
 import org.apache.commons.lang3.ArrayUtils;
+import sun.awt.image.IntegerComponentRaster;
 
 public class Alg {
+  public static double EPSILON = 1e-8;
+
+  public static class IntComparator implements Comparator<Integer>,
+                                               Serializable {
+    @Override
+    public int compare(Integer m, Integer n) {
+      return Integer.compare(m, n);
+    }
+  }
+
   public static Map<String, String> extractAttribute(String[] blocks) {
     Map<String, String> ret = new TreeMap<>();
     String[] tokens;
@@ -78,8 +90,6 @@ public class Alg {
   //public static <Type> void update(List<Type> data, int pos, Type value) {
     //data.set(pos, data.get(pos) + value);
   //}
-
-  public static double EPSILON = 1e-8;
 
   public static void main(String[] argv) {
     Timer timer = new Timer("Test Alg");

@@ -1,4 +1,3 @@
-"set scrollbind!
 "set wrap!
 "set ignorecase!
  
@@ -77,8 +76,9 @@
 
 " Ctrl + w: jump to another windows.
 
-" cmd: set scrollbind
-" usage: 'vim -RO file1 file2', and scroll two windows at the same time.
+"cmd: set scrollbind
+"usage: 'vim -RO file1 file2', and scroll two windows at the same time.
+"set scrollbind!
 
 "x delete
 "J join two lines quickly.
@@ -364,6 +364,8 @@ set foldmethod=indent
 set foldlevel=32
 
 set nowrap
+" set horizontal scrollbind.
+set scrollopt+=hor
 
 set expandtab
 set tabstop=2
