@@ -3,7 +3,7 @@ package rain;
 import java.io.Serializable;
 import java.util.*;
 import org.apache.commons.lang3.ArrayUtils;
-import sun.awt.image.IntegerComponentRaster;
+import org.apache.commons.lang3.StringUtils;
 
 public class Alg {
   public static double EPSILON = 1e-8;
@@ -20,23 +20,14 @@ public class Alg {
     Map<String, String> ret = new TreeMap<>();
     String[] tokens;
     for (String block: blocks) {
-      tokens = block.split("=");
-      if (tokens.length != 2) {
+      if (!block.contains("=")) {
         System.out.println("found wrong block: " + block);
         continue;
       }
-
-      ret.put(tokens[0].trim(), tokens[1].trim());
+      tokens = block.split("=");
+      ret.put(tokens[0], StringUtils.join(tokens, "=", 1, tokens.length));
     }
     return ret;
-  }
-
-  public static <Type> void reverse(Type[] data, int f, int t) {
-    while (f < t - 1) {
-      Type v = data[f];
-      data[f++] = data[t - 1];
-      data[t-- - 1] = v;
-    }
   }
 
   public static boolean eq(double a, double b) {
@@ -59,7 +50,7 @@ public class Alg {
     return list != null && !list.isEmpty() ? list.get(list.size() - 1) : null;
   }
 
-  public static <Type> void reSize(List<Type> list, int size, Type value) {
+  public static <Type> void resize(List<Type> list, int size, Type value) {
     while (list.size() < size) {
       list.add(value);
     }
@@ -95,22 +86,23 @@ public class Alg {
     Timer timer = new Timer("Test Alg");
     System.out.println("Hello rain.Alg");
 
-    List<Integer> list = Arrays.asList(1, 2, 3, 4, 5);
-    System.out.println(Alg.front(list));
-    System.out.println(Alg.last(list));
+//    List<Integer> list = Arrays.asList(1, 2, 3, 4, 5);
+//    System.out.println(Alg.front(list));
+//    System.out.println(Alg.last(list));
 
     List<Double> data = new ArrayList<>();
-    Alg.reSize(data, 10, 0.);
+    Alg.resize(data, 10, 0.);
     System.out.println(data.size());
 
     double[] weights = {
       1, 2, 3, 4, 
     };
     double[] weightsL1 = Alg.l1Norm(weights, 1.);
+//    System.out.println(Alg.last(weights));
 
     System.out.println(Arrays.asList(ArrayUtils.toObject(weightsL1)));
 
-    System.out.println(Alg.extractAttribute("name=summer\tage=30   ".split("\t")));
+    System.out.println(Alg.extractAttribute("name=\tage=30   ".split("\t")));
     
     timer.stop();
   }
