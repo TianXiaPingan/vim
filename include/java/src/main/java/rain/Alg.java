@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.*;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
+import static java.lang.System.out;
 
 public class Alg {
   public static double EPSILON = 1e-8;
@@ -21,7 +22,7 @@ public class Alg {
     String[] tokens;
     for (String block: blocks) {
       if (!block.contains("=")) {
-        System.out.println("found wrong block: " + block);
+        out.println("found wrong block: " + block);
         continue;
       }
       tokens = block.split("=");
@@ -66,7 +67,7 @@ public class Alg {
     }
 
     if (eq(wsum, 0)) {
-      System.out.println("Warning in l1Norm: 0 vector found");
+      out.println("Warning in l1Norm: 0 vector found");
       return weight; 
     }
 
@@ -84,25 +85,25 @@ public class Alg {
 
   public static void main(String[] argv) {
     Timer timer = new Timer("Test Alg");
-    System.out.println("Hello rain.Alg");
+    out.println("Hello rain.Alg");
 
 //    List<Integer> list = Arrays.asList(1, 2, 3, 4, 5);
-//    System.out.println(Alg.front(list));
-//    System.out.println(Alg.last(list));
+//    out.println(Alg.front(list));
+//    out.println(Alg.last(list));
 
     List<Double> data = new ArrayList<>();
     Alg.resize(data, 10, 0.);
-    System.out.println(data.size());
+    out.println(data.size());
 
     double[] weights = {
       1, 2, 3, 4, 
     };
     double[] weightsL1 = Alg.l1Norm(weights, 1.);
-//    System.out.println(Alg.last(weights));
+//    out.println(Alg.last(weights));
 
-    System.out.println(Arrays.asList(ArrayUtils.toObject(weightsL1)));
+    out.println(Arrays.asList(ArrayUtils.toObject(weightsL1)));
 
-    System.out.println(Alg.extractAttribute("name=\tage=30   ".split("\t")));
+    out.println(Alg.extractAttribute("name=\tage=30   ".split("\t")));
     
     timer.stop();
   }

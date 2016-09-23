@@ -1,4 +1,4 @@
-# brew installation directory: /usr/local/Cellar
+# home brew installation directory: /usr/local/Cellar
 
 # Run spark Java on YARN
 # for example:
