@@ -5,6 +5,9 @@ from algorithm import *
 
 servers = {
   "dev1"  : "txia@g1dlfinddev01.dev.glbt1.gdg",
+  "dev2"  : "txia@g1dlfinddev02.dev.glbt1.gdg",
+  "dev3"  : "txia@g1dlfinddev03.dev.glbt1.gdg",
+  "dev4"  : "txia@g1dlfinddev04.dev.glbt1.gdg",
   "hadoop": "txia@p3plpashl01.prod.phx3.gdg"
 }
 
