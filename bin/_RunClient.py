@@ -30,10 +30,12 @@ class Client:
     self._topN   = topN
 
   def fetchSerp(self, valueDict):
+    key = valueDict["key"]
     country, geo = valueDict["country"], valueDict["geo"]
     city = valueDict["city"]
     query = valueDict["query"]
     user = valueDict["user"]
+    date = valueDict["date"]
     longitude, latitude = valueDict["longitude"], valueDict["latitude"]
 
     querytext = Client.findUrl %(self._port,
@@ -44,6 +46,13 @@ class Client:
       querytext += "&geo_longitude=%s&geo_latitude=%s" %(longitude, latitude)
     if city is not None:
       querytext += "&geo_city=%s" %(urllib.quote(city))
+    extraInf = []   
+    if key is not None:
+      extraInf.append("key:" + key)
+    if date is not None:
+      extraInf.append("date:" + date)
+    if extraInf != []:
+      querytext += "&query_info=" + ";".join(extraInf)
 
     print querytext, "\n"
 
@@ -147,10 +156,13 @@ if __name__ == "__main__":
                     help = "default 'zoespizza'")
   parser.add_option("--user", dest = "user", default = "new",
                    help = "default 'new'.")
+  parser.add_option("--date", dest = "date", default = None)
+  parser.add_option("--key", dest = "key", default = None)
   (options, args) = parser.parse_args()
 
   client = Client(options.port, options.topN)
   valueDict = {
+    "key"       : options.key,
     "query"     : options.query,
     "country"   : options.country,
     "geo"       : options.geo,
@@ -158,6 +170,7 @@ if __name__ == "__main__":
     "longitude" : options.longitude,
     "latitude"  : options.latitude,
     "city"      : options.city,
+    "date"      : options.date,
   }
   diag, segs, summary, results = client.fetchSerp(valueDict)
   print "Query: %s, country: %s, geo: %s" %(options.query.lower(),

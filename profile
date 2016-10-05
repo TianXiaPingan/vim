@@ -1,3 +1,6 @@
+# Parallel stream in Java
+# java -Djava.util.concurrent.ForkJoinPool.common.parallelism=8 ...
+
 # home brew installation directory: /usr/local/Cellar
 
 # Run spark Java on YARN
