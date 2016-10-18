@@ -1,5 +1,6 @@
 # Parallel stream in Java
 # java -Djava.util.concurrent.ForkJoinPool.common.parallelism=8 ...
+# java -Xmx40G  ...
 
 # home brew installation directory: /usr/local/Cellar
 
@@ -130,6 +131,12 @@
 # installed_packages = pip.get_installed_distributions()
 # installed_packages_list = sorted(["%s==%s" % (i.key, i.version) for i in installed_packages])
 # print(installed_packages_list)
+#
+# Install scipy, numpy from easy_install, pip.
+# $ curl -O https://svn.apache.org/repos/asf/oodt/tools/oodtsite.publisher/trunk/distribute_setup.py
+# $ full-path-python2.7 distribute_setup.py
+# $ /usr/local/share/python/easy_install pip
+# $ pip2.7 install scipy, numpy
 #
 # PIL image-rendering commands
 # cvxmod: lingo-like programming pack 
@@ -380,9 +387,11 @@ stty -ixon > /dev/null 2>/dev/null
 export PYTHONIOENCODING=utf8
 
 export PROMPT_COMMAND='echo -ne "\033]0;$PWD\007"'
-export PS1='\u@\W\$ '
+export PS1='mac@\W\$ '
 
 # for spark Java.
 #export SPARK_CLASSPATH=/etc/hadoop/conf
 # for spark Python.
 export PYSPARK_PYTHON=/usr/bin/python27-virtual-hadoop
+
+source ~/.local_bashrc
