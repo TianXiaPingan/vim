@@ -300,6 +300,7 @@ alias _hmv='hadoop fs -mv'
 alias _hmkdir='hadoop fs -mkdir'
 alias _hrm='hadoop fs -rm -r'
 alias _hdu='hadoop fs -du -h'
+alias _htext='hadoop fs -text'
 alias _hcopyFromLocal='hadoop fs -copyFromLocal'
 alias _hcopyToLocal='hadoop fs -copyToLocal'
 
@@ -333,6 +334,7 @@ alias _server_wsj='echo password: summer; ssh summer@130.108.28.50'
 alias _server_new='echo shaojunwang; ssh swang@130.108.87.251'
 alias _server_amazon_tokyo="ssh ubuntu@52.68.137.96"
 alias _server_wd="ssh summer@192.168.1.91"
+alias _server_demo="ssh txia@tian.cloud.phx3.gdg"
 
 alias _server_dev1="ssh txia@g1dlfinddev01.dev.glbt1.gdg"
 alias _server_dev2="ssh txia@g1dlfinddev02.dev.glbt1.gdg"

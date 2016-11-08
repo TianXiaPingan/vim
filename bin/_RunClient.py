@@ -67,7 +67,7 @@ class Client:
                   "Ext", "SLD", "Domain", "Score"]]
     for b in domains :
       display = []
-      display.append(str(b["index"] - 1))
+      display.append(str(b["index"]))
       if b["inventory"] == "extensions" :
         display.append("ext")
         summary["ext"] = summary.get("ext",0) + 1
