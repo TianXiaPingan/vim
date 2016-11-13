@@ -9,6 +9,7 @@ import collections
 import copy 
 import heapq 
 import itertools
+import logging
 import math 
 import multiprocessing 
 import optparse
@@ -51,9 +52,14 @@ class DisjointSet:
       self._cluster_size -= 1    
 
 def extractAttribute(toks, keys = None):
-  items = map(lambda tok: map(methodcaller("strip"), tok.split("=")), toks)
-  items = filter(lambda pair: keys is None or pair[0] in keys, items)
-  return dict(items)
+  # make sure "toks" is encoded in "utf8".
+  try:
+    items = map(lambda tok: map(methodcaller("strip"), tok.split("=")), toks)
+    items = filter(lambda pair: keys is None or pair[0] in keys, items)
+    return dict(items)
+  except:
+    print "ERROR: Wrong format:", "\t".join(toks)
+    return dict()
 
 def getInstalledPackages():
   import pip
