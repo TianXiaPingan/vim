@@ -325,7 +325,6 @@ alias du2='clear; du -h --max-depth 1'
 alias gvim='/Applications/MacPorts/MacVim.app/Contents/MacOS/Vim -g'
 
 # e.g. rsync --size-only -ravutz -e ssh source-dir/ summer@130.108.28.50:dest-dir/
-alias _supdate='rsync -ravutzh --progress -e ssh'
 
 alias _server_nimbus='echo password: shaojunwang; ssh w004txx@nimbus.cs.wright.edu '
 alias _server_knoesis='echo password: commonSummer; ssh xia@knoesis1.wright.edu '
