@@ -51,8 +51,16 @@ class DisjointSet:
         self._sizes[f2] += self._sizes[f1]
       self._cluster_size -= 1    
 
-def extractAttribute(toks, keys = None):
-  # make sure "toks" is encoded in "utf8".
+def extractAttribute(input, keys = None):
+  # make sure "input" is encoded in "utf8".
+  if type(input) is str:
+    toks = input.split("\t")
+  elif type(input) is list:
+    toks = input
+  else:
+    print "ERROR: Wrong input:", type(input) 
+    return dict()
+
   try:
     items = map(lambda tok: map(methodcaller("strip"), tok.split("=")), toks)
     items = filter(lambda pair: keys is None or pair[0] in keys, items)
