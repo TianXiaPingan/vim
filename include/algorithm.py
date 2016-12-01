@@ -3,6 +3,8 @@
 from collections import defaultdict, namedtuple
 from operator import methodcaller, attrgetter, itemgetter, add
 from optparse import OptionParser
+from scipy import array
+
 import bisect
 import cPickle
 import collections
@@ -13,7 +15,7 @@ import logging
 import math 
 import multiprocessing 
 import optparse
-import os 
+import os
 import pprint
 import random
 import re
@@ -53,7 +55,7 @@ class DisjointSet:
 
 def extractAttribute(input, keys = None):
   # make sure "input" is encoded in "utf8".
-  if type(input) is str:
+  if type(input) in [str, unicode]:
     toks = input.split("\t")
   elif type(input) is list:
     toks = input
@@ -66,7 +68,7 @@ def extractAttribute(input, keys = None):
     items = filter(lambda pair: keys is None or pair[0] in keys, items)
     return dict(items)
   except:
-    print "ERROR: Wrong format:", "\t".join(toks)
+    print "ERROR: Wrong format:", input
     return dict()
 
 def getInstalledPackages():
@@ -100,15 +102,11 @@ def norm2(vec):
 
 def discreteSample(dists):        
   '''each probability must be greater than 0'''
-  sumv = sum(dists)
-  prob = sumv * random.random()
-  asum = 0.0
-  for p in xrange(len(dists)):
-    asum += dists[p]
-    if prob <= asum:
-        return p
-  for p in dists:
-    assert p >= 0
+  dists = array(dists)
+  assert all(dists >= 0)
+  accsum = scipy.cumsum(dists)
+  expNum = accsum[-1] * random.random()
+  return bisect.bisect(accsum, expNum)
 
 def nFoldSplit(data, N = 10):
   seed(0)

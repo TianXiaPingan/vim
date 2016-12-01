@@ -332,7 +332,7 @@ alias _server_knoesis='echo password: commonSummer; ssh xia@knoesis1.wright.edu 
 alias _server_wsj='echo password: summer; ssh summer@130.108.28.50'
 alias _server_new='echo shaojunwang; ssh swang@130.108.87.251'
 alias _server_amazon_tokyo="ssh ubuntu@52.68.137.96"
-alias _server_wd="ssh summer@192.168.1.91"
+alias _server_wd="ssh summer@192.168.1.104"
 alias _server_demo="ssh txia@tian.cloud.phx3.gdg"
 
 alias _server_dev1="ssh txia@g1dlfinddev01.dev.glbt1.gdg"
