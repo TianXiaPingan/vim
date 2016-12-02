@@ -51,7 +51,28 @@ class DisjointSet:
       else:
         self._fathers[f1] = f2 
         self._sizes[f2] += self._sizes[f1]
-      self._cluster_size -= 1    
+      self._cluster_size -= 1
+
+def readNamedColumnFile(files, removedAttrs = None):
+  '''files: string, or a list
+     keptAttrs: None, or a list
+     removedAttrs: None, or a list
+  '''
+  if type(files) is str:
+    files = [files]
+  if removedAttrs is None:
+    removedAttrs = []
+
+  ret = []
+  for fname in files:
+    data = filter(lambda d: len(d) > 0,
+                  map(extractAttribute, open(fname)))
+    for d in data:
+      for attr in removedAttrs:
+        if attr in d:
+          d.pop(attr)
+      ret.append(d)
+  return ret
 
 def extractAttribute(input, keys = None):
   # make sure "input" is encoded in "utf8".
