@@ -53,6 +53,27 @@ class DisjointSet:
         self._sizes[f2] += self._sizes[f1]
       self._cluster_size -= 1
 
+def calcNdcg(relsList):
+  '''relsList: [[1, 2, 3, 1, ...], [2, 3, 1, 0, ..]]
+  '''
+  def calcPerDcg(rels):
+    rels = rels[: 20] if len(rels) >= 20 else rels + [0] * (20 - len(rels))
+    rels = array(rels)
+    poses = array(range(20))
+    scores = (2 ** rels - 1) / scipy.log(poses + 2)
+    return scipy.cumsum(scores)
+
+  def calcPerNdcg(rels):
+    if rels.count(0) == len(rels):
+      return 1.
+
+    dcg = calcPerDcg(rels)
+    iDcg = calcPerDcg(sorted(copy.copy(rels), reverse = True))
+    return dcg / iDcg
+
+  ret = sum(map(calcPerNdcg, relsList)) / len(relsList)
+  return ret
+
 def readNamedColumnFile(files, removedAttrs = None):
   '''files: string, or a list
      keptAttrs: None, or a list
@@ -99,7 +120,7 @@ def getInstalledPackages():
   return packages
 
 def eq(v1, v2, prec = EPSILON):
-  return abs(v1 - v2) < EPSILON
+  return abs(v1 - v2) < prec
 
 def getMemory(size_type = "rss"):
   '''Generalization; memory sizes (MB): rss, rsz, vsz.'''
@@ -108,18 +129,14 @@ def getMemory(size_type = "rss"):
   return round(float(content) / 1024, 3)
 
 def norm1(vec):
-  nm = sum(abs(e) for e in vec)
-  if eq(nm, EPSILON):
-    return array([0.0] * len(vec))
-  else:
-    return array([e / nm for e in vec])
+  vec = array(vec)
+  nm = float(sum(abs(vec)))
+  return vec if eq(nm, 0) else vec / nm
 
 def norm2(vec):
-  nm = sqrt(sum(e * e for e in vec))
-  if eq(nm, EPSILON):
-    return array([0.0] * len(vec))
-  else:
-    return array([e / nm for e in vec])
+  vec = array(vec)
+  nm = math.sqrt(sum(vec * vec))
+  return vec if eq(nm, EPSILON) else vec / nm
 
 def discreteSample(dists):        
   '''each probability must be greater than 0'''
@@ -129,23 +146,12 @@ def discreteSample(dists):
   expNum = accsum[-1] * random.random()
   return bisect.bisect(accsum, expNum)
 
-def nFoldSplit(data, N = 10):
-  seed(0)
-  shuffle(data)
-  ret   = []
-  pdata = [data[fi::N] for fi in xrange(N)]
-  for fi in xrange(N):
-    test_data = pdata[fi]
-    pdata.remove(test_data)
-    yield [sum(pdata, []), test_data]
-    pdata.insert(fi, test_data)
-
 def logSum(ds):
   '''input: [d1, d2, d3..] = [log(p1), log(p2), log(p3)..]
       output: log(p1 + p2 + p3..)
   '''
   dv = max(ds)
-  e = log(sum([exp(d - dv) for d in ds]))
+  e = math.log(sum([math.exp(d - dv) for d in ds]))
   return dv + e
 
 def logFPrime(fss, weight):
@@ -154,26 +160,15 @@ def logFPrime(fss, weight):
       output: return log-gradient of log-linear model.
   '''
   #dn  = logsum([(ws.T * f)[0] for f in fs])
-  dn  = logsum(map(weight.dot, fss))
+  dn  = logSum(map(weight.dot, fss))
   pdw = array([0.0] * len(weight))
   for fs in fss:
-    pdw += exp(weight.dot(fs) - dn) * fs 
+    pdw += math.exp(weight.dot(fs) - dn) * fs
   return pdw
-
-def unique(data, key = lambda d: d):
-  '''data should be pre-sorted'''
-  ph, p = 0, 1
-  while p < len(data):
-    if not eq(key(data[p]), key(data[ph])):
-      ph += 1
-      data[ph] = data[p]
-    p += 1   
-  return data[: ph + 1]    
 
 if __name__ == "__main__":
   print "general memory:", getMemory()
 
-  print unique([(0, 1), (0, 1), (1, 1)], key = lambda d: d[0])
   print eq(0, 0, EPSILON)
   print eq(1.2345678912345678e30, 1.23456789123456689e30, 1e-13)
 
@@ -185,3 +180,7 @@ if __name__ == "__main__":
   print extractAttribute(toks, set(["name", "age"])).items()
   print extractAttribute(toks).items()
 
+  relsList = []
+  relsList.append([3, 2, 1] + [0] * 20 + [4] * 2)
+  print "relsList:", relsList
+  print "ndcg:", calcNdcg(relsList)
