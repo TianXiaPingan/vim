@@ -53,6 +53,19 @@ class DisjointSet:
         self._sizes[f2] += self._sizes[f1]
       self._cluster_size -= 1
 
+def toUtf8(line):
+  if type(line) is unicode:
+    try:
+      return line.encode("utf8")
+    except:
+      print "Warning: in toUtf8(...)"
+      return None
+  elif type(line) is str:
+    return line
+  else:
+    print "Error: wrong type in toUtf8(...)"
+    return None
+
 def calcNdcg(relsList):
   '''relsList: [[1, 2, 3, 1, ...], [2, 3, 1, 0, ..]]
   '''

@@ -17,7 +17,9 @@ def replaceServer(addr):
   if "@" not in addr:
     return addr
   server = addr[: addr.index("@")]
-  return addr.replace(server + "@", servers[server] + ":")
+  if server in servers:
+    return addr.replace(server + "@", servers[server] + ":")
+  return addr
 
 if __name__ == "__main__":
   parser = optparse.OptionParser(usage = "cmd dev1@dir1 dir2")
