@@ -376,6 +376,7 @@ set shiftround
 set formatoptions+=m
 "set textwidth=80
 
+" help syntax, line:222
 syntax on
 filetype indent on
 filetype plugin on

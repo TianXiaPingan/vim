@@ -109,7 +109,6 @@ def readNamedColumnFile(files, removedAttrs = None):
   return ret
 
 def extractAttribute(input, keys = None):
-  # make sure "input" is encoded in "utf8".
   if type(input) in [str, unicode]:
     toks = input.split("\t")
   elif type(input) is list:
