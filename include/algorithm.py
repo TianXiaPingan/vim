@@ -87,26 +87,40 @@ def calcNdcg(relsList):
   ret = sum(map(calcPerNdcg, relsList)) / len(relsList)
   return ret
 
-def readNamedColumnFile(files, removedAttrs = None):
+def printWithFlush(cont, stream):
+  print >> stream, cont
+  stream.flush()
+
+def readNamedColumnFile(files, keptAttrs = None, removedAttrs = None):
   '''files: string, or a list
      keptAttrs: None, or a list
      removedAttrs: None, or a list
+     take keptAttrs with priority.
   '''
-  if type(files) is str:
-    files = [files]
-  if removedAttrs is None:
-    removedAttrs = []
+  if type(files) is list:
+    return sum([readNamedColumnFile(fn, keptAttrs, removedAttrs) 
+                for fn in files], [])
 
-  ret = []
-  for fname in files:
-    data = filter(lambda d: len(d) > 0,
-                  map(extractAttribute, open(fname)))
-    for d in data:
+  assert type(files) is str
+    
+  if (keptAttrs is not None or 
+      keptAttrs is None and removedAttrs is None):
+    return [extractAttribute(ln, keptAttrs) for ln in open(files)]
+  elif removedAttrs is not None:
+    ret = []
+    for ln in open(files):
+      d = extractAttribute(ln)
+      if len(d) == 0:
+        continue
+
       for attr in removedAttrs:
         if attr in d:
           d.pop(attr)
+
       ret.append(d)
-  return ret
+    return ret
+  else:
+    assert False
 
 def extractAttribute(input, keys = None):
   if type(input) in [str, unicode]:
@@ -116,6 +130,8 @@ def extractAttribute(input, keys = None):
   else:
     print "ERROR: Wrong input:", type(input) 
     return dict()
+  if keys is not None and type(keys) is not set:
+    keys = set(keys)
 
   try:
     items = map(lambda tok: map(methodcaller("strip"), tok.split("=")), toks)
@@ -196,3 +212,5 @@ if __name__ == "__main__":
   relsList.append([3, 2, 1] + [0] * 20 + [4] * 2)
   print "relsList:", relsList
   print "ndcg:", calcNdcg(relsList)
+
+  printWithFlush("hello", sys.stdout)
