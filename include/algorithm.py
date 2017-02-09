@@ -36,14 +36,14 @@ class DisjointSet:
   def getFather(self, p):
     if self._fathers[p] is None:
       return p
-    self._fathers[p] = self.get_father(self._fathers[p])
+    self._fathers[p] = self.getFather(self._fathers[p])
     return self._fathers[p]
 
   def isTogether(self, p1, p2):
-    return self.get_father(p1) == self.get_father(p2)
+    return self.getFather(p1) == self.getFather(p2)
 
   def combine(self, p1, p2):
-    f1, f2 = self.get_father(p1), self.get_father(p2)
+    f1, f2 = self.getFather(p1), self.getFather(p2)
     if f1 != f2:
       if self._sizes[f1] >= self._sizes[f2]:
         self._fathers[f2] = f1
