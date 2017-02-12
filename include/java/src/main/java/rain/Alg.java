@@ -23,10 +23,10 @@ public class Alg {
     for (String block: blocks) {
       if (!block.contains("=")) {
         out.println("found wrong block: " + block);
-        continue;
+        return new TreeMap<>();
       }
       tokens = block.split("=");
-      ret.put(tokens[0], StringUtils.join(tokens, "=", 1, tokens.length));
+      ret.put(tokens[0], tokens.length == 2 ? tokens[1] : "");
     }
     return ret;
   }
