@@ -341,6 +341,8 @@ alias _server_dev3="ssh txia@g1dlfinddev03.dev.glbt1.gdg"
 alias _server_dev4="ssh txia@g1dlfinddev04.dev.glbt1.gdg"
 alias _server_hadoop="ssh txia@p3plpashl01.prod.phx3.gdg"
 alias _server_spark="ssh txia@g1dlemllab01-02.dev.glbt1.gdg"
+alias _server_buck06="ssh txia@p3plfinddev06.prod.phx3.gdg"
+alias _server_buck09="ssh txia@p3plfinddev09.prod.phx3.gdg"
 
 alias _java_eclimd="~/Installed/EclipseJava.app/Contents/Eclipse/eclimd"
 

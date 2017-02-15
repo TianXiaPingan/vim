@@ -10,7 +10,9 @@ servers = {
   "dev4"  : "txia@g1dlfinddev04.dev.glbt1.gdg",
   "hadoop": "txia@p3plpashl01.prod.phx3.gdg",
   "demo"  : "txia@tian.cloud.phx3.gdg",
-  "wd"    : "summer@192.168.1.104"
+  "wd"    : "summer@192.168.1.104",
+  "buck06": "txia@p3plfinddev06.prod.phx3.gdg",
+  "buck09": "txia@p3plfinddev09.prod.phx3.gdg"
 }
 
 def replaceServer(addr):
