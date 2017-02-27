@@ -30,27 +30,40 @@ class Client:
     self._topN   = topN
 
   def fetchSerp(self, valueDict):
-    key = valueDict["key"]
     country, geo = valueDict["country"], valueDict["geo"]
-    city = valueDict["city"]
     query = valueDict["query"]
     user = valueDict["user"]
-    date = valueDict["date"]
-    longitude, latitude = valueDict["longitude"], valueDict["latitude"]
 
     querytext = Client.findUrl %(self._port,
                                  urllib.urlencode({"q": query}),
                                  country, geo, self._topN,
                                  Client.user2ID[user])
+
+    longitude, latitude = valueDict["longitude"], valueDict["latitude"]
     if longitude is not None and latitude is not None:
       querytext += "&geo_longitude=%s&geo_latitude=%s" %(longitude, latitude)
+
+    city = valueDict["city"]
     if city is not None:
       querytext += "&geo_city=%s" %(urllib.quote(city))
+
     extraInf = []   
+    key = valueDict["key"]
     if key is not None:
       extraInf.append("key:" + key)
+
+    date = valueDict["date"]
     if date is not None:
       extraInf.append("date:" + date)
+
+    addToCart = valueDict["addToCart"]
+    if addToCart is not None:
+      extraInf.append("addToCart:" + "+".join(addToCart.split()))
+    
+    purchase = valueDict["purchase"]
+    if purchase is not None:
+      extraInf.append("purchase:" + "+".join(purchase.split()))
+
     if extraInf != []:
       querytext += "&query_info=" + ";".join(extraInf)
 
@@ -158,6 +171,8 @@ if __name__ == "__main__":
                    help = "default 'new'.")
   parser.add_option("--date", dest = "date", default = None)
   parser.add_option("--key", dest = "key", default = None)
+  parser.add_option("--addToCart", dest = "addToCart", default = None)
+  parser.add_option("--purchase", dest = "purchase", default = None)
   (options, args) = parser.parse_args()
 
   client = Client(options.port, options.topN)
@@ -171,6 +186,8 @@ if __name__ == "__main__":
     "latitude"  : options.latitude,
     "city"      : options.city,
     "date"      : options.date,
+    "addToCart" : options.addToCart,           
+    "purchase"  : options.purchase,
   }
   diag, segs, summary, results = client.fetchSerp(valueDict)
   print "Query: %s, country: %s, geo: %s" %(options.query.lower(),

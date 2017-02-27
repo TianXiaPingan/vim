@@ -343,6 +343,7 @@ alias _server_hadoop="ssh txia@p3plpashl01.prod.phx3.gdg"
 alias _server_spark="ssh txia@g1dlemllab01-02.dev.glbt1.gdg"
 alias _server_buck06="ssh txia@p3plfinddev06.prod.phx3.gdg"
 alias _server_buck09="ssh txia@p3plfinddev09.prod.phx3.gdg"
+alias _server_aws1="ssh  ubuntu@52.41.57.54"
 
 alias _java_eclimd="~/Installed/EclipseJava.app/Contents/Eclipse/eclimd"
 
