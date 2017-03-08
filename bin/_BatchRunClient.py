@@ -1,12 +1,11 @@
 #!/usr/bin/env python2.7
 #coding: utf8
 
-from algorithm import *
-from multiprocessing import Process, Queue;
 from _RunClient import Client
+from algorithm import *
+from multiprocessing import Queue;
+from threading import Thread
 import urllib2
-
-debug     = None
 
 checkUrl = ("http://localhost:{port}/v3/name/find?q=zoespizza"
             "&user_country_site=www&geo_country_code=us&pagination_size=20"
@@ -36,7 +35,7 @@ def threadFunction(port, queryQueue, resultQueue):
   while True:
     try:
       valueDict = queryQueue.get()
-      if debug:
+      if options.debug:
         print >> fnLog, "port: %s, valueDict: %s" %(port, valueDict)
       _, _, _, results = client.fetchSerp(valueDict)
       # score:rel:domain
@@ -103,8 +102,6 @@ if __name__ == "__main__":
                      default = False, help = "")
   (options, args) = parser.parse_args()
 
-  debug = options.debug
-
   if "-" not in options.ports:
     ports = [options.ports]
   else:
@@ -112,29 +109,27 @@ if __name__ == "__main__":
     ports = map(str, range(portFrom, portTo + 1))
   print ports
 
-  print "query files:", args
-  queries = list(readNamedColumnFile(args))
-  print "There are %d queries" %len(queries)
-
   if options.rankHistory is not None:
-    finishedKeys = extractFinishedKey(options.rankHistory.split(","))
+    print options.rankHistory
+    histFiles = options.rankHistory.replace(",", " ")
+    finishedKeys = extractFinishedKey(histFiles.split())
     print "#Finished query:", len(finishedKeys)
 
-    queries = filter(lambda d: d["key"] not in finishedKeys, queries)
-    print "#query after filtering:", len(queries)
-    del finishedKeys
-
-  queryQueue, resultQueue = multiprocessing.Queue(), multiprocessing.Queue()
-  for query in queries:
-    queryQueue.put(query)
-
-  processes = [Process(target = threadFunction,
-                       args = (port, queryQueue, resultQueue))
-               for port in ports]
-  writeProcess = Process(target = threadWrite,
-                         args = (resultQueue, options.outFile))
+  queryQueue, resultQueue = Queue(len(ports)), Queue()
+  threads = [Thread(target = threadFunction, 
+                    args = (port, queryQueue, resultQueue))
+             for port in ports]
+  writeProcess = Thread(target = threadWrite,
+                        args = (resultQueue, options.outFile))
   writeProcess.start()
 
-  for process in processes:
-    process.start()
+  for td in threads:
+    td.start()
     print "start"
+
+  queryIter = readNamedColumnFile(args)
+  for query in queryIter:
+    if query["key"] in finishedKeys:
+      continue
+    queryQueue.put(query)
+
