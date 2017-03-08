@@ -98,16 +98,17 @@ def readNamedColumnFile(files, keptAttrs = None, removedAttrs = None):
      take keptAttrs with priority.
   '''
   if type(files) is list:
-    return sum([readNamedColumnFile(fn, keptAttrs, removedAttrs) 
-                for fn in files], [])
+    for fn in files:
+      for record in readNamedColumnFile(fn, keptAttrs, removedAttrs):
+        yield record
 
   assert type(files) is str
     
   if (keptAttrs is not None or 
       keptAttrs is None and removedAttrs is None):
-    return [extractAttribute(ln, keptAttrs) for ln in open(files)]
+    for ln in open(files):
+      yield extractAttribute(ln, keptAttrs) 
   elif removedAttrs is not None:
-    ret = []
     for ln in open(files):
       d = extractAttribute(ln)
       if len(d) == 0:
@@ -116,9 +117,8 @@ def readNamedColumnFile(files, keptAttrs = None, removedAttrs = None):
       for attr in removedAttrs:
         if attr in d:
           d.pop(attr)
-
-      ret.append(d)
-    return ret
+      
+      yield d
   else:
     assert False
 
@@ -214,3 +214,6 @@ if __name__ == "__main__":
   print "ndcg:", calcNdcg(relsList)
 
   printWithFlush("hello", sys.stdout)
+
+  fn = "/Users/txia/GoDaddy/tokenizer/data/dictionary/ranking.model/train-data"
+  print len(list(readNamedColumnFile(fn + "/tld.price.data")))
