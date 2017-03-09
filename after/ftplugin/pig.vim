@@ -6,6 +6,7 @@ if exists("b:current_syntax")
   finish
 endif
 
+syntax on
 syn case ignore
 
 " Pig keywords:
