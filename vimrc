@@ -382,6 +382,7 @@ filetype indent on
 filetype plugin on
 au BufRead,BufNewFile *.tpt set filetype=robot_reporter_template
 au BufRead,BufNewFile *.en set filetype=english
+au BufRead,BufNewFile *.pig set filetype=pig
 au BufRead,BufNewFile * call LoadExtraVimrc() 
 au BufEnter           *.java  set filetype=java
 au BufEnter           *.scala set filetype=scala
