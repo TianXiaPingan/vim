@@ -73,7 +73,7 @@ set shiftwidth=2
 set foldmethod=manual
 
 "call MapCodingBracket()
-inoremap {  {<CR>}<Esc>O
+"inoremap {  {<CR>}<Esc>O
 inoremap }   <C-R>=SuperEndMatch("}")<CR>
 inoremap )   <C-R>=SuperEndMatch(")")<CR>
 inoremap ]   <C-R>=SuperEndMatch("]")<CR>
