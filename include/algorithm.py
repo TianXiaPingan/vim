@@ -101,9 +101,9 @@ def readNamedColumnFile(files, keptAttrs = None, removedAttrs = None):
     for fn in files:
       for record in readNamedColumnFile(fn, keptAttrs, removedAttrs):
         yield record
+    return      
 
   assert type(files) is str
-    
   if (keptAttrs is not None or 
       keptAttrs is None and removedAttrs is None):
     for ln in open(files):
