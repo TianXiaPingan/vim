@@ -112,6 +112,12 @@ using boost::format;
 
 //////////////////////////////////////////////////
 
+#ifdef MY_DEBUG
+  #define GET(data, idx) data.at(idx)
+#else
+  #define GET(data, idx) data[idx]
+#endif
+
 #define SIZE(container) int((container).size())
 
 #define OUTPUT(begin, end, Type, stream) \
