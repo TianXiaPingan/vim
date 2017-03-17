@@ -14,7 +14,7 @@ if __name__ == "__main__":
   assert len(args) == 1
   
   tgtDir = replaceServer(args[0])
-  opt = "-d" if options.delete else ""
+  opt = "--delete" if options.delete else ""
   cmd = "rsync -ravutzh --progress -e ssh . %s %s" %(tgtDir, opt)
   print cmd
   os.system(cmd)
