@@ -39,6 +39,7 @@ def showServers():
 if __name__ == "__main__":
   parser = optparse.OptionParser(usage = "cmd dev1@dir1 dir2")
   parser.add_option("-d", action = "store_true", dest = "debug")
+  parser.add_option("-r", action = "store_true", dest = "recursive")
   parser.add_option("--show", action = "store_true", dest = "showServer",
                     help = "show all servers")
   #parser.add_option("-q", "--quiet", action = "store_true", dest = "verbose",
@@ -55,7 +56,10 @@ if __name__ == "__main__":
   srcDir, tgtDir = replaceServer(args[0]), replaceServer(args[1])
 
   dirOpt = "-r" if srcDir.endswith("/") else ""
-  cmd = "scp %s %s %s" %(dirOpt, srcDir, tgtDir)
+  if options.recursive:
+    cmd = "scp -r %s %s %s" %(dirOpt, srcDir, tgtDir)
+  else:  
+    cmd = "scp %s %s %s" %(dirOpt, srcDir, tgtDir)
   print cmd
   os.system(cmd)
 
