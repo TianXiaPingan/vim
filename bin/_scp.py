@@ -6,10 +6,8 @@ from algorithm import *
 debug = False
 
 def loadServerConfig():
-  path = "/Users/txia/inf/study/linux-settings/common-settings/vim/bin"
   ret = {}
-
-  for ln in open(path + "/servers.config"):
+  for ln in open("%s/.vim/bin/servers.config" %os.getenv("HOME")):
     ln = ln.strip()
     if ln == "":
       continue
@@ -58,7 +56,6 @@ if __name__ == "__main__":
 
   dirOpt = "-r" if srcDir.endswith("/") else ""
   cmd = "scp %s %s %s" %(dirOpt, srcDir, tgtDir)
-  if debug:
-    print cmd
+  print cmd
   os.system(cmd)
 

@@ -1,3 +1,6 @@
+# Install java in CentOS
+# cd ~/; wget --no-cookies --no-check-certificate --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" "http://download.oracle.com/otn-pub/java/jdk/8u60-b27/jre-8u60-linux-x64.rpm"; sudo yum localinstall jre-8u60-linux-x64.rpm
+
 # Parallel stream in Java
 # java -Djava.util.concurrent.ForkJoinPool.common.parallelism=8 ...
 # java -Xmx40G  ...
@@ -325,25 +328,6 @@ alias du2='clear; du -h --max-depth 1'
 alias gvim='/Applications/MacPorts/MacVim.app/Contents/MacOS/Vim -g'
 
 # e.g. rsync --size-only -ravutz -e ssh source-dir/ summer@130.108.28.50:dest-dir/
-
-alias _server_nimbus='echo password: shaojunwang; ssh w004txx@nimbus.cs.wright.edu '
-alias _server_knoesis='echo password: commonSummer; ssh xia@knoesis1.wright.edu '
-# in wsj server: account: wsj, password: wsj
-alias _server_wsj='echo password: summer; ssh summer@130.108.28.50'
-alias _server_new='echo shaojunwang; ssh swang@130.108.87.251'
-alias _server_amazon_tokyo="ssh ubuntu@52.68.137.96"
-alias _server_wd="ssh summer@192.168.1.104"
-alias _server_demo="ssh txia@tian.cloud.phx3.gdg"
-
-alias _server_dev1="ssh txia@g1dlfinddev01.dev.glbt1.gdg"
-alias _server_dev2="ssh txia@g1dlfinddev02.dev.glbt1.gdg"
-alias _server_dev3="ssh txia@g1dlfinddev03.dev.glbt1.gdg"
-alias _server_dev4="ssh txia@g1dlfinddev04.dev.glbt1.gdg"
-alias _server_hadoop="ssh txia@p3plpashl01.prod.phx3.gdg"
-alias _server_spark="ssh txia@g1dlemllab01-02.dev.glbt1.gdg"
-alias _server_buck06="ssh txia@p3plfinddev06.prod.phx3.gdg"
-alias _server_buck09="ssh txia@p3plfinddev09.prod.phx3.gdg"
-alias _server_aws1="ssh  ubuntu@35.166.219.115"
 
 alias _java_eclimd="~/Installed/EclipseJava.app/Contents/Eclipse/eclimd"
 
