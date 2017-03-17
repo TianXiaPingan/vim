@@ -3,6 +3,8 @@
 
 from algorithm import *
 
+debug = False
+
 def loadServerConfig():
   path = "/Users/txia/inf/study/linux-settings/common-settings/vim/bin"
   ret = {}
@@ -15,7 +17,7 @@ def loadServerConfig():
     if len(d) == 0:
       continue
     ret[d["name"]] = "%s@%s" %(d["account"], d["ip"])
-    if options.debug:
+    if debug:
       print d
 
   return ret 
@@ -31,6 +33,11 @@ def replaceServer(addr):
     return addr.replace(server + "@", servers[server] + ":")
   return addr
 
+def showServers():
+  servers = loadServerConfig()
+  for name in sorted(servers.keys()):
+    print name, servers[name]
+
 if __name__ == "__main__":
   parser = optparse.OptionParser(usage = "cmd dev1@dir1 dir2")
   parser.add_option("-d", action = "store_true", dest = "debug")
@@ -40,10 +47,9 @@ if __name__ == "__main__":
                      #default = False, help = "")
   (options, args) = parser.parse_args()
 
+  debug = options.debug
   if options.showServer:
-    servers = loadServerConfig()
-    for name in sorted(servers.keys()):
-      print name, servers[name]
+    showServers()
     exit(0)
 
   assert len(args) == 2
@@ -52,7 +58,7 @@ if __name__ == "__main__":
 
   dirOpt = "-r" if srcDir.endswith("/") else ""
   cmd = "scp %s %s %s" %(dirOpt, srcDir, tgtDir)
-  if options.debug:
+  if debug:
     print cmd
   os.system(cmd)
 
