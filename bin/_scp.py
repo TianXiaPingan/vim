@@ -3,22 +3,29 @@
 
 from algorithm import *
 
-servers = {
-  "dev1"  : "txia@g1dlfinddev01.dev.glbt1.gdg",
-  "dev2"  : "txia@g1dlfinddev02.dev.glbt1.gdg",
-  "dev3"  : "txia@g1dlfinddev03.dev.glbt1.gdg",
-  "dev4"  : "txia@g1dlfinddev04.dev.glbt1.gdg",
-  "hadoop": "txia@p3plpashl01.prod.phx3.gdg",
-  "demo"  : "txia@tian.cloud.phx3.gdg",
-  "wd"    : "summer@192.168.1.104",
-  "buck06": "txia@p3plfinddev06.prod.phx3.gdg",
-  "buck09": "txia@p3plfinddev09.prod.phx3.gdg",
-  "aws1"  : "ubuntu@52.41.57.54"         
-}
+def loadServerConfig():
+  path = "/Users/txia/inf/study/linux-settings/common-settings/vim/bin"
+  ret = {}
+
+  for ln in open(path + "/servers.config"):
+    ln = ln.strip()
+    if ln == "":
+      continue
+    d = extractAttribute(ln)
+    if len(d) == 0:
+      continue
+    ret[d["name"]] = "%s@%s" %(d["account"], d["ip"])
+    if options.debug:
+      print d
+
+  return ret 
 
 def replaceServer(addr):
+  global servers
   if "@" not in addr:
     return addr
+  
+  servers = loadServerConfig()
   server = addr[: addr.index("@")]
   if server in servers:
     return addr.replace(server + "@", servers[server] + ":")
@@ -26,9 +33,18 @@ def replaceServer(addr):
 
 if __name__ == "__main__":
   parser = optparse.OptionParser(usage = "cmd dev1@dir1 dir2")
+  parser.add_option("-d", action = "store_true", dest = "debug")
+  parser.add_option("--show", action = "store_true", dest = "showServer",
+                    help = "show all servers")
   #parser.add_option("-q", "--quiet", action = "store_true", dest = "verbose",
                      #default = False, help = "")
   (options, args) = parser.parse_args()
+
+  if options.showServer:
+    servers = loadServerConfig()
+    for name in sorted(servers.keys()):
+      print name, servers[name]
+    exit(0)
 
   assert len(args) == 2
   
@@ -36,6 +52,7 @@ if __name__ == "__main__":
 
   dirOpt = "-r" if srcDir.endswith("/") else ""
   cmd = "scp %s %s %s" %(dirOpt, srcDir, tgtDir)
-  #print cmd
+  if options.debug:
+    print cmd
   os.system(cmd)
 
