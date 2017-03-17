@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 from algorithm import *
+from _scp import loadServerConfig
 import json
 import urllib2
 import urllib
@@ -8,7 +9,7 @@ import urllib
 debug = False 
 
 class Client:
-  findUrl = ("http://localhost:%s/v3/name/find?%s"
+  findUrl = ("http://%s:%s/v3/name/find?%s"
              "&user_country_site=%s&geo_country_code=%s"
              "&pagination_size=%d"
              "&pagination_start=0&max_price=2147483647&min_price=0"
@@ -25,16 +26,24 @@ class Client:
     "unknown" : "",
   }
 
-  def __init__(self, port, topN):
+  def __init__(self, server, port, topN):
     self._port   = port
     self._topN   = topN
+    self._server = None 
+
+    servers = loadServerConfig()
+    if server in servers:
+      server = servers[server]
+      _, _, self._server = server.partition("@")
+    elif server != "localhost":
+      assert "No valid '%s'" %server
 
   def fetchSerp(self, valueDict):
     country, geo = valueDict["country"], valueDict["geo"]
     query = valueDict["query"]
     user = valueDict["user"]
 
-    querytext = Client.findUrl %(self._port,
+    querytext = Client.findUrl %(self._server, self._port,
                                  urllib.urlencode({"q": query}),
                                  country, geo, self._topN,
                                  Client.user2ID[user])
@@ -154,6 +163,8 @@ if __name__ == "__main__":
   parser = OptionParser(usage = "cmd [optons] ..]")
   #parser.add_option("-q", "--quiet", action = "store_true", dest = "verbose", \
       #default = False, help = "don"t print status messages to stdout")
+  parser.add_option("--server", dest = "server", default = "localhost",
+                    help = "default localhost")
   parser.add_option("--port", dest = "port", default = "8080",
                     help = "default '8080'")
   parser.add_option("-n", dest = "topN", type = int, default = 20,
@@ -175,7 +186,7 @@ if __name__ == "__main__":
   parser.add_option("--purchase", dest = "purchase", default = None)
   (options, args) = parser.parse_args()
 
-  client = Client(options.port, options.topN)
+  client = Client(options.server, options.port, options.topN)
   valueDict = {
     "key"       : options.key,
     "query"     : options.query,

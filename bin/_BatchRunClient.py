@@ -7,30 +7,33 @@ from multiprocessing import Queue;
 from threading import Thread
 import urllib2
 
-checkUrl = ("http://localhost:{port}/v3/name/find?q=zoespizza"
-            "&user_country_site=www&geo_country_code=us&pagination_size=20"
-            "&pagination_start=0&max_price=2147483647&min_price=0"
-            "&max_sld_length=2147483647&min_sld_length=1"
-            "&user_shopper_status=PUBLIC&server_private_label_id=1"
-            "&server_currency=USD&server_ip=127.0.0.1&server_name=anonymous"
-            "&domain_source=ALL&user_vguid=strange-visitor-session-ID"
-            "&user_shopper_id=52563262")
+def portAvailable(server, port):
+  client = Client(server, port, 100)
+  valueDict = {
+    "key"       : "test-key",
+    "query"     : "zeospizza.com", 
+    "country"   : "www", 
+    "geo"       : "geo", 
+    "user"      : "new", 
+    "longitude" : None,
+    "latitude"  : None, 
+    "city"      : None, 
+    "date"      : None,
+    "addToCart" : None, 
+    "purchase"  : None 
+  }
 
-def portAvailable(port):
-  url = checkUrl.replace("{port}", port)
-  cmd = "wget '%s' -O test.%s.html" %(url, port)
   for tryFreq in xrange(10):
-    code = os.system(cmd)
-    print "Checking port=%s in the %d-th time: code=%d" %(port, tryFreq, code)
-    print cmd
-    sys.stdout.flush()
-    if code == 0:
+    try:
+      _, _, _, results = client.fetchSerp(valueDict)
       return True
-    time.sleep(10)
-  return False
+    except Exception as error:
+      time.sleep(10)
 
-def threadFunction(port, queryQueue, resultQueue):
-  client = Client(port, 100)
+  return False    
+
+def threadFunction(server, port, queryQueue, resultQueue):
+  client = Client(server, port, 100)
   fnLog = open("log.%s" %port, "w")
   while True:
     try:
@@ -58,7 +61,7 @@ def threadFunction(port, queryQueue, resultQueue):
                       "in port=", port, valueDict
       fnLog.flush()
 
-      if not portAvailable(port):
+      if not portAvailable(server, port):
         print >> fnLog, "Error: fail in port=%s" %port
         fnLog.flush()
         queryQueue.put(valueDict)
@@ -90,35 +93,24 @@ def extractFinishedKey(files):
 
 if __name__ == "__main__":
   parser = OptionParser(usage = "cmd [optons] file1 file2 ...")
-  parser.add_option("--ports", dest = "ports")
   parser.add_option("-o", dest = "outFile", default = "rank.txt",
                     help = "default 'rank.txt'")
-  parser.add_option("--rankHistory", dest = "rankHistory", default = None,
-                    help = ("support multiple files, splitted with ','"
-                            "default None"))
   #parser.add_option("-q", "--quiet", action = "store_true", dest = "verbose",
                      #default = False, help = "")
   parser.add_option("--debug", action = "store_true", dest = "debug",
                      default = False, help = "")
   (options, args) = parser.parse_args()
 
-  if "-" not in options.ports:
-    ports = [options.ports]
-  else:
-    portFrom, portTo = map(int, options.ports.split("-"))
-    ports = map(str, range(portFrom, portTo + 1))
-  print ports
+  servers = ["cloud1", "cloud2", "cloud3", "cloud4", "cloud5", "cloud6"]
+  ports = [9001, 9002]
+  threadNum = len(servers) * len(ports)
 
-  if options.rankHistory is not None:
-    print options.rankHistory
-    histFiles = options.rankHistory.replace(",", " ")
-    finishedKeys = extractFinishedKey(histFiles.split())
-    print "#Finished query:", len(finishedKeys)
+  queryQueue, resultQueue = Queue(threadNum), Queue()
 
-  queryQueue, resultQueue = Queue(len(ports)), Queue()
   threads = [Thread(target = threadFunction, 
-                    args = (port, queryQueue, resultQueue))
-             for port in ports]
+                    args = (server, port, queryQueue, resultQueue))
+             for server, port in itertools.product(servers, ports)]
+
   writeProcess = Thread(target = threadWrite,
                         args = (resultQueue, options.outFile))
   writeProcess.start()
@@ -129,7 +121,5 @@ if __name__ == "__main__":
 
   queryIter = readNamedColumnFile(args)
   for query in queryIter:
-    if query["key"] in finishedKeys:
-      continue
     queryQueue.put(query)
 
