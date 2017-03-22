@@ -29,7 +29,7 @@ class Client:
   def __init__(self, server, port, topN):
     self._port   = port
     self._topN   = topN
-    self._server = None 
+    self._server = server 
 
     servers = loadServerConfig()
     if server in servers:
