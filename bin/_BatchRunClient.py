@@ -6,6 +6,9 @@ from algorithm import *
 from multiprocessing import Queue
 from threading import Thread
 
+servers = ["cloud1", "cloud2", "cloud3", "cloud4", "cloud5", "cloud6"]
+ports = [9001, 9002]
+
 def portAvailable(server, port):
   client = Client(server, port, 100)
   valueDict = {
@@ -39,7 +42,7 @@ def threadFunction(server, port, queryQueue, resultQueue):
     try:
       valueDict = queryQueue.get()
       if valueDict is None:
-        # print "(%s, %s) is exiting" %(server, port)
+        print "(%s, %s) is exiting" %(server, port)
         break
 
       if options.debug:
@@ -94,8 +97,6 @@ if __name__ == "__main__":
                      default = False, help = "")
   (options, args) = parser.parse_args()
 
-  servers = ["cloud1", "cloud2", "cloud3", "cloud4", "cloud5", "cloud6"]
-  ports = [9001, 9002]
   threadNum = len(servers) * len(ports)
 
   queryQueue, resultQueue = Queue(threadNum), Queue()
