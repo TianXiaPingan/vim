@@ -5,7 +5,7 @@ from algorithm import *
 from _scp import *
 
 if __name__ == "__main__":
-  parser = optparse.OptionParser(usage = "cmd targetDir")
+  parser = optparse.OptionParser(usage = "cmd server 'cmd'")
   #parser.add_option("-q", "--quiet", action = "store_true", dest = "verbose",
                      #default = False, help = "")
   parser.add_option("--show", action = "store_true", dest = "showServer",
@@ -16,13 +16,13 @@ if __name__ == "__main__":
     showServers()
     exit(0)
 
-  assert len(args) == 1
+  assert len(args) >= 1
   loginServer = args[0] 
   if "@" not in loginServer:
     servers = loadServerConfig()
     loginServer = servers.get(loginServer, loginServer)
   
-  cmd = "ssh %s" %loginServer 
+  cmd = "ssh %s '%s'" %(loginServer, "" if len(args) == 1 else args[1])
   print cmd
   os.system(cmd)
 

@@ -3,9 +3,8 @@
 
 from _RunClient import Client
 from algorithm import *
-from multiprocessing import Queue;
+from multiprocessing import Queue
 from threading import Thread
-import urllib2
 
 def portAvailable(server, port):
   client = Client(server, port, 100)
@@ -33,11 +32,16 @@ def portAvailable(server, port):
   return False    
 
 def threadFunction(server, port, queryQueue, resultQueue):
+  # print "(%s, %s) is starting" %(server, port)
   client = Client(server, port, 100)
   fnLog = open("log.%s" %port, "w")
   while True:
     try:
       valueDict = queryQueue.get()
+      if valueDict is None:
+        # print "(%s, %s) is exiting" %(server, port)
+        break
+
       if options.debug:
         print >> fnLog, "port: %s, valueDict: %s" %(port, valueDict)
       _, _, _, results = client.fetchSerp(valueDict)
@@ -70,26 +74,15 @@ def threadFunction(server, port, queryQueue, resultQueue):
 def threadWrite(resultQueue, outFile):
   fou = open(outFile, "w")
   while True:
-    line = toUtf8(resultQueue.get())
+    line = resultQueue.get()
+    if line is None:
+      break
+
+    line = toUtf8(line)
     if line is not None:
       print >> fou, line
       fou.flush()
   fou.close()
-
-def extractFinishedKey(files):
-  def extractSingleFile(fname):
-    reg = re.compile("key=(.*?)\s")
-    keys = set() 
-    for ln in open(fname):
-      rst = reg.findall(ln)
-      keys.update(rst)
-
-    return keys
-
-  ret = extractSingleFile(files[0])
-  for fn in files[1:]:
-    ret.update(extractSingleFile(fn))
-  return ret
 
 if __name__ == "__main__":
   parser = OptionParser(usage = "cmd [optons] file1 file2 ...")
@@ -117,9 +110,23 @@ if __name__ == "__main__":
 
   for td in threads:
     td.start()
-    print "start"
+    print "starting", td.getName()
 
   queryIter = readNamedColumnFile(args)
   for query in queryIter:
-    queryQueue.put(query)
+    try:
+      queryQueue.put(query, timeout = 10 * 60)
+    except:
+      break
+
+  for td in threads:
+    queryQueue.put(None)
+
+  for td in threads:
+    td.join()
+    print td.getName(), "joins"
+  resultQueue.put(None)
+
+  print "All threads have joined"
+
 
