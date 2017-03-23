@@ -8,15 +8,12 @@ if __name__ == "__main__":
   parser = optparse.OptionParser(usage = "cmd server 'cmd'")
   #parser.add_option("-q", "--quiet", action = "store_true", dest = "verbose",
                      #default = False, help = "")
-  parser.add_option("--show", action = "store_true", dest = "showServer",
-                    help = "show all servers")
   (options, args) = parser.parse_args()
 
-  if options.showServer:
+  if len(args) == 0:
     showServers()
     exit(0)
 
-  assert len(args) >= 1
   loginServer = args[0] 
   if "@" not in loginServer:
     servers = loadServerConfig()

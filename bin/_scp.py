@@ -40,21 +40,18 @@ if __name__ == "__main__":
   parser = optparse.OptionParser(usage = "cmd dev1@dir1 dir2")
   parser.add_option("-d", action = "store_true", dest = "debug")
   parser.add_option("-r", action = "store_true", dest = "recursive")
-  parser.add_option("--show", action = "store_true", dest = "showServer",
-                    help = "show all servers")
   #parser.add_option("-q", "--quiet", action = "store_true", dest = "verbose",
                      #default = False, help = "")
   (options, args) = parser.parse_args()
 
-  debug = options.debug
-  if options.showServer:
+  if len(args) == 0: 
     showServers()
     exit(0)
 
+  debug = options.debug
   assert len(args) == 2
   
   srcDir, tgtDir = replaceServer(args[0]), replaceServer(args[1])
-
   dirOpt = "-r" if srcDir.endswith("/") else ""
   if options.recursive:
     cmd = "scp -r %s %s %s" %(dirOpt, srcDir, tgtDir)
