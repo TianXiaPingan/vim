@@ -1,3 +1,6 @@
+# check apt-get installed packages: dpkg -L exact-package-name
+# apt list --installed
+
 # Config aws
 # 1) ping: ICMP   Echo Request
 # 2) TCP:   0 - 65535

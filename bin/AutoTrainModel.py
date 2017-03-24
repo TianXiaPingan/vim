@@ -38,7 +38,7 @@ def startFeatGenServers(server):
 
 def collectFeat(server):
   featFile = "feat.%s.tgz" %server
-  rankServer = loadServerConfig()["rankServer"]
+  rankServer = loadServerConfig()["rankServerGoogle"]
   cmds = [
     "killall java",
     "cd ~/DomainIQ",
