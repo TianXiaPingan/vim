@@ -1,26 +1,30 @@
+from algorithm import *
+from threading import Thread
 from _BatchRunClient import ports as featGenPorts
 from _BatchRunClient import servers as featGenServers
 from _scp import loadServerConfig
-from algorithm import *
-from threading import Thread
 
 class PipeLine:
   pipelineStages = [
     "featExtraction", "featCollection", "modelTrain", "modelTest"
   ]
 
-  def run(self, stageStartFrom):
-    startFromStage = self.pipelineStages.index(options.startFromStage)
-    if startFromStage <= 0:
+  def __init__(self, stageStartFrom, dataFiles):
+    self._stageStartFrom = stageStartFrom
+    self._dataFiles = dataFiles
+
+  def run(self):
+    stageIndex = self.pipelineStages.index(self._stageStartFrom)
+    if stageIndex <= 0:
       self._stage0()
-    if startFromStage <= 1:
+    if stageIndex <= 1:
       self._stage1()
 
   def _stage0(self):
     for server in featGenServers:
       self._startFeatGenServers(server)
 
-    cmd = "_BatchRunClient.py %s" %" ".join(args)
+    cmd = "_BatchRunClient.py %s" %" ".join(self._dataFiles)
     print cmd
     os.system(cmd)
 
@@ -95,7 +99,7 @@ if __name__ == "__main__":
   (options, args) = parser.parse_args()
 
   print featGenServers, featGenPorts
-  PipeLine().run(options.startFromStage)
+  PipeLine(options.startFromStage, args).run()
 
 
 
