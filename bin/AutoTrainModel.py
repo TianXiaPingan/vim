@@ -1,55 +1,85 @@
-from algorithm import *
-from multiprocessing import Pool
-from _BatchRunClient import servers as featGenServers
 from _BatchRunClient import ports as featGenPorts
+from _BatchRunClient import servers as featGenServers
 from _scp import loadServerConfig
+from algorithm import *
+from threading import Thread
 
-def startFeatGenServers(server):
-  def isJavaAlive():
+class PipeLine:
+  pipelineStages = [
+    "featExtraction", "featCollection", "modelTrain", "modelTest"
+  ]
+
+  def run(self, stageStartFrom):
+    startFromStage = self.pipelineStages.index(options.startFromStage)
+    if startFromStage <= 0:
+      self._stage0()
+    if startFromStage <= 1:
+      self._stage1()
+
+  def _stage0(self):
+    for server in featGenServers:
+      self._startFeatGenServers(server)
+
+    cmd = "_BatchRunClient.py %s" %" ".join(args)
+    print cmd
+    os.system(cmd)
+
+  def _stage1(self):
+    threads = [Thread(target = PipeLine._collectFeat, args = (server,))
+               for server in featGenServers]
+    for thread in threads:
+      thread.start()
+    for thread in threads:
+      thread.join()
+
+  def _isJavaAlive(self, server):
     javaNum = 0
     for ln in os.popen("_ssh.py %s 'ps -A | grep -i java'" %server):
       if ln.split()[-1] == "java":
         javaNum += 1
     return javaNum == 2
 
-  # nohup java $JAVA_OPTS
-  # -Denable.feature.extraction=true
-  # -Dlauncher.port=9001 -cp $CLASSPATH $JAVA_OPTS_DOMAINIQ
-  # Launcher > log.9091 2>&1 &
-  cmds = [
-    "killall java",
-    "cd ~/DomainIQ",
-    "rm -r logs",
-    "rm log.9091 log.9092",
-    "rm feats.*",
-    "source bin/DomainIQ",
-  ]
-  cmd = "_ssh.py %s '%s'" %(server, ";".join(cmds))
+  def _startFeatGenServers(self, server):
+    # nohup java $JAVA_OPTS
+    # -Denable.feature.extraction=true
+    # -Dlauncher.port=9001 -cp $CLASSPATH $JAVA_OPTS_DOMAINIQ
+    # Launcher > log.9091 2>&1 &
+    cmds = [
+      "killall java",
+      "cd ~/DomainIQ",
+      "rm -r logs",
+      "rm log.9091 log.9092",
+      "rm feats.*",
+      "source bin/DomainIQ",
+    ]
+    cmd = "_ssh.py %s '%s'" %(server, ";".join(cmds))
 
-  for tryFreq in xrange(10):
+    for tryFreq in xrange(10):
+      os.system(cmd)
+      # print cmd
+      if self._isJavaAlive(server):
+        print "Starting %s: OK" %server
+        return True
+
+    print "Starting %s: fail" %server
+    return False
+
+  @staticmethod
+  def _collectFeat(server):
+    print "server: ", server
+    featFile = "feat.%s.tgz" %server
+    rankServer = loadServerConfig()["rankServerGoogle"]
+    cmds = [
+      "killall java",
+      "cd ~/DomainIQ",
+      "rm -r logs",
+      "rm log.9091 log.9092",
+      "tar -cvzf %s feats.*.txt" %featFile,
+      "scp -oStrictHostKeyChecking=no %s %s:~/" %(featFile, rankServer)
+    ]
+    cmd = "_ssh.py %s '%s'" %(server, ";".join(cmds))
+    print cmd
     os.system(cmd)
-    # print cmd
-    if isJavaAlive():
-      print "Starting %s: OK" %server
-      return True
-
-  print "Starting %s: fail" %server
-  return False
-
-def collectFeat(server):
-  featFile = "feat.%s.tgz" %server
-  rankServer = loadServerConfig()["rankServerGoogle"]
-  cmds = [
-    "killall java",
-    "cd ~/DomainIQ",
-    "rm -r logs",
-    "rm log.9091 log.9092",
-    "tar -cvzf %s feats.*.txt" %featFile,
-    "scp -oStrictHostKeyChecking=no %s %s:~/" %(featFile, rankServer)
-  ]
-  cmd = "_ssh.py %s '%s'" %(server, ";".join(cmds))
-  print cmd
-  os.system(cmd)
 
 if __name__ == "__main__":
   parser = OptionParser(usage = "cmd [optons] file1 file2 ...")
@@ -59,17 +89,13 @@ if __name__ == "__main__":
                      #default = False, help = "")
   parser.add_option("--debug", action = "store_true", dest = "debug",
                      default = False, help = "")
+  parser.add_option("--startFromStage", dest = "startFromStage",
+                    default = "featExtraction",
+                    help = ", ".join(PipeLine.pipelineStages))
   (options, args) = parser.parse_args()
 
   print featGenServers, featGenPorts
+  PipeLine().run(options.startFromStage)
 
-  for server in featGenServers:
-    startFeatGenServers(server)
-
-  cmd = "_BatchRunClient.py %s" %" ".join(args)
-  print cmd
-  os.system(cmd)
-
-  Pool().map(collectFeat, featGenServers)
 
 
