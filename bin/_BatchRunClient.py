@@ -7,85 +7,93 @@ from multiprocessing import Queue
 from threading import Thread
 
 servers = ["cloud1", "cloud2", "cloud3", "cloud4", "cloud5", "cloud6"]
-ports = [9001, 9002]
+ports   = [9001, 9002]
 
-def portAvailable(server, port):
-  client = Client(server, port, 100)
-  valueDict = {
-    "key"       : "test-key",
-    "query"     : "zeospizza.com", 
-    "country"   : "www", 
-    "geo"       : "geo", 
-    "user"      : "new", 
-    "longitude" : None,
-    "latitude"  : None, 
-    "city"      : None, 
-    "date"      : None,
-    "addToCart" : None, 
-    "purchase"  : None 
-  }
+class FeatExtraction(Thread):
+  def __init__(self, server, port, queryQueue, resultQueue):
+    super(FeatExtraction, self).__init__()
+    self._server = server
+    self._port = port
+    self._queryQueue = queryQueue
+    self._resultQueue = resultQueue
 
-  for tryFreq in xrange(10):
-    try:
-      _, _, _, results = client.fetchSerp(valueDict)
-      return True
-    except Exception as error:
-      time.sleep(10)
+  def _portAvailable(self):
+    client = Client(self._server, self._port, 100)
+    valueDict = {
+      "key"       : "test-key",
+      "query"     : "zeospizza.com",
+      "country"   : "www",
+      "geo"       : "geo",
+      "user"      : "new",
+      "longitude" : None,
+      "latitude"  : None,
+      "city"      : None,
+      "date"      : None,
+      "addToCart" : None,
+      "purchase"  : None
+    }
 
-  return False    
+    for tryFreq in xrange(10):
+      try:
+        _, _, _, results = client.fetchSerp(valueDict)
+        return True
+      except Exception as error:
+        time.sleep(10)
 
-def threadFunction(server, port, queryQueue, resultQueue):
-  # print "(%s, %s) is starting" %(server, port)
-  client = Client(server, port, 100)
-  fnLog = open("log.%s" %port, "w")
-  while True:
-    try:
-      valueDict = queryQueue.get()
-      if valueDict is None:
-        print "(%s, %s) is exiting" %(server, port)
-        break
+    return False
 
-      if options.debug:
-        print >> fnLog, "port: %s, valueDict: %s" %(port, valueDict)
-      _, _, _, results = client.fetchSerp(valueDict)
-      # score:rel:domain
-      ranks = [":".join(item) for item in results[1:]]
-      line = "\t".join(["key=" + valueDict["key"],
-                        "user=" + valueDict["user"],
-                        "addToCart=" + valueDict["addToCart"],
-                        "purchase=" + valueDict["purchase"],
-                        "rank=" + " ".join(ranks)])
-      resultQueue.put(line)
-      print >> fnLog, "\nsucceed in port=", port, valueDict
-      fnLog.flush()
+  def run(self):
+    client = Client(self._server, self._port, 100)
+    fnLog = open("log.%s" %self._port, "w")
+    while True:
+      try:
+        valueDict = queryQueue.get()
+        if valueDict is None:
+          print "(%s, %s) is exiting" %(self._server, self._port)
+          break
 
-    except UnicodeDecodeError:
-      print >> fnLog, "Warning: Unicode error in port=", port, valueDict
-      fnLog.flush()
-
-    except Exception as error:
-      print >> fnLog, "Warning(unknown exception):", error, \
-                      "in port=", port, valueDict
-      fnLog.flush()
-
-      if not portAvailable(server, port):
-        print >> fnLog, "Error: fail in port=%s" %port
+        if options.debug:
+          print >> fnLog, "port: %s, valueDict: %s" %(self._port, valueDict)
+        _, _, _, results = client.fetchSerp(valueDict)
+        # score:rel:domain
+        ranks = [":".join(item) for item in results[1:]]
+        line = "\t".join(["key=" + valueDict["key"],
+                          "user=" + valueDict["user"],
+                          "addToCart=" + valueDict["addToCart"],
+                          "purchase=" + valueDict["purchase"],
+                          "rank=" + " ".join(ranks)])
+        self._resultQueue.put(line)
+        print >> fnLog, "\nsucceed in port=", self._port, valueDict
         fnLog.flush()
-        queryQueue.put(valueDict)
+
+      except UnicodeDecodeError:
+        print >> fnLog, "Warning: Unicode error in port=", self._port, valueDict
+        fnLog.flush()
+
+      except Exception as error:
+        print >> fnLog, "Warning(unknown exception):", error, \
+                        "in port=", self._port, valueDict
+        fnLog.flush()
+
+        if not self._portAvailable():
+          print >> fnLog, "Error: fail in port=%s" %self._port
+          fnLog.flush()
+          queryQueue.put(valueDict)
+          break
+
+  @staticmethod
+  def threadWrite(resultQueue, outFile):
+    fou = open(outFile, "w")
+    while True:
+      line = resultQueue.get()
+      if line is None:
         break
 
-def threadWrite(resultQueue, outFile):
-  fou = open(outFile, "w")
-  while True:
-    line = resultQueue.get()
-    if line is None:
-      break
-
-    line = toUtf8(line)
-    if line is not None:
-      print >> fou, line
-      fou.flush()
-  fou.close()
+      line = toUtf8(line)
+      if line is not None:
+        print >> fou, line
+        fou.flush()
+    fou.close()
 
 if __name__ == "__main__":
   parser = OptionParser(usage = "cmd [optons] file1 file2 ...")
@@ -98,14 +106,10 @@ if __name__ == "__main__":
   (options, args) = parser.parse_args()
 
   threadNum = len(servers) * len(ports)
-
   queryQueue, resultQueue = Queue(threadNum), Queue()
-
-  threads = [Thread(target = threadFunction, 
-                    args = (server, port, queryQueue, resultQueue))
+  threads = [FeatExtraction(server, port, queryQueue, resultQueue)
              for server, port in itertools.product(servers, ports)]
-
-  writeProcess = Thread(target = threadWrite,
+  writeProcess = Thread(target = FeatExtraction.threadWrite,
                         args = (resultQueue, options.outFile))
   writeProcess.start()
 
