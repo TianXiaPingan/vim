@@ -9,6 +9,7 @@ import static java.lang.System.out;
 public class Alg {
   public static double EPSILON = 1e-8;
 
+  @Deprecated
   public static class IntComparator implements Comparator<Integer>,
                                                Serializable {
     @Override
