@@ -6,7 +6,7 @@ from _scp import loadServerConfig
 
 class PipeLine:
   pipelineStages = [
-    "featExtraction", "featCollection", "modelTrain", "modelTest"
+    "featExtract", "featCollect", "modelTrain", "modelTest"
   ]
 
   def __init__(self, stageStartFrom, dataFiles):
@@ -16,11 +16,13 @@ class PipeLine:
   def run(self):
     stageIndex = self.pipelineStages.index(self._stageStartFrom)
     if stageIndex <= 0:
-      self._stage0()
+      self._stage0FeatExtraction()
     if stageIndex <= 1:
-      self._stage1()
+      self._stage1FeatCollecting()
+    if stageIndex <= 2:
+      self._stage2ModelTrain()
 
-  def _stage0(self):
+  def _stage0FeatExtraction(self):
     for server in featGenServers:
       self._startFeatGenServers(server)
 
@@ -28,13 +30,24 @@ class PipeLine:
     print cmd
     os.system(cmd)
 
-  def _stage1(self):
+  def _stage1FeatCollecting(self):
+    cmd = "_ssh.py rankServerGoogle 'rm autorank/*'"
+    os.system(cmd)
+
     threads = [Thread(target = PipeLine._collectFeat, args = (server,))
                for server in featGenServers]
     for thread in threads:
       thread.start()
     for thread in threads:
       thread.join()
+
+  def _stage2ModelTrain(self):
+    cmds = [
+      "cd ~/autorank",
+      "for f in *.tgz; do tar xvzf $f; done"
+    ]
+    cmd = "_ssh.py rankServerGoogle '%s'" %";".join(cmds)
+    os.system(cmd)
 
   def _isJavaAlive(self, server):
     javaNum = 0
@@ -79,7 +92,7 @@ class PipeLine:
       "rm -r logs",
       "rm log.9091 log.9092",
       "tar -cvzf %s feats.*.txt" %featFile,
-      "scp -oStrictHostKeyChecking=no %s %s:~/" %(featFile, rankServer)
+      "scp -oStrictHostKeyChecking=no %s %s:~/autorank" %(featFile, rankServer)
     ]
     cmd = "_ssh.py %s '%s'" %(server, ";".join(cmds))
     print cmd
