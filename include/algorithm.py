@@ -53,6 +53,14 @@ class DisjointSet:
         self._sizes[f2] += self._sizes[f1]
       self._cluster_size -= 1
 
+def hadoopDeleteFile(fname):
+  executeCmd("hadoop fs -rm -r %s" %fname)
+
+def executeCmd(cmd):
+  print time.strftime("%x %X"), "executing '%s'" %cmd
+  sys.stdout.flush()
+  return os.system(cmd)
+
 def toUtf8(line):
   if type(line) is unicode:
     try:
@@ -217,3 +225,5 @@ if __name__ == "__main__":
 
   fn = "/Users/txia/GoDaddy/tokenizer/data/dictionary/ranking.model/train-data"
   print len(list(readNamedColumnFile(fn + "/tld.price.data")))
+
+  executeCmd("ls")
