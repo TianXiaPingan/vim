@@ -27,6 +27,24 @@ import time
 INF         = float("inf")
 EPSILON     = 1e-6
 
+class FileLock:
+  lockName = "/tmp/lock.data"
+
+  def __init__(self, sleepTime = 60):
+    '''sleepTime: seconds'''
+    self._sleepTime = sleepTime
+    self._waitUntilRelease()
+    executeCmd("touch %s" %FileLock.lockName)
+
+  def unlock(self):
+    executeCmd("rm %s" %FileLock.lockName)
+
+  def _waitUntilRelease(self):
+    while os.path.isfile(FileLock.lockName):
+      print "_waitUntilRelease ..."
+      sys.stdout.flush()
+      time.sleep(self._sleepTime)
+
 class DisjointSet:
   def __init__(self, size):
     self._fathers = [None] * size
@@ -227,3 +245,9 @@ if __name__ == "__main__":
   print len(list(readNamedColumnFile(fn + "/tld.price.data")))
 
   executeCmd("ls")
+
+  lock1 = FileLock(1)
+  print "Wait several seconds and delete /tmp/lock.data"
+  lock2 = FileLock(1)
+  print "lock2"
+  lock2.unlock()
