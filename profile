@@ -338,15 +338,15 @@ alias gvim='/Applications/MacPorts/MacVim.app/Contents/MacOS/Vim -g'
 
 alias _java_eclimd="~/Installed/EclipseJava.app/Contents/Eclipse/eclimd"
 
-alias _submit_spark='/opt/spark/1.5.1/bin/spark-submit --master yarn-client --conf spark.driver.maxResultSize=2G --conf spark.dynamicAllocation.maxExecutors=100 --driver-memory 10g --executor-memory 2g --py-files /home/txia/include/algorithm.py'
+alias _submit_spark='/opt/spark/1.5.1/bin/spark-submit --master yarn-client --conf spark.driver.maxResultSize=2G --conf spark.dynamicAllocation.maxExecutors=100 --driver-memory 10g --executor-memory 2g --py-files /home/txia/.vim/include/algorithm.py'
 
 export PATH=/opt/local/bin:$PATH
 export PATH=/opt/local/sbin:$PATH
-export PATH=~/bin:$PATH
+export PATH=~/.vim/bin:$PATH
 export PATH=/opt/rh/devtoolset-3/root/usr/bin:$PATH
 export PATH=/home/txia/installed/jdk1.8.0_91/bin:$PATH
 
-export CPLUS_INCLUDE_PATH=~/include:$CPLUS_INCLUDE_PATH
+export CPLUS_INCLUDE_PATH=~/.vim/include:$CPLUS_INCLUDE_PATH
 export CPLUS_INCLUDE_PATH=/opt/local/include:$CPLUS_INCLUDE_PATH
 export CPLUS_INCLUDE_PATH=/opt/local/Library/Frameworks/Python.framework/Versions/2.7/Headers:$CPLUS_INCLUDE_PATH
 export CPLUS_INCLUDE_PATH=~/Installed/boost_1_60_0:$CPLUS_INCLUDE_PATH
@@ -363,13 +363,13 @@ export DYLD_FALLBACK_LIBRARY_PATH=/opt/local/Library/Frameworks/Python.framework
 export DYLD_FALLBACK_LIBRARY_PATH=~/Installed/boost_1_60_0/stage/lib:$DYLD_FALLBACK_LIBRARY_PATH
 export DYLD_FALLBACK_LIBRARY_PATH=/opt/local/lib:$DYLD_FALLBACK_LIBRARY_PATH
 
-export PYTHONPATH=~/include:$PYTHONPATH
-export PYTHONPATH=~/bin:$PYTHONPATH
+export PYTHONPATH=~/.vim/include:$PYTHONPATH
+export PYTHONPATH=~/.vim/bin:$PYTHONPATH
 
 export CLASSPATH=~/.m2/repository/org/scala-lang/scala-library/2.11.7/scala-library-2.11.7.jar:$CLASSPATH
 export CLASSPATH=/opt/local/share/java/jline.jar:$CLASSPATH
 export CLASSPATH=/Library/Java/JavaVirtualMachines/jdk1.8.0_91.jdk/Contents/Home/lib/tools.jar:$CLASSPATH
-#export CLASSPATH=~/include/java/bin:$CLASSPATH
+#export CLASSPATH=~/.vim/include/java/bin:$CLASSPATH
 
 #export PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME%%.*}: ${PWD/#$HOME/~}\007"'
 
