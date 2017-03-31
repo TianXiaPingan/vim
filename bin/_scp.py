@@ -54,9 +54,9 @@ if __name__ == "__main__":
   srcDir, tgtDir = replaceServer(args[0]), replaceServer(args[1])
   dirOpt = "-r" if srcDir.endswith("/") else ""
   if options.recursive:
-    cmd = "scp -r %s %s %s" %(dirOpt, srcDir, tgtDir)
+    cmd = "scp -r -oStrictHostKeyChecking=no %s %s %s" %(dirOpt, srcDir, tgtDir)
   else:  
-    cmd = "scp %s %s %s" %(dirOpt, srcDir, tgtDir)
+    cmd = "scp %s -oStrictHostKeyChecking=no %s %s" %(dirOpt, srcDir, tgtDir)
   print cmd
   os.system(cmd)
 

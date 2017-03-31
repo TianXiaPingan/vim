@@ -19,7 +19,7 @@ if __name__ == "__main__":
     servers = loadServerConfig()
     loginServer = servers.get(loginServer, loginServer)
   
-  cmd = "ssh %s '%s'" %(loginServer, "" if len(args) == 1 else args[1])
+  cmd = "ssh -oStrictHostKeyChecking=no %s '%s'" %(loginServer, "" if len(args) == 1 else args[1])
   print cmd
   os.system(cmd)
 
