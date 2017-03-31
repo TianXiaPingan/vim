@@ -3,7 +3,6 @@
 from collections import defaultdict, namedtuple
 from operator import methodcaller, attrgetter, itemgetter, add
 from optparse import OptionParser
-from scipy import array
 
 import bisect
 import cPickle
@@ -19,10 +18,15 @@ import os
 import pprint
 import random
 import re
-import scipy
 import struct
 import sys
 import time
+
+try:
+  import scipy
+  from scipy import array
+except ImportError:
+  print "Does not find package 'scipy'"
 
 INF         = float("inf")
 EPSILON     = 1e-6
