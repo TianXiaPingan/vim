@@ -117,7 +117,7 @@ def calcNdcg(relsList):
   ret = sum(map(calcPerNdcg, relsList)) / len(relsList)
   return ret
 
-def printWithFlush(cont, stream):
+def printFlush(cont, stream = sys.stdout):
   print >> stream, cont
   stream.flush()
 
