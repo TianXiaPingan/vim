@@ -1,3 +1,8 @@
+# connect two computers with a cable
+# 1. In ubuntu: set IP as 192.168.1.104; set netmask as 255.255.255.0
+# 2. In mac Thunderbolt Ethernet: set IP as 192.168.1.200; set netmask as 255.255.255.0.
+# 3. disconnect mac wifi.
+
 # check apt-get installed packages: dpkg -L exact-package-name
 # apt list --installed
 
