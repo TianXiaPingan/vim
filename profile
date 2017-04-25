@@ -1,3 +1,11 @@
+# Creating a keytab for yourself
+# creat: generate-keytab {username}.keytab
+#
+# test: 
+# kdestroy
+# kinit -R -k -t username.keytab username@DC1.CORP.GD
+# klist
+
 # connect two computers with a cable
 # 1. In ubuntu: set IP as 192.168.1.104; set netmask as 255.255.255.0
 # 2. In mac Thunderbolt Ethernet: set IP as 192.168.1.200; set netmask as 255.255.255.0.
