@@ -314,6 +314,8 @@ alias ll='      ls -lhtr'
 alias la='      ls -lhatr'
 alias lld='     ls -lhtr | grep "^d"'
 
+alias vimr='vim -R'
+
 #[[http://hadoop.apache.org/docs/current/hadoop-project-dist/hadoop-common/FileSystemShell.html]]
 alias _hadoop='hadoop fs'
 alias _hls='hadoop fs -ls -h'
@@ -345,13 +347,12 @@ alias _git_log_graph='git log --graph --oneline --decorate'
 
 alias du1='clear; du -h -d 1'
 alias du2='clear; du -h --max-depth 1'
-alias gvim='/Applications/MacPorts/MacVim.app/Contents/MacOS/Vim -g'
 
 # e.g. rsync --size-only -ravutz -e ssh source-dir/ summer@130.108.28.50:dest-dir/
 
-alias _java_eclimd="~/Installed/EclipseJava.app/Contents/Eclipse/eclimd"
+alias _submit_spark='/opt/spark/1.6.2/bin/spark-submit --master yarn-client --conf spark.driver.maxResultSize=2G --conf spark.dynamicAllocation.maxExecutors=100 --driver-memory 10g --executor-memory 2g --py-files /home/txia/.vim/include/algorithm.py'
 
-alias _submit_spark='/opt/spark/1.5.1/bin/spark-submit --master yarn-client --conf spark.driver.maxResultSize=2G --conf spark.dynamicAllocation.maxExecutors=100 --driver-memory 10g --executor-memory 2g --py-files /home/txia/.vim/include/algorithm.py'
+alias _cleanCano='cd /Volumes/CANO && find . -iregex ".*\.thm" -exec rm -v {} \;'
 
 export PATH=/opt/local/bin:$PATH
 export PATH=/opt/local/sbin:$PATH
