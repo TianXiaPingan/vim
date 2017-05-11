@@ -13,8 +13,8 @@ if __name__ == "__main__":
   assert options.timeLength > 0
 
   os.chdir("/Users/txia/Library/Preferences")
-  os.system("defaults write org.niltsh.MPlayerX SeekStepTimeL -float -%d"
-            %options.timeLength)
-  os.system("defaults write org.niltsh.MPlayerX SeekStepTimeR -float %d"
-            %options.timeLength)
+  executeCmd("defaults write org.niltsh.MPlayerX SeekStepTimeL -float -%d"
+             %options.timeLength)
+  executeCmd("defaults write org.niltsh.MPlayerX SeekStepTimeR -float %d"
+             %options.timeLength)
 

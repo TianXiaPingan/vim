@@ -1,3 +1,10 @@
+# nosetest
+# cd /Users/txia/inf/Desktop/GoDaddy/api
+# test a single function: nosetests-2.7 --processes=4 --process-timeout=360000 --tc=host:localhost --tc=port:8080 --nocapture acceptance/test.py:test_tld_compaction_10_18
+# or test all
+# nosetests-2.7 --processes=4 --process-timeout=360000 --tc=host:localhost --tc=port:8080 --nocapture acceptance/
+# --tc option requires install nose configuration package.
+
 # Creating a keytab for yourself
 # creat: generate-keytab {username}.keytab
 #
