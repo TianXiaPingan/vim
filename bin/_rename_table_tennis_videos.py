@@ -6,28 +6,29 @@ import codecs
 import sys
 
 class RenameTableTennies:
-  video_exts_ = [".mp4"]
+  videoExts = [".mp4"]
 
   def __init__(self):
     self._players = [
-      ["ma long", "马龙"],
-      ["ma lin", "马琳"],
-      ["zhang ji ke", "张继科"],
-      ["zhang yining", "张怡宁"],
-      ["wang hao", "王皓"],
-      ["wang li qin", "王励勤"],
-      ["kong ling hui", "孔令辉"],
-      ["xu xin", "许昕"],
-      ["fang bo", "方博"],
-      ["fan zhen dong", "樊振东"],
-      ["Chuang Chih Yuan", "庄智渊"],
-      ["chen qi", "陈玘"],
-      ["Timo Boll", "波尔"],
-      ["zhou yu", "周雨"],
-      ["liu guo liang", "刘国梁"],
-      ["Dimitrij Ovtcharov", "奥恰洛夫"],
-      ["Ovtcharov", "奥恰洛夫"],
-      ["waldner", "老瓦"],
+      ["马龙", "Ma Long"],
+      ["马琳", "Ma Lin"],
+      ["张继科", "Zhang Jike"],
+      ["张怡宁", "Zhang Yining"],
+      ["王皓", "Wang Hao"],
+      ["王励勤", "Wang Liqin"],
+      ["孔令辉", "Kong Linghui"],
+      ["许昕", "Xu Xin"],
+      ["方博", "Fang Bo"],
+      ["樊振东", "Fan Zhendong"],
+      ["庄智渊", "Chuang Chih Yuan"],
+      ["陈玘", "Chen Qi"],
+      ["波尔", "Timo Boll"],
+      ["周雨", "Zhou Yu"],
+      ["刘国梁", "Liu Guoliang"],
+      ["奥恰洛夫", "Dimitrij Ovtcharov"],
+      ["奥恰洛夫", "Ovtcharov"],
+      ["平野美宇", "miu hirano"],
+      ["老瓦", "waldner"],
     ]
 
     self._others = [
@@ -44,20 +45,20 @@ class RenameTableTennies:
       ["：", ": "],
     ]
 
-  def _get_videos(self, files):
+  def _getVideos(self, files):
     for fname in files:
       lfname = fname.lower()
-      for ext in RenameTableTennies.video_exts_:
+      for ext in RenameTableTennies.videoExts:
         if lfname.endswith(ext):
           yield fname
 
   def rename(self, files, debug):
-    existent_vfiles = set(self._get_videos(os.listdir(".")))
+    existent_vfiles = set(self._getVideos(os.listdir(".")))
     fou = open("log.rename.txt", "w")
     fid = 0
 
-    for fn in self._get_videos(files):
-      fn_new = self._get_new_file(fn)
+    for fn in self._getVideos(files):
+      fn_new = self._getNewFile(fn)
       if fn_new == fn:
         continue
 
@@ -75,7 +76,7 @@ class RenameTableTennies:
       fid += 1   
     fou.close()
 
-  def _get_new_file(self, fn):
+  def _getNewFile(self, fn):
     for en_name, ch_name in self._players:
       fn = re.sub(".*".join(en_name.split()), ch_name, fn, 
                   flags = re.IGNORECASE)
