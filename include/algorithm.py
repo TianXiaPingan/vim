@@ -226,6 +226,9 @@ def logFPrime(fss, weight):
     pdw += math.exp(weight.dot(fs) - dn) * fs
   return pdw
 
+def renewGSS():
+  executeCmd("kinit -R -k -t /home/txia/.ssh/txia.keytab txia@DC1.CORP.GD")
+
 if __name__ == "__main__":
   print "general memory:", getMemory()
 

@@ -61,6 +61,9 @@ class Client:
     if key is not None:
       extraInf.append("key:" + key)
 
+    if city is not None:
+      extraInf.append("city:" + city)
+
     date = valueDict["date"]
     if date is not None:
       extraInf.append("date:" + date)
