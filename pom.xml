@@ -95,10 +95,18 @@
       <version>3.4</version>
     </dependency>
 
+    <!--a beautiful command-line library-->
     <dependency>
       <groupId>com.beust</groupId>
       <artifactId>jcommander</artifactId>
       <version>${jcommander.version}</version>
+    </dependency>
+
+    <!--a library from google for common utility functions. -->
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+      <version>${guava.version}</version>
     </dependency>
   </dependencies>
 
@@ -119,6 +127,7 @@
           <executable>java</executable>
         </configuration>
       </plugin>
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-shade-plugin</artifactId>
