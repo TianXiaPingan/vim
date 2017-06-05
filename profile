@@ -341,7 +341,8 @@ alias _hadoop_yarn_kill='yarn application -kill'
 
 alias _git_reset='git reset'
 alias _git_init='git init'
-alias _git_add='git add .'
+alias _git_add_all='git add .'
+alias _git_add='git add'
 alias _git_status='git status'
 alias _git_difftool='git difftool'
 alias _git_difftool_name='git difftool --name-status'  # old-commit new-commit
