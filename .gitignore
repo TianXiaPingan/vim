@@ -9,3 +9,4 @@ spell
 .idea
 *.iml
 META-INF
+updateToServer.sh
