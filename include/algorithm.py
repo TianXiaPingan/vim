@@ -80,6 +80,16 @@ def hadoopDeleteFile(fname):
 
 def executeCmd(cmd):
   print time.strftime("%x %X"), "executing '%s'" %cmd
+
+  if (re.search(r"\bspark-submit\b", cmd) is not None or
+      re.search(r"\bpig\b", cmd) is not None):
+    print "spark_submit or pig is found in the cmd."
+    try:
+      renewGSS()
+      print "OK to run renewGSS()"
+    except:
+      print "Fail to run renewGSS()"
+
   sys.stdout.flush()
   return os.system(cmd)
 
