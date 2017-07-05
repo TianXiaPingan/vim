@@ -1,5 +1,5 @@
 /opt/spark/2.1/bin/spark-submit \
-  --master yarn-client \
+  --master yarn \
   --conf spark.driver.maxResultSize=5G \
   --conf spark.dynamicAllocation.maxExecutors=400 \
   --driver-memory 30g \

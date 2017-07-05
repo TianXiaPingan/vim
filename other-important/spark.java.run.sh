@@ -1,5 +1,5 @@
 /opt/spark/2.1/bin/spark-submit \
-  --master yarn-client \
+  --master yarn \
   --conf spark.driver.maxResultSize=2G \
   --conf spark.dynamicAllocation.maxExecutors=200 \
   --driver-java-options '-Ddata.dir=premium.test' \
