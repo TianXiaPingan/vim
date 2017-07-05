@@ -34,23 +34,6 @@
 
 # home brew installation directory: /usr/local/Cellar
 
-# Run spark Java on YARN
-# for example:
-# /opt/spark/1.5.1/bin/spark-submit \
-#  --class main-class-name \
-#  --conf spark.dynamicAllocation.maxExecutors=100 \
-#  --master yarn --deploy-mode cluster \
-#     or 
-#  --master yarn-client \
-#  --driver-memory 10g \
-#  --executor-memory 10g \
-#  my-application-jar args 
-#
-# Run spark Python on YARN
-# export PYSPARK_PYTHON=/usr/bin/python27-virtual-hadoop
-# spark-submit python-script args
-# Not no need to set 'master = "local[1]"';
-#
 # See the log: 
 #  yarn logs -applicationId  application_1459392377141_1777898 | vim -
 
