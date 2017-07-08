@@ -1,13 +1,29 @@
 package rain;
 
-import java.io.Serializable;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
+import java.util.stream.Stream;
 import org.apache.commons.lang3.ArrayUtils;
-import org.apache.commons.lang3.StringUtils;
 import static java.lang.System.out;
+import static java.util.stream.Collectors.counting;
+import static java.util.stream.Collectors.groupingBy;
 
 public class Alg {
   public static double EPSILON = 1e-8;
+
+  public static Writer openWriteFile(String fname) throws IOException {
+    return new BufferedWriter(new FileWriter(fname));
+  }
+
+  public static Stream<String> openReadFile(String fname) throws IOException {
+    return Files.lines(Paths.get(fname)).map(String::trim);
+  }
+
+  public static Map<String, Long> countWords(Stream<String> strStream) {
+    return strStream.collect(groupingBy(str-> str, counting()));
+  }
 
   @Deprecated
   public static class IntComparator implements Comparator<Integer>,
@@ -105,7 +121,10 @@ public class Alg {
     out.println(Arrays.asList(ArrayUtils.toObject(weightsL1)));
 
     out.println(Alg.extractAttribute("name=\tage=30   ".split("\t")));
-    
+
+    String stream = "a b c d a b d g e 3 4 1 1 1 2 2 3";
+    System.out.println(countWords(Arrays.stream(stream.split("\\s+"))));
+
     timer.stop();
   }
 };
