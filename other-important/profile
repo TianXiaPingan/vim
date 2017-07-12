@@ -1,3 +1,8 @@
+# run deeplearning4j on GPUs
+# If necessary, add "sudo".
+# monitor GPU usage: [sudo] nvidia-smi
+# run: [sudo] java ...
+
 # nosetest
 # cd /Users/txia/inf/Desktop/GoDaddy/api
 # test a single function: nosetests-2.7 --processes=4 --process-timeout=360000 --tc=host:localhost --tc=port:8080 --nocapture acceptance/test.py:test_tld_compaction_10_18
