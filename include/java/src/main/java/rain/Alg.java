@@ -7,6 +7,7 @@ import java.util.*;
 import java.util.stream.Stream;
 import org.apache.commons.lang3.ArrayUtils;
 import static java.lang.System.out;
+import static java.lang.System.setOut;
 import static java.util.stream.Collectors.counting;
 import static java.util.stream.Collectors.groupingBy;
 
@@ -124,6 +125,10 @@ public class Alg {
 
     String stream = "a b c d a b d g e 3 4 1 1 1 2 2 3";
     System.out.println(countWords(Arrays.stream(stream.split("\\s+"))));
+
+    System.out.println("seconds: " + timer.getSeconds());
+    System.out.println("minutes: " + timer.getMinutes());
+    timer.reset();
 
     timer.stop();
   }
