@@ -106,6 +106,10 @@ def toUtf8(line):
     print "Error: wrong type in toUtf8(...)"
     return None
 
+def toUtf8List(lines):
+  assert type(lines) is list
+  return filter(lambda ln: ln is not None, map(toUtf8, lines))
+
 def calcNdcg(relsList):
   '''relsList: [[1, 2, 3, 1, ...], [2, 3, 1, 0, ..]]
   '''
