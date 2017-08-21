@@ -37,14 +37,14 @@ public class Alg {
 
   public static Map<String, String> extractAttribute(String[] blocks) {
     Map<String, String> ret = new TreeMap<>();
-    String[] tokens;
     for (String block: blocks) {
-      if (!block.contains("=")) {
+      int p = block.indexOf("=");
+      if (p == -1) {
         out.println("found wrong block: " + block);
         return new TreeMap<>();
       }
-      tokens = block.split("=");
-      ret.put(tokens[0], tokens.length == 2 ? tokens[1] : "");
+
+      ret.put(block.substring(0, p), block.substring(p + 1));
     }
     return ret;
   }
@@ -122,6 +122,7 @@ public class Alg {
     out.println(Arrays.asList(ArrayUtils.toObject(weightsL1)));
 
     out.println(Alg.extractAttribute("name=\tage=30   ".split("\t")));
+    out.println(Alg.extractAttribute("n=n=summer\tage=30   ".split("\t")));
 
     String stream = "a b c d a b d g e 3 4 1 1 1 2 2 3";
     System.out.println(countWords(Arrays.stream(stream.split("\\s+"))));
