@@ -42,9 +42,6 @@
 # See the log: 
 #  yarn logs -applicationId  application_1459392377141_1777898 | vim -
 
-# vim repository
-# git clone git@52.68.137.96:"/home/git/Tian Xia/personal/vim"
-
 # Debug scala with jdb
 # compile: scalac -g:vars [source]
 # set breakpoint: stop in HelloWorld$.main
