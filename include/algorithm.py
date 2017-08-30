@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from collections import defaultdict, namedtuple
+from collections import defaultdict, namedtuple, Counter
 from operator import methodcaller, attrgetter, itemgetter, add
 from optparse import OptionParser
 
