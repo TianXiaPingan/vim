@@ -262,7 +262,7 @@ if __name__ == "__main__":
   print "relsList:", relsList
   print "ndcg:", calcNdcg(relsList)
 
-  printWithFlush("hello", sys.stdout)
+  printFlush("hello", sys.stdout)
 
   fn = "/Users/txia/GoDaddy/tokenizer/data/dictionary/ranking.model/train-data"
   print len(list(readNamedColumnFile(fn + "/tld.price.data")))
