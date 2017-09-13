@@ -18,8 +18,13 @@ public class Alg {
     return new BufferedWriter(new FileWriter(fname));
   }
 
-  public static Stream<String> openReadFile(String fname) throws IOException {
+  public static Stream<String> openReadFileStream(String fname)
+    throws IOException {
     return Files.lines(Paths.get(fname)).map(String::trim);
+  }
+
+  public static BufferedReader openReadFile(String fname) throws IOException {
+    return new BufferedReader(new FileReader(fname));
   }
 
   public static Map<String, Long> countWords(Stream<String> strStream) {
@@ -86,7 +91,7 @@ public class Alg {
 
     if (eq(wsum, 0)) {
       out.println("Warning in l1Norm: 0 vector found");
-      return weight; 
+      return weight;
     }
 
     double ratio = norm / wsum;
@@ -98,26 +103,26 @@ public class Alg {
   }
 
   //public static <Type> void update(List<Type> data, int pos, Type value) {
-    //data.set(pos, data.get(pos) + value);
+  //data.set(pos, data.get(pos) + value);
   //}
 
   public static void main(String[] argv) {
     Timer timer = new Timer("Test Alg");
     out.println("Hello rain.Alg");
 
-//    List<Integer> list = Arrays.asList(1, 2, 3, 4, 5);
-//    out.println(Alg.front(list));
-//    out.println(Alg.last(list));
+    //    List<Integer> list = Arrays.asList(1, 2, 3, 4, 5);
+    //    out.println(Alg.front(list));
+    //    out.println(Alg.last(list));
 
     List<Double> data = new ArrayList<>();
     Alg.resize(data, 10, 0.);
     out.println(data.size());
 
     double[] weights = {
-      1, 2, 3, 4, 
-    };
+      1, 2, 3, 4,
+      };
     double[] weightsL1 = Alg.l1Norm(weights, 1.);
-//    out.println(Alg.last(weights));
+    //    out.println(Alg.last(weights));
 
     out.println(Arrays.asList(ArrayUtils.toObject(weightsL1)));
 
