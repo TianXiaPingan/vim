@@ -20,8 +20,6 @@ public class Alg {
       return new ArrayList<>();
     }
     if (num > data.size()) {
-      System.out.printf("Warning: sample size=%d > data.size=%d\n",
-                        num, data.size());
       return data.subList(0, data.size());
     }
 
