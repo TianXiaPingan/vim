@@ -15,7 +15,16 @@ public class Alg {
 
   // We do not put back, so num <= data.size();
   public static <Type> List<Type> sample(List<Type> data, int num) {
-    num = Math.min(data.size(), num);
+    if (num <= 0) {
+      System.out.printf("Warning: sample size=%d <= 0\n", num);
+      return new ArrayList<>();
+    }
+    if (num > data.size()) {
+      System.out.printf("Warning: sample size=%d > data.size=%d\n",
+                        num, data.size());
+      return data.subList(0, data.size());
+    }
+
     Collections.shuffle(data);
     return data.subList(0, num);
   }
@@ -146,6 +155,8 @@ public class Alg {
 
     List<Integer> data1 = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8);
     System.out.println(sample(data1, 3));
+    System.out.println(sample(data1, -1));
+    System.out.println(sample(data1, 10));
 
   }
 };
