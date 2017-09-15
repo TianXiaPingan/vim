@@ -1,3 +1,12 @@
+# how to set GSS.
+# Creating a Kerberos keytab for yourself
+# [[https://confluence.godaddy.com/display/DP/Creating+a+Kerberos+keytab+for+yourself]]
+# 1. generate-keytab txia.keytab
+# 2. test: 
+#   kdestroy
+#   kinit -R -k -t txia.keytab username@DC1.CORP.GD
+#   klist
+
 # git add a remote bare repository
 # 1. In the server, run "git init --bare".
 # 2. In the client, run "git remote add TianXia git@tian.cloud.phx3.gdg:/home/git/folder" 
