@@ -1,3 +1,6 @@
+# how to list all classes in a jar
+# jar tvf file.jar 
+
 # how to set GSS.
 # Creating a Kerberos keytab for yourself
 # [[https://confluence.godaddy.com/display/DP/Creating+a+Kerberos+keytab+for+yourself]]
