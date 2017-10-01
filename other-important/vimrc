@@ -338,6 +338,18 @@ function! MatchLongLines()
 
 endfunction
 
+function! RenameDiary()
+python << endpython
+import vim, os, time
+
+fname = vim.current.buffer.name
+if fname == "":
+  name = time.strftime("%Y-%m-%d-%a.diary")
+  vim.command(":w %s" %name)
+
+endpython
+endfunction
+
 """"""""""""""""""""""only for guivim""""""""""""""""""""""""""""""""""""""""""
 colors desert
 set guifont=Monaco:h14
