@@ -518,3 +518,7 @@ let g:jedi#rename_command = "<leader>R"
 let g:VIMHOME = expand('<sfile>:p:h')
 
 highlight OverLength ctermbg=darkred ctermfg=white guibg=#FFD9D9
+
+command! RandomLine execute 
+      \ ': '.(system('/bin/bash -c "echo -n $RANDOM"') % line("$"))
+
