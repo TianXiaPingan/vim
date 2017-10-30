@@ -2,29 +2,23 @@
 #coding: utf8
 
 from algorithm import *
+from ServerManager import *
 
 debug = False
 
 def loadServerConfig():
+  serverManager = ServerManager.getInstance()
   ret = {}
-  for ln in open("%s/.vim/bin/servers.config" %os.getenv("HOME")):
-    ln = ln.strip()
-    if ln == "":
-      continue
-    d = extractAttribute(ln)
-    if len(d) == 0:
-      continue
-    ret[d["name"]] = "%s@%s" %(d["account"], d["ip"])
-    if debug:
-      print d
+  for name in serverManager.getServerNames():
+    ret[name] = serverManager.getLogin(name)
 
-  return ret 
+  return ret
 
 def replaceServer(addr):
   global servers
   if "@" not in addr:
     return addr
-  
+
   servers = loadServerConfig()
   server = addr[: addr.index("@")]
   if server in servers:
@@ -44,18 +38,18 @@ if __name__ == "__main__":
                      #default = False, help = "")
   (options, args) = parser.parse_args()
 
-  if len(args) == 0: 
+  if len(args) == 0:
     showServers()
     exit(0)
 
   debug = options.debug
   assert len(args) == 2
-  
+
   srcDir, tgtDir = replaceServer(args[0]), replaceServer(args[1])
   dirOpt = "-r" if srcDir.endswith("/") else ""
   if options.recursive:
     cmd = "scp -r -oStrictHostKeyChecking=no %s %s %s" %(dirOpt, srcDir, tgtDir)
-  else:  
+  else:
     cmd = "scp %s -oStrictHostKeyChecking=no %s %s" %(dirOpt, srcDir, tgtDir)
   print cmd
   os.system(cmd)
