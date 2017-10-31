@@ -20,7 +20,9 @@ class ServerManager:
       self._servers[server["name"]] = server
 
   def getIP(self, serverName):
-    return self._servers.get(serverName, {"ip": None})[ip]
+    if serverName == "localhost":
+      return serverName
+    return self._servers.get(serverName, {"ip": None})["ip"]
 
   def getLogin(self, serverName):   
     if serverName not in self._servers:
