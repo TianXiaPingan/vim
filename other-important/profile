@@ -12,7 +12,7 @@
 
 # git add a remote bare repository
 # 1. In the server, run "git init --bare".
-# 2. In the client, run "git remote add TianXia git@tian.cloud.phx3.gdg:/home/git/folder" 
+# 2. In the client, run "git remote add TianXia git@tian.cloud.phx3.gdg:/home/git/folder" (this is in the git@demo server).
 # 3. Set stream: git push --set-upstream TianXia master 
 
 # run deeplearning4j on GPUs
