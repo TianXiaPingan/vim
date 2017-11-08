@@ -1,3 +1,8 @@
+# Some basic rules.
+# folder naming: lower-case, no space.
+# code files: Title case, just like "a class name".
+# other files: lower-case, no space. 
+
 # how to list all classes in a jar
 # jar tvf file.jar 
 
