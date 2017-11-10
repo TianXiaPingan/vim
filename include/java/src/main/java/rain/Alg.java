@@ -44,15 +44,6 @@ public class Alg {
     return strStream.collect(groupingBy(str-> str, counting()));
   }
 
-  @Deprecated
-  public static class IntComparator implements Comparator<Integer>,
-                                               Serializable {
-    @Override
-    public int compare(Integer m, Integer n) {
-      return Integer.compare(m, n);
-    }
-  }
-
   public static Map<String, String> extractAttribute(String[] blocks) {
     Map<String, String> ret = new TreeMap<>();
     for (String block: blocks) {
@@ -77,14 +68,6 @@ public class Alg {
 
   public static boolean strictGreater(double a, double b) {
     return !eq(a, b) && a > b;
-  }
-
-  public static <Type> Type front(List<Type> list) {
-    return list != null && !list.isEmpty() ? list.get(0) : null;
-  }
-
-  public static <Type> Type last(List<Type> list) {
-    return list != null && !list.isEmpty() ? list.get(list.size() - 1) : null;
   }
 
   public static <Type> void resize(List<Type> list, int size, Type value) {
