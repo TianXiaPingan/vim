@@ -1,3 +1,6 @@
+# javap - Java class file disassembler
+# javap -c ClassName.class
+
 # Some basic rules.
 # folder naming: lower-case, no space.
 # code files: Title case, just like "a class name".
