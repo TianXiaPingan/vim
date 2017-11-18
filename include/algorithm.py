@@ -75,6 +75,14 @@ class DisjointSet:
         self._sizes[f2] += self._sizes[f1]
       self._cluster_size -= 1
 
+def addIncludePath(path):
+  '''We could use relative path'''
+  if path not in sys.path:
+    sys.path.append(path)
+
+def isNoneOrEmpty(string):
+  return string is None or len(string) == 0
+
 def hadoopDeleteFile(fname):
   executeCmd("hadoop fs -rm -r %s" %fname)
 
