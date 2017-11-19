@@ -80,8 +80,13 @@ def addIncludePath(path):
   if path not in sys.path:
     sys.path.append(path)
 
-def isNoneOrEmpty(string):
-  return string is None or len(string) == 0
+def isNoneOrEmpty(data):
+  '''This applies to any data type which has a __len__ method'''
+  if data is None:
+    return True
+  if isinstance(data, (str, list, set, dict)):
+    return len(data) == 0
+  return False
 
 def hadoopDeleteFile(fname):
   executeCmd("hadoop fs -rm -r %s" %fname)
