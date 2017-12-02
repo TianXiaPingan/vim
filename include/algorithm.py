@@ -33,12 +33,10 @@ EPSILON     = 1e-6
 
 class String:
   @staticmethod
-  def fmt(string, localVarDict, globalVarDict):
+  def fmt(string, localVarDict):
     def getValue(var):
       if var in localVarDict:
         return localVarDict[var]
-      elif var in globalVarDict:
-        return globalVarDict[var]
       else:
         return None
 
