@@ -31,26 +31,6 @@ except ImportError:
 INF         = float("inf")
 EPSILON     = 1e-6
 
-class String:
-  @staticmethod
-  def fmt(string, localVarDict):
-    def getValue(var):
-      if var in localVarDict:
-        return localVarDict[var]
-      else:
-        return None
-
-    varStrs = re.findall("\$\w+", string)
-    if varStrs == []:
-      return string
-
-    for var in varStrs:
-      value = getValue(var[1:])
-      if value is not None:
-        string = string.replace(var, str(value))
-
-    return string
-
 class FileLock:
   lockName = "/tmp/lock.data"
 
