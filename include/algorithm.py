@@ -31,6 +31,46 @@ except ImportError:
 INF         = float("inf")
 EPSILON     = 1e-6
 
+class HadoopDataRecord(list):
+  @staticmethod
+  def ofPigData(listData, attrs):
+    obj = HadoopDataRecord()
+    super(HadoopDataRecord, obj).__init__(listData)
+    HadoopDataRecord._attrDict = obj._listToDict(attrs)
+
+    return obj
+
+  @staticmethod
+  def ofDictData(line):
+    toks = line.split("\t")
+    items = map(lambda tok: map(methodcaller("strip"), tok.split("=")), toks)
+    attrs = [item[0] for item in items]
+    listData = ["=".join(item[1:]) for item in items]
+
+    return HadoopDataRecord.ofPigData(listData, attrs)
+
+  def _listToDict(self, attrList):
+    return dict([(attr, pos) for pos, attr in enumerate(attrList)])
+
+  def _getFather(self):
+    return super(HadoopDataRecord, self)
+
+  def __getitem__(self, key):
+    return self._getFather().__getitem__(HadoopDataRecord._attrDict[key])
+
+  def __setitem__(self, key, value):
+    self._getFather().__setitem__(HadoopDataRecord._attrDict[key], value)
+
+  def __str__(self):
+    return self.toString(HadoopDataRecord._attrs)
+
+  def toString(self, activeAttrs):
+    ret = []
+    for attr in activeAttrs:
+      ret.append("%s=%s" % (attr, self[attr]))
+
+    return "\t".join(ret)
+
 class FileLock:
   lockName = "/tmp/lock.data"
 
