@@ -1,3 +1,13 @@
+# Read hive database using spark [[https://confluence.godaddy.com/display/DCS/Hive]]
+# In the terminal: hive:
+# >> show databases;
+# >> show tables;
+# >> use $dataBaseName;
+# >> desc $tableName; 
+# >> select * from visitorder_snap ORDER BY RAND() LIMIT 3;
+#
+# Regarding python script, refer to "code.ranking/auto.train.framework/test.hive.py" 
+
 # javap - Java class file disassembler
 # javap -c ClassName.class
 
