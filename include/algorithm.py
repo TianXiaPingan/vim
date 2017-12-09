@@ -31,52 +31,6 @@ except ImportError:
 INF         = float("inf")
 EPSILON     = 1e-6
 
-class HadoopData(list):
-  @staticmethod
-  def ofPigLineData(line, attrs):
-    return HadoopData.ofPigListData(line.split("\t"), attrs) 
-
-  @staticmethod
-  def ofPigListData(listData, attrs):
-    if len(listData) < len(attrs):
-      return None
-
-    obj = HadoopData()
-    super(HadoopData, obj).__init__(listData)
-    HadoopData._attrDict = obj._listToDict(attrs)
-    return obj
-
-  @staticmethod
-  def ofDictData(line):
-    toks = line.split("\t")
-    items = map(lambda tok: map(methodcaller("strip"), tok.split("=")), toks)
-    attrs = [item[0] for item in items]
-    listData = ["=".join(item[1:]) for item in items]
-
-    return HadoopData.ofPigListData(listData, attrs)
-
-  def _listToDict(self, attrList):
-    return dict([(attr, pos) for pos, attr in enumerate(attrList)])
-
-  def _getFather(self):
-    return super(HadoopData, self)
-
-  def __getitem__(self, key):
-    return self._getFather().__getitem__(HadoopData._attrDict[key])
-
-  def __setitem__(self, key, value):
-    self._getFather().__setitem__(HadoopData._attrDict[key], value)
-
-  def __str__(self):
-    return self.toString(HadoopData._attrs)
-
-  def toString(self, activeAttrs):
-    ret = []
-    for attr in activeAttrs:
-      ret.append("%s=%s" % (attr, self[attr]))
-
-    return "\t".join(ret)
-
 class FileLock:
   lockName = "/tmp/lock.data"
 
