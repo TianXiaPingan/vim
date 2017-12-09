@@ -31,6 +31,17 @@ except ImportError:
 INF         = float("inf")
 EPSILON     = 1e-6
 
+def readPigData(line, schemaList):
+  values = line.strip().split("\t")
+  if len(values) == 0:
+    return None
+  if len(values) > len(schemaList):
+    print "Error: %d > %d, '%s'" %(len(values), len(schemaList), line)
+    return None 
+
+  # We permit the value number in line is less than the number of schemaList.
+  return dict(zip(schemaList, line))
+
 class FileLock:
   lockName = "/tmp/lock.data"
 
