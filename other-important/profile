@@ -380,7 +380,7 @@ alias du2='clear; du -h --max-depth 1'
 
 # e.g. rsync --size-only -ravutz -e ssh source-dir/ summer@130.108.28.50:dest-dir/
 
-alias _submit_spark='/opt/spark/1.6.2/bin/spark-submit --master yarn-client --conf spark.driver.maxResultSize=2G --conf spark.dynamicAllocation.maxExecutors=100 --driver-memory 10g --executor-memory 2g --py-files /home/txia/.vim/include/algorithm.py'
+alias _submit_spark='/opt/spark/2.1/bin/spark-submit --master yarn-client --conf spark.driver.maxResultSize=2G --conf spark.dynamicAllocation.maxExecutors=100 --driver-memory 10g --executor-memory 2g --py-files /home/txia/.vim/include/algorithm.py'
 
 alias _cleanCano='cd /Volumes/CANO && find . -iregex ".*\.thm" -exec rm -v {} \;'
 
