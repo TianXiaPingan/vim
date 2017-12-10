@@ -59,7 +59,7 @@ IMPRESSION_SCHEMA = [
   "is_test", # : chararray,
   "domain_source", # : chararray,     ---- for suggested domain
   "domain_serp_pfid", # : int,        --- for suggested domain #55
-  "visitorGuid", # : chararray,      ---- ----     #56
+  "visitorGuid", # : chararray,      ---- ----     #56 up to 1 year life.
   "apiKey", # : chararray,            ---- ----     #57
   "tracking_id", # : chararray,
   "shopper_active", # : int,
@@ -69,7 +69,7 @@ IMPRESSION_SCHEMA = [
   "findApiQuery" # : chararray                ---- ----     #63
 ]
 
-PURCHASE_INFO_MAPPING = ["visitorGuid", "domain"]
+PURCHASE_INFO_MAPPING = ["vguid", "domain"]
 
 def readPigData(line, schemaList):
   values = line.strip().split("\t")
