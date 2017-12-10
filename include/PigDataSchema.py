@@ -59,7 +59,7 @@ IMPRESSION_SCHEMA = [
   "is_test", # : chararray,
   "domain_source", # : chararray,     ---- for suggested domain
   "domain_serp_pfid", # : int,        --- for suggested domain #55
-  "visitor_guid", # : chararray,      ---- ----     #56
+  "visitorGuid", # : chararray,      ---- ----     #56
   "apiKey", # : chararray,            ---- ----     #57
   "tracking_id", # : chararray,
   "shopper_active", # : int,
@@ -68,6 +68,8 @@ IMPRESSION_SCHEMA = [
   "findtype", # : chararray, ---- exact, serp, cctld : cctld displayed beneath the exact block  ---- #62
   "findApiQuery" # : chararray                ---- ----     #63
 ]
+
+PURCHASE_INFO_MAPPING = ["visitorGuid", "domain"]
 
 def readPigData(line, schemaList):
   values = line.strip().split("\t")
