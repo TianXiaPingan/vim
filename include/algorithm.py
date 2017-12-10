@@ -36,11 +36,12 @@ def readPigData(line, schemaList):
   if len(values) == 0:
     return None
   if len(values) > len(schemaList):
-    print "Error: %d > %d, '%s'" %(len(values), len(schemaList), line)
+    msg = "Error: %d > %d, '%s'" %(len(values), len(schemaList), line)
+    print toUtf8(msg)
     return None 
 
   # We permit the value number in line is less than the number of schemaList.
-  return dict(zip(schemaList, line))
+  return dict(zip(schemaList, values))
 
 class FileLock:
   lockName = "/tmp/lock.data"
