@@ -4,7 +4,7 @@
 from algorithm import *
 
 cmdTpt = ("/opt/spark/2.1/bin/spark-submit "
-          "--master yarn-client "
+          "--master yarn "
           "--conf spark.driver.maxResultSize=%dG "
           "--conf spark.dynamicAllocation.maxExecutors=%d "
           "--driver-memory %dg "
@@ -20,8 +20,8 @@ if __name__ == "__main__":
                      #default = False, help = "")
   parser.add_option("--maxResultSize", type = int, default = 2, 
                     dest = "maxResultSize", help = "2G")
-  parser.add_option("--maxExecutors", type = int, default = 100, 
-                    dest = "maxExecutors", help = "100")
+  parser.add_option("--maxExecutors", type = int, default = 200, 
+                    dest = "maxExecutors", help = "200")
   parser.add_option("--driverMemory", type = int, default = 10, 
                     dest = "driverMemory", help = "10G")
   parser.add_option("--executorMemory", type = int, default = 2, 
