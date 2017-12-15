@@ -36,7 +36,7 @@ class Spark:
   @staticmethod
   def readPigData(sc, fname, schema):
     return sc.textFile(fname)\
-             .map(lambda ln: readPigData(ln, PURCHASE_INFO_MAPPING))
+             .map(lambda ln: readPigData(ln, schema))
 
   @staticmethod
   def mapToKeyValue(data, keys):
