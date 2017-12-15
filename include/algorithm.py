@@ -3,6 +3,7 @@
 from collections import defaultdict, namedtuple, Counter
 from operator import methodcaller, attrgetter, itemgetter, add
 from optparse import OptionParser
+from PigDataSchema import *
 
 import bisect
 import cPickle
@@ -30,6 +31,32 @@ except ImportError:
 
 INF         = float("inf")
 EPSILON     = 1e-6
+
+class Spark:
+  @staticmethod
+  def readPigData(sc, fname, schema):
+    return sc.textFile(fname)\
+             .map(lambda ln: readPigData(ln, PURCHASE_INFO_MAPPING))
+
+  @staticmethod
+  def mapToKeyValue(data, keys):
+    return data.map(lambda vd: (Spark.getKey(vd, keys), vd))
+
+  @staticmethod
+  def getKey(vd, keys):
+    return "+".join(vd.get(key, "") for key in keys)
+
+  @staticmethod
+  def distinctByKey(data, keys):
+    return Spark.mapToKeyValue(data, keys)\
+                .reduceByKey(lambda vd1, vd2: vd1).values()
+
+  @staticmethod
+  def intersecByKey(data1, data2, keys):
+    data1 = Spark.mapToKeyValue(data1, keys) 
+    data2 = Spark.mapToKeyValue(data2, keys) 
+    return data1.leftOuterJoin(data2).values()\
+                .filter(lambda (d1, d2): d2 != None)
 
 class FileLock:
   lockName = "/tmp/lock.data"
