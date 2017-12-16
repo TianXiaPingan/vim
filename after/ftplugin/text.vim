@@ -77,6 +77,8 @@ set foldmethod=manual
 set tw=80
 map --- O--------------------------------------------------------------------<Esc>
 
+map date            a----------<C-R>=strftime("%Y-%m-%d")<CR>----------<Esc>o
+
 syn match Define          "^---.*"
 syn match Define          ".*---$"
 syn match String          "^\d\+\..*"
