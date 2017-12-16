@@ -8,12 +8,12 @@ from PigDataSchema import *
 import bisect
 import cPickle
 import collections
-import copy 
-import heapq 
+import copy
+import heapq
 import itertools
 import logging
-import math 
-import multiprocessing 
+import math
+import multiprocessing
 import optparse
 import os
 import pprint
@@ -35,12 +35,24 @@ EPSILON     = 1e-6
 class Spark:
   @staticmethod
   def readPigData(sc, fname, schema):
-    return sc.textFile(fname)\
-             .map(lambda ln: readPigData(ln, schema))
+    return sc.textFile(fname).map(lambda ln: readPigData(ln, schema))
+
+  @staticmethod
+  def readObjectData(sc, fname):
+    return sc.textFile(fname).map(lambda ln: eval(ln))
 
   @staticmethod
   def mapToKeyValue(data, keys):
     return data.map(lambda vd: (Spark.getKey(vd, keys), vd))
+
+  @staticmethod
+  def mapToKeyValueList(data, keys):
+    return data.map(lambda vd: (Spark.getKey(vd, keys), [vd]))
+
+  @staticmethod
+  def groupByKey(data, keys):
+    return data.map(lambda vd: (Spark.getKey(vd, keys), [vd]))\
+               .reduceByKey(add)
 
   @staticmethod
   def getKey(vd, keys):
@@ -53,8 +65,8 @@ class Spark:
 
   @staticmethod
   def intersecByKey(data1, data2, keys):
-    data1 = Spark.mapToKeyValue(data1, keys) 
-    data2 = Spark.mapToKeyValue(data2, keys) 
+    data1 = Spark.mapToKeyValue(data1, keys)
+    data2 = Spark.mapToKeyValue(data2, keys)
     return data1.leftOuterJoin(data2).values()\
                 .filter(lambda (d1, d2): d2 != None)
 
@@ -98,7 +110,7 @@ class DisjointSet:
         self._fathers[f2] = f1
         self._sizes[f1] += self._sizes[f2]
       else:
-        self._fathers[f1] = f2 
+        self._fathers[f1] = f2
         self._sizes[f2] += self._sizes[f1]
       self._cluster_size -= 1
 
@@ -187,13 +199,13 @@ def readNamedColumnFile(files, keptAttrs = None, removedAttrs = None):
     for fn in files:
       for record in readNamedColumnFile(fn, keptAttrs, removedAttrs):
         yield record
-    return      
+    return
 
   assert type(files) is str
-  if (keptAttrs is not None or 
+  if (keptAttrs is not None or
       keptAttrs is None and removedAttrs is None):
     for ln in open(files):
-      yield extractAttribute(ln, keptAttrs) 
+      yield extractAttribute(ln, keptAttrs)
   elif removedAttrs is not None:
     for ln in open(files):
       d = extractAttribute(ln)
@@ -203,7 +215,7 @@ def readNamedColumnFile(files, keptAttrs = None, removedAttrs = None):
       for attr in removedAttrs:
         if attr in d:
           d.pop(attr)
-      
+
       yield d
   else:
     assert False
@@ -214,7 +226,7 @@ def extractAttribute(input, keys = None):
   elif type(input) is list:
     toks = input
   else:
-    print "ERROR: Wrong input:", type(input) 
+    print "ERROR: Wrong input:", type(input)
     return dict()
   if keys is not None and type(keys) is not set:
     keys = set(keys)
@@ -238,7 +250,7 @@ def eq(v1, v2, prec = EPSILON):
 
 def getMemory(size_type = "rss"):
   '''Generalization; memory sizes (MB): rss, rsz, vsz.'''
-  content = os.popen('ps -p %d -o %s | tail -1' 
+  content = os.popen('ps -p %d -o %s | tail -1'
                      %(os.getpid(), size_type)).read()
   return round(float(content) / 1024, 3)
 
@@ -252,7 +264,7 @@ def norm2(vec):
   nm = math.sqrt(sum(vec * vec))
   return vec if eq(nm, EPSILON) else vec / nm
 
-def discreteSample(dists):        
+def discreteSample(dists):
   '''each probability must be greater than 0'''
   dists = array(dists)
   assert all(dists >= 0)
