@@ -3,7 +3,7 @@
 
 from algorithm import *
 
-cmdTpt = ("/opt/spark/2.1/bin/spark-submit "
+cmdTpt = ("/opt/spark/%s/bin/spark-submit "
           "--master yarn "
           "--conf spark.driver.maxResultSize=%dG "
           "--conf spark.dynamicAllocation.maxExecutors=%d "
@@ -27,12 +27,15 @@ if __name__ == "__main__":
   parser.add_option("--executorMemory", type = int, default = 3, 
                     dest = "executorMemory", help = "3g")
   parser.add_option("--pyFiles", default = "", dest = "pyFiles")
+  parser.add_option("--version", default = "1.6.2", dest = "version",
+                   help = "default 1.6.2")
   (options, args) = parser.parse_args()
 
   pyFiles = options.pyFiles.strip()
   pyFiles = "," + pyFiles if pyFiles != "" else ""
 
-  cmd = cmdTpt %(options.maxResultSize, options.maxExecutors,
+  cmd = cmdTpt %(options.version,
+                 options.maxResultSize, options.maxExecutors,
                  options.driverMemory, options.executorMemory,
                  pyFiles, " ".join(args))
 
