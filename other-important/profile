@@ -3,7 +3,7 @@
 # >> show databases;
 # >> show tables;
 # >> use $dataBaseName;
-# >> desc $tableName; 
+# >> desc $dataBaseName.$tableName; 
 # >> select * from visitorder_snap ORDER BY RAND() LIMIT 3;
 #
 # Regarding python script, refer to "code.ranking/auto.train.framework/test.hive.py" 
