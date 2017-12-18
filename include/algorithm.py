@@ -70,6 +70,10 @@ class Spark:
     return data1.leftOuterJoin(data2).values()\
                 .filter(lambda (d1, d2): d2 != None)
 
+  @staticmethod
+  def unionByKey(sc, datas, keys):
+    return Spark.distinctByKey(sc.union(datas), keys)
+
 class FileLock:
   lockName = "/tmp/lock.data"
 
@@ -113,6 +117,15 @@ class DisjointSet:
         self._fathers[f1] = f2
         self._sizes[f2] += self._sizes[f1]
       self._cluster_size -= 1
+
+def splitBy(data, f):
+  data1, data2 = [], []
+  for d in data:
+    if f(d):
+      data1.append(d)
+    else:
+      data2.append(d)
+  return data1, data2
 
 def addIncludePath(path):
   '''We could use relative path'''
