@@ -12,14 +12,11 @@ if __name__ == "__main__":
   sc = SparkContext()
   hiveContext = HiveContext(sc)
 
-  sql = ("from %s select *")
-  data = hiveContext.sql(sql).rdd
-  c = data.count()
-  print "#count:", c
-
-  samples = data.takeSample(False, 10)
-  for sample in samples:
-    print "#sample:", sample.asDict().items()
+  samples = hiveContext.sql("from %s select *").rdd.take(10)
+  for si, sample in enumerate(samples):
+    for key, value in sample.asDict().items():
+      print "#sample:", si, "key=", key, "value=", value
+    print  
   sc.stop()
 '''
 
