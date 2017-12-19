@@ -76,8 +76,7 @@ class Spark:
     '''
     data1 = Spark.mapToKeyValue(data1, keys)
     data2 = Spark.mapToKeyValue(data2, keys)
-    return data1.leftOuterJoin(data2).values()\
-                .filter(lambda (d1, d2): d2 != None)
+    return data1.join(data2).values()
 
   @staticmethod
   def unionByKey(sc, datas, keys):
