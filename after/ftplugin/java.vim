@@ -84,29 +84,6 @@ else
 endif
 endfunction
 """"""""""""""""""""""both for guivim and vim""""""""""""""""""""""""""""""""""
-map <F5>              :Java<CR>
-
-"debug run
-nmap  <C-F5>          :Vdb run<CR>      
-
-"next line
-nmap  <F6>            :Vdb next<CR>
-"next function
-nmap  <F7>            :Vdb step<CR>
-"jump out of function
-nmap  <F8>            :Vdb step up<CR>
-
-"continue
-nmap  <C-F6>          :Vdb cont<CR>
-
-"set a break point.
-nmap  <F9>            :call SetBreakPoint("stop at")<CR>
-nmap  <C-F9>          :call SetBreakPoint("clear")<CR>
-
-"print variable.
-vmap  <F10>           "gy:Vdb print <C-R>g<CR>
-nmap  <F10>           :Vdb print <C-R><C-W><CR>
-
 "call MapCodingBracket()
 inoremap {            <C-R>=SuperMatch()<CR>
 inoremap }            <C-R>=SuperEndMatch("}")<CR>
@@ -117,14 +94,4 @@ inoremap "            <C-R>=SuperEndMatch('"')<CR>
 inoremap _print       System.out.println();<left><left>
 inoremap _new         <C-R>=ExtendNew()<CR>
 inoremap .            .<C-X><C-U>
-
-map <Leader>jnew      :ProjectCreate . -n java<CR>
-map <Leader>jo        :ProjectOpen<CR>
-map <Leader>jx        :ProjectClose<CR>
-map <Leader>jl        :ProjectList<CR>
-map <Leader>r         :call QuickJavaRename()<CR>
-map <Leader>q         :Vdb exit<CR>
-
-map <C-]>             :JavaSearch<CR>
-map <C-b>             :ProjectBuild<CR>
 

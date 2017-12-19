@@ -466,7 +466,8 @@ map <C-F11>          za<CR>
 
 " Indent when the cursor is at the beginning '{' of a block.
 map <F12>           =%
-map <C-F12>         :set wrap!<CR>
+map <C-F12>         :set wrap!<CR> :set wrap?<CR>
+map <S-F12>         :set ignorecase!<CR> :set ignorecase?<CR>
 
 " insert locale time
 map time            a<C-R>=strftime("%c")<CR><Esc>a
