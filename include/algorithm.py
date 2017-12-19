@@ -56,7 +56,7 @@ class Spark:
 
   @staticmethod
   def getKey(vd, keys):
-    return "+".join(vd.get(key, "") for key in keys)
+    return "+".join(str(vd.get(key, "")) for key in keys)
 
   @staticmethod
   def distinctByKey(data, keys):
@@ -64,7 +64,16 @@ class Spark:
                 .reduceByKey(lambda vd1, vd2: vd1).values()
 
   @staticmethod
+  def removeNullKeyValue(data, keys):
+    '''If some key-value is null or empty, then the final key-string
+    would make no sense.'''
+    return data.filter(lambda vd: any([isNoneOrEmpty(vd.get(key)) 
+                                       for key in keys]))
+
+  @staticmethod
   def intersecByKey(data1, data2, keys):
+    '''We must guarantee data == Spark.distinctByKey(data, keys)
+    '''
     data1 = Spark.mapToKeyValue(data1, keys)
     data2 = Spark.mapToKeyValue(data2, keys)
     return data1.leftOuterJoin(data2).values()\

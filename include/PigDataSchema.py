@@ -114,9 +114,6 @@ CART_SCHEMA = [
   "last5search", # cart : chararray 
 ]
 
-PURCHASE_INFO_MAPPING = ["vguid", "domain"]
-#PURCHASE_INFO_MAPPING = ["vguid", "visitorGuid", domain"]
-
 def readPigData(line, schemaList):
   values = line.split("\t")
   if len(values) == 0:
