@@ -9,8 +9,13 @@ cmdTpt = ("/opt/spark/%s/bin/spark-submit "
           "--conf spark.dynamicAllocation.maxExecutors=%d "
           "--driver-memory %dg "
           "--executor-memory %dg "
-          "--py-files /home/txia/.vim/include/algorithm.py%s "
+          "--py-files %s%s "
           "%s")
+
+defaultIncludedFiles = [
+  "/home/txia/.vim/include/algorithm.py",
+  "/home/txia/.vim/include/PigDataSchema.py",
+]
 
 if __name__ == "__main__":
   os.system("clear")
@@ -37,7 +42,8 @@ if __name__ == "__main__":
   cmd = cmdTpt %(options.version,
                  options.maxResultSize, options.maxExecutors,
                  options.driverMemory, options.executorMemory,
-                 pyFiles, " ".join(args))
+                 ",".join(defaultIncludedFiles), pyFiles, 
+                 " ".join(args))
 
   print cmd
   executeCmd(cmd)
