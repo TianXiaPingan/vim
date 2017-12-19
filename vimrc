@@ -1,13 +1,13 @@
 "set wrap!
 "set ignorecase!
- 
+
 " Search and replace in a visual selection.
 " :'<,'>s/red/green/g
 
 " To jump to the beginning of a C code block (while, switch, if etc).
-" [{ 
+" [{
 " To jump to the end of a C code block (while, switch, if etc).
-" ]} 
+" ]}
 
 " cancel last search lightling.
 " :noh
@@ -24,7 +24,7 @@
 ":map  <C-p> {v}!par -jw80<CR>
 ":vmap <C-p> !par -jw80<CR>
 
-"Debug vimscript. All messages are shown in command ":message". 
+"Debug vimscript. All messages are shown in command ":message".
 "http://inlehmansterms.net/2014/10/31/debugging-vim/
 "Could show potential grammatical errors.
 ":12verbose call MyFunction()
@@ -46,7 +46,7 @@
 ":%!cat -n
 
 "Help for help
-":h visual<C-D><Tab> : obtain list of all visual help topics 
+":h visual<C-D><Tab> : obtain list of all visual help topics
                     ": Then use tab to step through them
 ":h ctrl<C-D>        : list help of all control keys
 ":h :r               : help for :ex command
@@ -71,7 +71,7 @@
 
 ":setlocal spell spelllang=en_us
 "]s   Move to next misspelled word after the cursor.
-"[s   Like "]s" but search backwards, find the misspelled word before the cursor.  
+"[s   Like "]s" but search backwards, find the misspelled word before the cursor.
 "z=   suggest correctly spelled words.
 
 " Ctrl + w: jump to another windows.
@@ -111,24 +111,24 @@
 
 "v4jgq
 "v" to start Visual mode, "4j' to move to the end of the paragraph and then
-"the "gq" operator.  
+"the "gq" operator.
 
 "gqap
 "A very useful text object to use with "gq" is the paragraph.  Try this: >
 " "ap" stands for "a-paragraph".  This formats the text of one paragraph
 " (separated by empty lines).  Also the part before the cursor.
 " For Chinese
-":set formatoptions+=m 
+":set formatoptions+=m
 
 ":args *.c
 ":argdo %s/\<x_cnt\>/x_counter/ge | update
-"Use :bufdo! 
+"Use :bufdo!
 "Put all the relevant files in the argument list: >
 "This finds all C files and edits the first one.  Now you can perform a
 "substitution command on all these files: >
 
 "/19[0-9][0-9]\|20[0-9][0-9]
-"Using the same text as above, search for a year: 
+"Using the same text as above, search for a year:
 "Now press CTRL-A.  The year will be increased by one.
 "CTRL-X, decrease by one.
 
@@ -224,26 +224,26 @@ function! MyRename(cur_word, new_word)
   let b:case_status = &ignorecase
   if b:case_status
     set noignorecase
-  endif  
+  endif
 
   exec printf('%%s/\<%s\>/%s/g', a:cur_word, a:new_word)
 
   if b:case_status
     set ignorecase
-  endif 
+  endif
 endfunction
 
 function! QuickRename()
   let b:cur_word = expand("<cword>")
   let b:new_word = input("input: ")
   call MyRename(b:cur_word, b:new_word)
- 
+
 endfunction
 
 function! QuickJavaRename()
   let b:new_word = input("input: ")
   exec printf('JavaRename %s', b:new_word)
- 
+
 endfunction
 
 function! SuperMatch()
@@ -251,8 +251,8 @@ function! SuperMatch()
     return "{\<CR>}\<Esc>O"
   elseif getline(".") =~ '\v(class|\=)'
     return "{\<CR>};\<Esc>O"
-  else  
-    return "{}\<Left>" 
+  else
+    return "{}\<Left>"
   endif
 endfunction
 
@@ -274,7 +274,7 @@ endfunction
 function! LoadExtraVimrc()
 if !has("python")
   echom "This version does not support python."
-  return 
+  return
 endif
 
 python << endpython
@@ -282,9 +282,9 @@ import vim, os
 
 fname = vim.current.buffer.name
 if "/" not in fname:
-  vimrc = ".%s.vimrc" %fname 
+  vimrc = ".%s.vimrc" %fname
 else:
-  toks = fname.split("/") 
+  toks = fname.split("/")
   vimrc = "/".join(toks[: -1]) + "/.%s.vimrc" %toks[-1]
 
 #print "vimrc:", vimrc
@@ -302,7 +302,7 @@ function! MapFold()
     set foldlevel=32
   elseif &foldlevel == 32
     set foldlevel=1
-  endif  
+  endif
 endfunction
 
 function! SpellCheck()
@@ -318,7 +318,7 @@ function! SpellCheck()
     echo "close spell check"
     :setlocal spell spelllang=
     let b:spell_check = 1
-  endif  
+  endif
 endfunction
 
 function! MatchLongLines()
@@ -395,10 +395,10 @@ filetype plugin on
 au BufRead,BufNewFile *.tpt set filetype=robot_reporter_template
 au BufRead,BufNewFile *.en set filetype=english
 au BufRead,BufNewFile *.pig set filetype=pig
-au BufRead,BufNewFile * call LoadExtraVimrc() 
+au BufRead,BufNewFile * call LoadExtraVimrc()
 au BufEnter           *.java  set filetype=java
 au BufEnter           *.scala set filetype=scala
-au FileType call MapCodingBracket() 
+au FileType call MapCodingBracket()
 
 set autoindent
 
@@ -457,12 +457,14 @@ let g:winManagerWindowLayout='FileExplorer|TagList'
 let g:winManagerWidth=36
 map <F4>            :WMToggle<CR>
 
-"<F5> - <F10> is kept for debugging interfaces.
-
 " fold all functions
 map <F11>            :call MapFold()<CR>
-" fold a function 
+" fold a function
 map <C-F11>          za<CR>
+map <S-F11>          :set spell!<CR> :set spell?<CR>
+map <Leader><left>   [s<CR>
+map <Leader><right>  ]s<CR>
+map <Leader><down>   z=
 
 " Indent when the cursor is at the beginning '{' of a block.
 map <F12>           =%
@@ -509,7 +511,7 @@ set completeopt=menuone,menu,longest
 
 set tags+=~/.vim/tags/cpp
 
-execute pathogen#infect() 
+execute pathogen#infect()
 :Helptags
 
 " Have to define here, not in after/ftplugin/python.vim.
@@ -521,6 +523,6 @@ let g:VIMHOME = expand('<sfile>:p:h')
 
 highlight OverLength ctermbg=darkred ctermfg=white guibg=#FFD9D9
 
-command! RandomLine execute 
+command! RandomLine execute
       \ ': '.(system('/bin/bash -c "echo -n $RANDOM"') % line("$"))
 
