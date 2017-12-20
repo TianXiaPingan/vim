@@ -3,7 +3,6 @@
 from collections import defaultdict, namedtuple, Counter
 from operator import methodcaller, attrgetter, itemgetter, add
 from optparse import OptionParser
-from PigDataSchema import *
 
 import bisect
 import cPickle
@@ -38,13 +37,31 @@ class Spark:
   def readPigData(sc, fname, schema):
     '''We should add .coalesce(1024, True) for any read operation.
     '''
+    def mapper(line):
+      line = toUtf8(line)
+      if line is None:
+        return None
+
+      values = line.split("\t")
+      if len(values) == 0:
+        return None
+      return dict(zip(schema, values))
+
     return sc.textFile(fname).coalesce(1024, True)\
-             .map(lambda ln: readPigData(ln, schema))\
-             .filter(lambda vd: vd is not None)
+             .map(mapper).filter(lambda vd: vd is not None)
 
   @staticmethod
   def readObjectData(sc, fname):
-    return sc.textFile(fname).coalesce(1024, True).map(lambda ln: eval(ln))
+    def evalObject(ln):
+      try:
+        return eval(ln)
+      except Exception as error:
+        print error
+        print "ln:", ln 
+        assert False
+
+    return sc.textFile(fname).coalesce(1024, True)\
+             .map(evalObject)
 
   @staticmethod
   def mapToKeyValue(data, keys):

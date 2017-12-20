@@ -114,16 +114,6 @@ CART_SCHEMA = [
   "last5search", # cart : chararray 
 ]
 
-def readPigData(line, schemaList):
-  line = toUtf8(line)
-  if line is None:
-    return None
-
-  values = line.split("\t")
-  if len(values) == 0:
-    return None
-  return dict(zip(schemaList, values))
-
 def showSchema(schema, title):
   print "-" * 30, title
   print "Index starts from 1"
