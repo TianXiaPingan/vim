@@ -9,6 +9,7 @@ import bisect
 import cPickle
 import collections
 import copy
+import datetime
 import heapq
 import itertools
 import logging
@@ -35,11 +36,13 @@ EPSILON     = 1e-6
 class Spark:
   @staticmethod
   def readPigData(sc, fname, schema):
-    return sc.textFile(fname).map(lambda ln: readPigData(ln, schema))
+    return sc.textFile(fname).coalesce(1024)\
+             .map(lambda ln: readPigData(ln, schema))\
+             .filter(lambda vd: vd is not None)
 
   @staticmethod
   def readObjectData(sc, fname):
-    return sc.textFile(fname).map(lambda ln: eval(ln))
+    return sc.textFile(fname).coalesce(1024).map(lambda ln: eval(ln))
 
   @staticmethod
   def mapToKeyValue(data, keys):
@@ -67,8 +70,8 @@ class Spark:
   def removeNullKeyValue(data, keys):
     '''If some key-value is null or empty, then the final key-string
     would make no sense.'''
-    return data.filter(lambda vd: any([isNoneOrEmpty(vd.get(key)) 
-                                       for key in keys]))
+    return data.filter(lambda vd: not any([isNoneOrEmpty(vd.get(key))
+                                           for key in keys]))
 
   @staticmethod
   def intersecByKey(data1, data2, keys):
@@ -155,8 +158,9 @@ def executeCmd(cmd):
   print time.strftime("%x %X"), "executing '%s'" %cmd
 
   if (re.search(r"\bspark-submit\b", cmd) is not None or
-      re.search(r"\bpig\b", cmd) is not None):
-    print "spark_submit or pig is found in the cmd."
+      re.search(r"\bpig\b", cmd) is not None or
+      re.search(r"\bhadoop\b", cmd) is not None):
+    print "spark_submit or pig or hadoop fs is found in the cmd."
     try:
       renewGSS()
       print "OK to run renewGSS()"

@@ -115,6 +115,10 @@ CART_SCHEMA = [
 ]
 
 def readPigData(line, schemaList):
+  line = toUtf8(line)
+  if line is None:
+    return None
+
   values = line.split("\t")
   if len(values) == 0:
     return None
