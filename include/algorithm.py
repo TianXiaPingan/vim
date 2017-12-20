@@ -34,7 +34,7 @@ EPSILON     = 1e-6
 
 class Spark:
   @staticmethod
-  def readPigData(sc, fname, schema):
+  def readPigData(sc, fname, schema, blockSize = 1024):
     '''We should add .coalesce(1024, True) for any read operation.
     '''
     def mapper(line):
@@ -47,11 +47,11 @@ class Spark:
         return None
       return dict(zip(schema, values))
 
-    return sc.textFile(fname).coalesce(1024, True)\
+    return sc.textFile(fname).coalesce(blockSize, True)\
              .map(mapper).filter(lambda vd: vd is not None)
 
   @staticmethod
-  def readObjectData(sc, fname):
+  def readObjectData(sc, fname, blockSize = 1024):
     def evalObject(ln):
       try:
         return eval(ln)
@@ -60,7 +60,7 @@ class Spark:
         print "ln:", ln 
         assert False
 
-    return sc.textFile(fname).coalesce(1024, True)\
+    return sc.textFile(fname).coalesce(blockSize, True)\
              .map(evalObject)
 
   @staticmethod
@@ -156,6 +156,13 @@ def splitBy(data, f):
     else:
       data2.append(d)
   return data1, data2
+
+def trimDict(dictObj, attrsKept):
+  attrsKept = set(attrsKept)
+  for attr in copy.deepcopy(dictObj.keys()):
+    if attr not in attrsKept: 
+      del dictObj[attr]
+  return dictObj 
 
 def addIncludePath(path):
   '''We could use relative path'''
