@@ -36,13 +36,15 @@ EPSILON     = 1e-6
 class Spark:
   @staticmethod
   def readPigData(sc, fname, schema):
-    return sc.textFile(fname).coalesce(1024)\
+    '''We should add .coalesce(1024, True) for any read operation.
+    '''
+    return sc.textFile(fname).coalesce(1024, True)\
              .map(lambda ln: readPigData(ln, schema))\
              .filter(lambda vd: vd is not None)
 
   @staticmethod
   def readObjectData(sc, fname):
-    return sc.textFile(fname).coalesce(1024).map(lambda ln: eval(ln))
+    return sc.textFile(fname).coalesce(1024, True).map(lambda ln: eval(ln))
 
   @staticmethod
   def mapToKeyValue(data, keys):
