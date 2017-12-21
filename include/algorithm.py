@@ -34,6 +34,18 @@ EPSILON     = 1e-6
 
 class Spark:
   @staticmethod
+  def sql(hiveContext, sql):
+    '''from pyspark import SparkContext, HiveContext
+       sc = SparkContext()
+       hiveContext = HiveContext(sc)'''
+    return hiveContext.sql(sql).rdd.coalesce(1024, True)
+
+  @staticmethod
+  def save(data, outputDir):
+    hadoopDeleteFile(outputDir)
+    data.saveAsTextFile(outputDir)
+
+  @staticmethod
   def readPigData(sc, fname, schema, blockSize = 1024):
     '''We should add .coalesce(1024, True) for any read operation.
     '''
