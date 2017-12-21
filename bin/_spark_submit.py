@@ -28,12 +28,12 @@ if __name__ == "__main__":
                     dest = "maxResultSize", help = "3G")
   parser.add_option("--maxExecutors", type = int, default = 200,
                     dest = "maxExecutors", help = "200")
-  parser.add_option("--driverMemory", type = int, default = 10,
-                    dest = "driverMemory", help = "10G")
-  parser.add_option("--executorMemory", type = int, default = 4,
-                    dest = "executorMemory", help = "4g")
-  parser.add_option("--memoryOverhead", type = int, default = 4,
-                    dest = "memoryOverhead", help = "default 4G")
+  parser.add_option("--driverMemory", type = int, default = 15,
+                    dest = "driverMemory", help = "15G")
+  parser.add_option("--executorMemory", type = int, default = 6,
+                    dest = "executorMemory", help = "6g")
+  parser.add_option("--memoryOverhead", type = int, default = 6,
+                    dest = "memoryOverhead", help = "default 6G")
   parser.add_option("--pyFiles", default = "", dest = "pyFiles")
   parser.add_option("--version", default = "1.6.2", dest = "version",
                    help = "default 1.6.2")

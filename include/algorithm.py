@@ -159,7 +159,7 @@ def splitBy(data, f):
 
 def trimDict(dictObj, attrsKept):
   attrsKept = set(attrsKept)
-  for attr in copy.deepcopy(dictObj.keys()):
+  for attr in dictObj.keys():
     if attr not in attrsKept: 
       del dictObj[attr]
   return dictObj 

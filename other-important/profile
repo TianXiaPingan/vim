@@ -357,6 +357,7 @@ alias _hdu='hadoop fs -du -h'
 alias _htext='hadoop fs -text'
 alias _hcopyFromLocal='hadoop fs -copyFromLocal'
 alias _hcopyToLocal='hadoop fs -copyToLocal'
+alias _hdu='hadoop fs -du -s -h'
 
 alias _hlog='yarn logs -applicationId'
 alias _hadoop_yarn_kill='yarn application -kill'
