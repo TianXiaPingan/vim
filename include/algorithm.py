@@ -34,10 +34,24 @@ EPSILON     = 1e-6
 
 class Spark:
   @staticmethod
+  def toUtf8(data, keys):
+    def mapper(vd):
+      for key in keys:
+        value = toUtf8(vd[key])
+        if value is None:
+          return None
+        vd[key] = value
+      return vd    
+
+    return data.map(mapper).filter(lambda vd: vd is not None)
+
+  @staticmethod
   def sql(hiveContext, sql):
     '''from pyspark import SparkContext, HiveContext
        sc = SparkContext()
-       hiveContext = HiveContext(sc)'''
+       hiveContext = HiveContext(sc)
+       Please remember string value from database might be unicode
+       '''
     return hiveContext.sql(sql).rdd.coalesce(1024, True)
 
   @staticmethod
@@ -90,6 +104,7 @@ class Spark:
 
   @staticmethod
   def getKey(vd, keys):
+    '''Only utf8 string, or int'''
     return "+".join(str(vd.get(key, "")) for key in keys)
 
   @staticmethod
