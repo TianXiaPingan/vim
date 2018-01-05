@@ -13,6 +13,10 @@ import static java.util.stream.Collectors.groupingBy;
 public class Alg {
   public static double EPSILON = 1e-8;
 
+  public static <Type> Type last(List<Type> data) {
+    return data.get(data.size() - 1);
+  }
+
   // We do not put back, so num <= data.size();
   public static <Type> List<Type> sample(List<Type> data, int num) {
     if (num <= 0) {
@@ -106,9 +110,8 @@ public class Alg {
     Timer timer = new Timer("Test Alg");
     out.println("Hello rain.Alg");
 
-    //    List<Integer> list = Arrays.asList(1, 2, 3, 4, 5);
-    //    out.println(Alg.front(list));
-    //    out.println(Alg.last(list));
+    List<Integer> list = Arrays.asList(1, 2, 3, 4, 5);
+    out.println(Alg.last(list));
 
     List<Double> data = new ArrayList<>();
     Alg.resize(data, 10, 0.);
