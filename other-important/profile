@@ -40,6 +40,25 @@
 # monitor GPU usage: [sudo] nvidia-smi
 # run: [sudo] java ...
 
+# How to deal with 'NVML: Driver/library version mismatch'
+# 
+# lsmod | grep nvidia
+# 
+# sudo rmmod nvidia_drm
+# sudo rmmod nvidia_modeset
+# sudo rmmod nvidia_uvm
+# 
+# (sudo lsof /dev/nvidia*, 
+# and then kill those process, then continue to unload the kmods)
+# 
+# sudo rmmod nvidia
+# 
+# lsmod | grep nvidia
+# We should get nothing.
+# 
+# nvidia-smi
+# We should get the correct output
+
 # nosetest
 # cd /Users/txia/inf/Desktop/GoDaddy/api
 # test a single function: nosetests-2.7 --processes=4 --process-timeout=360000 --tc=host:localhost --tc=port:8080 --nocapture acceptance/test.py:test_tld_compaction_10_18
