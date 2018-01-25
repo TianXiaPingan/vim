@@ -298,6 +298,14 @@ def readNamedColumnFile(files, keptAttrs = None, removedAttrs = None):
   else:
     assert False
 
+def getKeyValue(ln, key, local={}):
+  if key not in local:
+    local[key] = re.compile("%s=(.*?)(\t|\n)" %key)
+
+  mt = local[key].search(ln)
+  assert mt is not None
+  return mt.group(1)
+
 def extractAttribute(input, keys = None):
   if type(input) in [str, unicode]:
     toks = input.split("\t")
