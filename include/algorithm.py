@@ -252,7 +252,7 @@ def calcNdcg(relsList):
 
   def calcPerNdcg(rels):
     if rels.count(0) == len(rels):
-      return 1.
+      return array([1.] * 20)
 
     dcg = calcPerDcg(rels)
     iDcg = calcPerDcg(sorted(copy.copy(rels), reverse = True))
