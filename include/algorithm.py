@@ -175,6 +175,23 @@ class DisjointSet:
         self._sizes[f2] += self._sizes[f1]
       self._cluster_size -= 1
 
+def groupByKey(dataIter):
+  # dataIter.next() --> (key, data)
+  # return: (key, [data1, ...])
+  sample = []
+  prevKey = None
+  for key, inst in dataIter:
+    if sample == [] or key == prevKey:
+      sample.append(inst)
+    else:
+      yield prevKey, sample
+      sample = [inst]
+
+    prevKey = key
+
+  if sample != []:
+    yield prevKey, sample
+
 def splitBy(data, f):
   data1, data2 = [], []
   for d in data:
@@ -382,6 +399,9 @@ def renewGSS():
   executeCmd("kinit -R -k -t /home/txia/.ssh/txia.keytab txia@DC1.CORP.GD")
 
 if __name__ == "__main__":
+  data = [("a", 1), ("a", 2), ("b", 3), ("c", 4)]
+  print list(groupByKey(iter(data)))
+
   print "general memory:", getMemory()
 
   print eq(0, 0, EPSILON)
