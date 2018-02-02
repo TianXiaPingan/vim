@@ -10,17 +10,25 @@ if __name__ == "__main__":
                      #default = False, help = "")
   parser.add_option("--reverse", action = "store_true", dest = "reverse",
                     default = False)
+  parser.add_option("--exclude", dest="excludePattern", default=None)
   parser.add_option("-d", action = "store_true", dest = "delete",
                     default = False)
   (options, args) = parser.parse_args()
   assert len(args) == 1
   
-  opt = "--delete" if options.delete else ""
-  if options.reverse:
-    srcDir = replaceServer(args[0]) + "/"
-    cmd = "rsync -ravutzh --progress -e ssh %s . %s" %(srcDir, opt)
-  else:  
-    tgtDir = replaceServer(args[0])
-    cmd = "rsync -ravutzh --progress -e ssh . %s %s" %(tgtDir, opt)
+  deleteOpt = "--delete" if options.delete else ""
 
+  if options.excludePattern is not None:
+    excludeOpt = "--exclude=%s" %options.excludePattern
+  else:   
+    excludeOpt = "" 
+ 
+  if options.reverse:
+    srcDir, tgtDir = ".", replaceServer(args[0])
+  else:
+    srcDir, tgtDir = replaceServer(args[0]) + "/", "."
+
+  cmd = "rsync -ravutzh --progress -e ssh %s %s   %s %s" \
+      %(srcDir, tgtDir, excludeOpt, deleteOpt)
+  print cmd
   executeCmd(cmd)

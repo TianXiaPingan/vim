@@ -22,6 +22,7 @@ import re
 import struct
 import sys
 import time
+import Queue
 
 try:
   import scipy
@@ -272,7 +273,7 @@ def calcNdcg(relsList):
       return array([1.] * 20)
 
     dcg = calcPerDcg(rels)
-    iDcg = calcPerDcg(sorted(copy.copy(rels), reverse = True))
+    iDcg = calcPerDcg(sorted(rels, reverse = True))
     return dcg / iDcg
 
   ret = sum(map(calcPerNdcg, relsList)) / len(relsList)

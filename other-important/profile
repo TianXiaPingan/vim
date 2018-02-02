@@ -92,6 +92,9 @@
 # Parallel stream in Java
 # java -Djava.util.concurrent.ForkJoinPool.common.parallelism=8 ...
 # java -Xmx40G  ...
+# Use -Xmx to specify the maximum heap size
+# Use -Xms to specify the initial Java heap size
+# Use -Xss to set the Java thread stack size
 
 # home brew installation directory: /usr/local/Cellar
 
