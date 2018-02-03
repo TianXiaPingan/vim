@@ -23,10 +23,9 @@ if __name__ == "__main__":
   else:   
     excludeOpt = "" 
  
+  srcDir, tgtDir = ".", replaceServer(args[0]) + "/"
   if options.reverse:
-    srcDir, tgtDir = replaceServer(args[0]) + "/", "."
-  else:
-    srcDir, tgtDir = ".", replaceServer(args[0])
+    srcDir, tgtDir = tgtDir, srcDir 
 
   cmd = "rsync -ravutzh --progress -e ssh %s %s   %s %s" \
       %(srcDir, tgtDir, excludeOpt, deleteOpt)
