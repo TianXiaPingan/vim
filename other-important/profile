@@ -34,6 +34,9 @@
 # 3. run "git pull TianXia master". 
 # 4. Set stream: git push --set-upstream TianXia master 
 # 5. copy key into git server to survive password.
+#
+# git config --global core.editor "vim"
+# git config --global diff.tool vimdiff
 
 # run deeplearning4j on GPUs
 # If necessary, add "sudo".
