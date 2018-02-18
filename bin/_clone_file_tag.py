@@ -45,18 +45,16 @@ def analyzeFileTag(fname):
 
   return fname, tags
 
-def applyFileTag(data):
-  fn_ID, fn = data
+def applyFileTag(item):
+  fn, tag = item
   assert len(file2tags) > 0
   fn = normalizeFile(fn)
   try:
-    if fn in file2tags:
-      print "adding '%s' into '%s'" %(file2tags[fn], fn)
-      cmd = '''_tag_file -s "%s" "%s"''' %(file2tags[fn], fn)
-      #print "cmd:", cmd
-      os.system(cmd)
+    print "adding '%s' into '%s'" %(tag, fn)
+    cmd = '''_tag_file -s "%s" "%s"''' %(tag, fn)
+    os.system(cmd)
   except:
-    print "skipping '%s'" %fn
+    print "failed '%s'" %fn
 
 if __name__ == "__main__":
   os.system("clear")
@@ -65,21 +63,28 @@ if __name__ == "__main__":
   #parser.add_option("-q", "--quiet", action = "store_true", dest = "verbose",
                      #default = False, help = "")
   parser.add_option("-c", "--cmd", dest = "cmd", default = "analyze", 
-                    help = "[analyze, apply], default 'analyze'")
+                    help = "[gen, apply, analyze], default 'analyze'")
   parser.add_option("--path", dest = "path", default = "/Users/txia/inf",
                     help = "target folder, default ~/inf")
 
   (options, args) = parser.parse_args()
 
-  assert options.cmd in ["analyze", "apply"]
+  assert options.cmd in ["gen", "apply", "analyze"]
 
   os.chdir(options.path)
-  candFiles = listFiles()
-  print "#all files:", len(candFiles)
-  print "permitted file extension:", validExts
-
   tagFile = "tags.dict"
+
   if options.cmd == "analyze":
+    file2tags = eval(open(tagFile).read())
+    folders = sorted(set([os.path.split(fn)[0] for fn in file2tags]))
+    print "folders with tagged files"
+    print "\n".join(folders)
+
+  elif options.cmd == "gen":
+    candFiles = listFiles()
+    print "#all files:", len(candFiles)
+    print "permitted file extension:", validExts
+
     file2tags = dict(filter(lambda r: r is not None,
                             multiprocessing.Pool().map(analyzeFileTag,
                                                        candFiles)))
@@ -88,5 +93,5 @@ if __name__ == "__main__":
 
   elif options.cmd == "apply":
     file2tags = eval(open(tagFile).read())
-    multiprocessing.Pool().map(applyFileTag, candFiles)
+    multiprocessing.Pool().map(applyFileTag, file2tags.items())
     
