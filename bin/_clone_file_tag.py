@@ -3,31 +3,52 @@
 
 from algorithm import *
 
-def normalize_file(fn):
+validExts = set([
+  "pdf",
+  "html", "webarchive",
+  "jpg", "jpeg", "png",
+  "numbers", "pages",
+  "text",
+  "mp4",
+])
+
+def listFiles():
+  def isCandidate(name):
+    if "/." in name:
+      return False
+    if "Photos Library" in name:
+      return False
+
+    return name.rpartition(".")[2] in validExts
+
+  allFiles = os.popen("find .").read().split("\n")
+  return filter(isCandidate, allFiles)
+
+def normalizeFile(fn):
   return fn.strip().replace('"', r'\"')
 
-def analyze_file(data):
-  fn_ID, fn = data
-  #print "processing", fn_ID, fn
-  fn = normalize_file(fn) 
-  if "/." in fn:
-    return None
+def analyzeFileTag(fname):
+  fname = normalizeFile(fname)
   try:
-    line = os.popen('''_tag_file -l "%s"''' %fn).readlines()[0]
+    line = os.popen('''_tag_file -l "%s"''' % fname).readlines()[0]
   except:
-    print "skipping '%s'" %fn
+    print "skipping '%s'" % fname
     return None
 
   toks = line.split("\t")
   if len(toks) == 1:
+    "not found for '%s'" % fname
     return None
-  print "found tags in", fn
-  return [fn, toks[1].strip()]
 
-def apply_file(data):
+  tags = toks[1].strip()
+  print "found: '%s': %s" %(fname, tags)
+
+  return fname, tags
+
+def applyFileTag(data):
   fn_ID, fn = data
   assert len(file2tags) > 0
-  fn = normalize_file(fn)
+  fn = normalizeFile(fn)
   try:
     if fn in file2tags:
       print "adding '%s' into '%s'" %(file2tags[fn], fn)
@@ -44,22 +65,28 @@ if __name__ == "__main__":
   #parser.add_option("-q", "--quiet", action = "store_true", dest = "verbose",
                      #default = False, help = "")
   parser.add_option("-c", "--cmd", dest = "cmd", default = "analyze", 
-                    help = "analyze, apply")
+                    help = "[analyze, apply], default 'analyze'")
+  parser.add_option("--path", dest = "path", default = "/Users/txia/inf",
+                    help = "target folder, default ~/inf")
+
   (options, args) = parser.parse_args()
 
-  assert options.cmd in ["analyze", "apply"] 
+  assert options.cmd in ["analyze", "apply"]
 
-  all_files = enumerate(filter(lambda r: "/." not in r, os.popen("find .")))
-  #print "#all files:", len(all_files),
-  #print "\n".join(all_files)
+  os.chdir(options.path)
+  candFiles = listFiles()
+  print "#all files:", len(candFiles)
+  print "permitted file extension:", validExts
 
+  tagFile = "tags.dict"
   if options.cmd == "analyze":
-    file2tags = dict(filter(lambda r: r is not None, 
-                            multiprocessing.Pool().map(analyze_file, 
-                                                       all_files)))
+    file2tags = dict(filter(lambda r: r is not None,
+                            multiprocessing.Pool().map(analyzeFileTag,
+                                                       candFiles)))
+    print "#tagged files:", len(file2tags)
+    print >> open(tagFile, "w"), file2tags
 
-    cPickle.dump(file2tags, open("tags.dict", "w"))
   elif options.cmd == "apply":
-    file2tags = cPickle.load(open("tags.dict"))
-    multiprocessing.Pool().map(apply_file, all_files)
+    file2tags = eval(open(tagFile).read())
+    multiprocessing.Pool().map(applyFileTag, candFiles)
     
