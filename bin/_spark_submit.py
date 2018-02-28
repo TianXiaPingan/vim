@@ -14,8 +14,8 @@ cmdTpt = ("/opt/spark/%s/bin/spark-submit "
           "%s")
 
 defaultIncludedFiles = [
-  "/home/txia/.vim/include/algorithm.py",
-  "/home/txia/.vim/include/PigDataSchema.py",
+  "/home/txia/vim/include/algorithm.py",
+  "/home/txia/vim/include/PigDataSchema.py",
 ]
 
 if __name__ == "__main__":

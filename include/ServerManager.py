@@ -10,7 +10,7 @@ class ServerManager:
 
   def __init__(self):
     self._servers = {}
-    for ln in open("%s/.vim/include/servers.config" %os.getenv("HOME")):
+    for ln in open("%s/vim/include/servers.config" %os.getenv("HOME")):
       ln = ln.strip()
       if ln == "":
         continue
