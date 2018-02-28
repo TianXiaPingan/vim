@@ -343,6 +343,7 @@
 
 # In mac： 'otool -L data_ext.so', while in linux: 'ldd'
 
+# macport
 # http://guide.macports.org/#using.port
 # port -qv installed > myports.txt
 # sudo port -f uninstall installed
@@ -353,7 +354,12 @@
 # sudo port select --set python python27
 # port select --set pip pip27
 # 
-# sudo port uninstall inactive
+# update:
+# sudo port selfupdate 
+# sudo port upgrade outdated
+#
+# clean: 
+# sudo port clean --all all; sudo port uninstall inactive
 
 ###############################################################################
 export CLICOLOR=1 
