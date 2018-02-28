@@ -18,8 +18,8 @@ if __name__ == "__main__":
     help = "/Volumes/local_name, default 'WareHouse'")
   (options, args) = parser.parse_args()
 
-  os.system("mkdir /Volumes/%s" %options.local_name)
-  os.system("sshfs %s /Volumes/%s -ovolname=%s" %(options.server_dir,
-                                                  options.local_name,
-                                                  options.local_name))
+  executeCmd("mkdir /Volumes/%s" %options.local_name)
+  executeCmd("sshfs %s /Volumes/%s -ovolname=%s" %(options.server_dir,
+                                                   options.local_name,
+                                                   options.local_name))
 
