@@ -18,6 +18,7 @@ if __name__ == "__main__":
     help = "/Volumes/local_name, default 'WareHouse'")
   (options, args) = parser.parse_args()
 
+  # sudo chmod 777 /Volumes
   executeCmd("mkdir /Volumes/%s" %options.local_name)
   executeCmd("sshfs %s /Volumes/%s -ovolname=%s" %(options.server_dir,
                                                    options.local_name,
