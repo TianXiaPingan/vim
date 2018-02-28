@@ -226,8 +226,6 @@ def hadoopDeleteFile(fname):
   executeCmd("hadoop fs -rm -r %s" %fname)
 
 def executeCmd(cmd):
-  print time.strftime("%x %X"), "executing '%s'" %cmd
-
   if (re.search(r"\bspark-submit\b", cmd) is not None or
       re.search(r"\bpig\b", cmd) is not None or
       re.search(r"\bhadoop\b", cmd) is not None):
@@ -238,8 +236,10 @@ def executeCmd(cmd):
     except:
       print "Fail to run renewGSS()"
 
+  ret = os.system(cmd)
+  status = "OK" if ret == 0 else "fail"
+  print time.strftime("%x %X"), "[%s] executing '%s'" %(status, cmd)
   sys.stdout.flush()
-  return os.system(cmd)
 
 def toUtf8(line):
   if type(line) is unicode:

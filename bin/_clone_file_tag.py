@@ -52,9 +52,10 @@ def applyFileTag(item):
   try:
     print "adding '%s' into '%s'" %(tag, fn)
     cmd = '''_tag_file -s "%s" "%s"''' %(tag, fn)
-    os.system(cmd)
+    executeCmd(cmd)
   except:
     print "failed '%s'" %fn
+  print
 
 if __name__ == "__main__":
   os.system("clear")
@@ -64,15 +65,13 @@ if __name__ == "__main__":
                      #default = False, help = "")
   parser.add_option("-c", "--cmd", dest = "cmd", default = "analyze", 
                     help = "[gen, apply, analyze], default 'analyze'")
-  parser.add_option("--path", dest = "path", default = "~/inf",
-                    help = "target folder, default ~/inf")
 
   (options, args) = parser.parse_args()
 
   assert options.cmd in ["gen", "apply", "analyze"]
 
-  os.chdir(os.path.expanduser(options.path))
-  tagFile = "tags.dict"
+  tagFile = os.path.expanduser("~/vim/settings/tags.dict")
+  os.chdir(os.path.expanduser("~/inf"))
 
   if options.cmd == "analyze":
     file2tags = eval(open(tagFile).read())
@@ -93,5 +92,5 @@ if __name__ == "__main__":
 
   elif options.cmd == "apply":
     file2tags = eval(open(tagFile).read())
-    multiprocessing.Pool().map(applyFileTag, file2tags.items())
+    map(applyFileTag, file2tags.items())
     
