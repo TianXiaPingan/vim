@@ -64,14 +64,14 @@ if __name__ == "__main__":
                      #default = False, help = "")
   parser.add_option("-c", "--cmd", dest = "cmd", default = "analyze", 
                     help = "[gen, apply, analyze], default 'analyze'")
-  parser.add_option("--path", dest = "path", default = "/Users/txia/inf",
+  parser.add_option("--path", dest = "path", default = "~/inf",
                     help = "target folder, default ~/inf")
 
   (options, args) = parser.parse_args()
 
   assert options.cmd in ["gen", "apply", "analyze"]
 
-  os.chdir(options.path)
+  os.chdir(os.path.expanduser(options.path))
   tagFile = "tags.dict"
 
   if options.cmd == "analyze":

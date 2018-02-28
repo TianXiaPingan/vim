@@ -14,11 +14,11 @@ if __name__ == "__main__":
                     "target directory.")
   (options, args) = parser.parse_args()
 
-  os.chdir("/Users/%s/inf" %os.getlogin())
+  os.chdir(os.path.expanduser("~/inf"))
   path, folder = "/media/summer/WareHouse", "in-the-laptop.inf"
   assert isTargetDirValid(path, folder), path + "/" + folder
 
-  cmd = "_supdate.py wd@%s/%s" %(path, folder)
+  cmd = "_supdate.py . wd@%s/%s" %(path, folder)
   if options.delete:
     cmd += " -d"
   executeCmd(cmd)
