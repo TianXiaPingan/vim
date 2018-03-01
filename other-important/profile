@@ -338,28 +338,35 @@
 # In mac： 'otool -L data_ext.so', while in linux: 'ldd'
 
 # macport
-# http://guide.macports.org/#using.port
+# [[http://guide.macports.org/#using.port]]
+# ---backup
 # port -qv installed > myports.txt
 # sudo port -f uninstall installed
-#                                    
+# port installed inactive
+#
+# ---update                                   
 # sudo port selfupdate
 # port outdated
 # sudo port upgrade outdated
-# port installed inactive
 # sudo port rev-upgrade     # update broken ports.
-# sudo port uninstall inactive
-# sudo port uninstall leaves
-# port echo leaves
-# Look up install location of port: port content [jline]
+# 
+# ---clean
+# sudo port uninstall leaves; sudo port uninstall inactive;
+# sudo port clean --all all; 
 #
+# ---info and search
+# port echo leaves
+# Look up installation location of port: port content [jline]
+# port info [boost]
+# port variants boost
+# port install boost -no_static
+#
+# ---setting
 # port select --show python
 # port select --list python 
 # sudo port select --set python <the python version>
 # sudo port select --set python python27
 # port select --set pip pip27
-# 
-# clean: 
-# sudo port clean --all all; sudo port uninstall inactive
 
 ###############################################################################
 export CLICOLOR=1 
