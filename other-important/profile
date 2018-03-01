@@ -1,8 +1,9 @@
-# lyx for Chinese (Default support Chinese)
+# lyx for Chinese 
+# Default support Chinese, so no need to install extra packages.
 # Document - settings - Fonts - use non-teX fonts - use all SimSun, or songti
-# You may need to change "document class". 
+# You may need to change "document class" to CText.
 
-# Read hive database using spark [[https://confluence.godaddy.com/display/DCS/Hive]]
+# Read hive database using spark 
 # In the terminal: hive:
 # >> show databases;
 # >> show tables;
@@ -12,27 +13,28 @@
 #
 # Regarding python script, refer to "code.ranking/auto.train.framework/test.hive.py" 
 
-# javap - Java class file disassembler
-# javap -c ClassName.class
+# java related
+# Java class file disassembler: javap -c ClassName.class
+# how to list all classes in a jar: jar tvf file.jar 
+# Compile java with debug information: javac -g *.java
+# find java installed location: /usr/libexec/java_home -v 1.7 
+# Java path in mac: /System/Library/Frameworks/JavaVM.framework/Versions 
 
-# Some basic rules.
+# Some basic rules for naming files, folders.
 # folder naming: lower-case, no space.
 # code files: Title case, just like "a class name".
 # other files: lower-case, no space. 
 
-# how to list all classes in a jar
-# jar tvf file.jar 
-
 # how to set GSS.
 # Creating a Kerberos keytab for yourself
-# [[https://confluence.godaddy.com/display/DP/Creating+a+Kerberos+keytab+for+yourself]]
 # 1. generate-keytab txia.keytab
 # 2. test: 
 #   kdestroy
 #   kinit -R -k -t txia.keytab username@DC1.CORP.GD
 #   klist
 
-# git add a remote bare repository
+# git related
+# ---git add a remote bare repository
 # 1. In the server, run "git init --bare".
 # 2. In the client, run "git remote add TianXia git@tian.cloud.phx3.gdg:/home/git/folder" (this is in the git@demo server).
 # 3. run "git pull TianXia master". 
@@ -42,30 +44,6 @@
 # git config --global core.editor "vim"
 # git config --global diff.tool vimdiff
 
-# run deeplearning4j on GPUs
-# If necessary, add "sudo".
-# monitor GPU usage: [sudo] nvidia-smi
-# run: [sudo] java ...
-
-# How to deal with 'NVML: Driver/library version mismatch'
-# 
-# lsmod | grep nvidia
-# 
-# sudo rmmod nvidia_drm
-# sudo rmmod nvidia_modeset
-# sudo rmmod nvidia_uvm
-# 
-# (sudo lsof /dev/nvidia*, 
-# and then kill those process, then continue to unload the kmods)
-# 
-# sudo rmmod nvidia
-# 
-# lsmod | grep nvidia
-# We should get nothing.
-# 
-# nvidia-smi
-# We should get the correct output
-
 # nosetest
 # cd /Users/txia/inf/Desktop/GoDaddy/api
 # test a single function: nosetests-2.7 --processes=4 --process-timeout=360000 --tc=host:localhost --tc=port:8080 --nocapture acceptance/test.py:test_tld_compaction_10_18
@@ -73,17 +51,10 @@
 # nosetests-2.7 --processes=4 --process-timeout=360000 --tc=host:localhost --tc=port:8080 --nocapture acceptance/
 # --tc option requires install nose configuration package.
 
-# Creating a keytab for yourself
-# creat: generate-keytab {username}.keytab
-#
-# test: 
-# kdestroy
-# kinit -R -k -t username.keytab username@DC1.CORP.GD
-# klist
-
 # connect two computers with a cable
 # 1. In ubuntu: set IP as 192.168.1.104; set netmask as 255.255.255.0
-# 2. In mac Thunderbolt Ethernet: set IP as 192.168.1.200; set netmask as 255.255.255.0.
+# 2. In mac Thunderbolt Ethernet (or netcable): 
+#    set IP as 192.168.1.200; set netmask as 255.255.255.0.
 # 3. disconnect mac wifi.
 
 # check apt-get installed packages: dpkg -L exact-package-name
@@ -104,9 +75,6 @@
 # Use -Xss to set the Java thread stack size
 
 # home brew installation directory: /usr/local/Cellar
-
-# See the log: 
-#  yarn logs -applicationId  application_1459392377141_1777898 | vim -
 
 # Debug scala with jdb
 # compile: scalac -g:vars [source]
@@ -186,6 +154,30 @@
 # lspci -vnn | grep -i VGA -A 12
 # nvidia-smi
 # THEANO_FLAGS=mode=FAST_RUN,device=gpu,floatX=float32 python code.py
+#
+# ---run deeplearning4j on GPUs
+# If necessary, add "sudo".
+# monitor GPU usage: [sudo] nvidia-smi
+# run: [sudo] java ...
+#
+# ---How to deal with 'NVML: Driver/library version mismatch'
+# 
+# lsmod | grep nvidia
+# 
+# sudo rmmod nvidia_drm
+# sudo rmmod nvidia_modeset
+# sudo rmmod nvidia_uvm
+# 
+# (sudo lsof /dev/nvidia*, 
+# and then kill those process, then continue to unload the kmods)
+# 
+# sudo rmmod nvidia
+# 
+# lsmod | grep nvidia
+# We should get nothing.
+# 
+# nvidia-smi
+# We should get the correct output
 
 # Python debugger.
 # vim /opt/local/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/cmd.py
@@ -236,18 +228,13 @@
 # sklearn: scikit-learn machine learning package.
 # sklearn_pandas: this module provides a bridge between scikit-learn's machine learning methods and pandas-style data frames.
 # sympy: a symbolic manipulation package, written in pure python
-# theano: Theano is a python library that makes writing deep learning models easy, and gives the option of training them on a GPU
-
+# tensorflow
 
 # Debug java in a GUI jdb.
 # 1) mvim --servername debug *.java
 # 2) _jdb_server.py 
 # Note, I did not use vim, instead macvim, as console vim does not support client server mode.
 # Though, I could complile vim with X11, but that would ruin the system global clipboard.
-
-# Compile java with debug information: javac -g *.java
-
-# find java installed location: /usr/libexec/java_home -v 1.7 
 
 # How to let jdb support up/down/left/right
 # 1. sudo port install jline
@@ -256,13 +243,13 @@
 
 # VIM supports python, cscope
 # vim --version, check if python is supported.
-# port variant vim
+# port variant[s] vim
 # port installed | grep vim
 # sudo port install vim +python27 +cscope +huge (for mac at least)
 # sudo port install vim +python27 +cscope +huge +x11 (for mac at least, would cause can not <C-l> and <C-w>
 # sudo port activate vim version.
-
-# port often fail in installing macvim.
+#
+# ---port often fail in installing macvim.
 # sudo chmod -R g-w $(xcode-select -p)/Library/PrivateFrameworks/CoreSimulator.framework/Versions/A/XPCServices/com.apple.CoreSimulator.CoreSimulatorService.xpc
 # sudo chown -R root:wheel $(xcode-select -p)/Library/PrivateFrameworks/CoreSimulator.framework/Versions/A/XPCServices/com.apple.CoreSimulator.CoreSimulatorService.xpc
 # https://trac.macports.org/wiki/ProblemHotlist#xcode7.2
@@ -275,6 +262,9 @@
 
 # 使用awk提取短语表src、tgt命令：
 # cat phrase.table | awk -F" \|\|\| " '{print $1}' 或者 awk -F" \|\|\| " '{print $1}' phrase.table
+
+# sed
+# cmd = '''sed 's/\(WEIGHTS.*\[\).*\(\]\)/\\1%s\\2/g' ../config.py > tmp && mv tmp ../config.py''' %weights
 
 # df -lh
 # sudo fdisk -l
@@ -326,8 +316,6 @@
 
 # How to set default finder view for all windows.
 # sudo find / -name .DS_Store -delete; killall Finder
-
-# Java path in mac: /System/Library/Frameworks/JavaVM.framework/Versions 
 
 # Unlock files. "sudo chflags -R nouchg file-name"
 
