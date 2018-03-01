@@ -1,3 +1,7 @@
+# lyx for Chinese (Default support Chinese)
+# Document - settings - Fonts - use non-teX fonts - use all SimSun, or songti
+# You may need to change "document class". 
+
 # Read hive database using spark [[https://confluence.godaddy.com/display/DCS/Hive]]
 # In the terminal: hive:
 # >> show databases;
@@ -301,16 +305,6 @@
 
 # 查看include的文件的包含关系: g++ -M main.cpp
 
-# port: https://guide.macports.org
-# sudo port selfupdate
-# port outdated
-# sudo port upgrade outdated
-# port installed inactive
-# sudo port uninstall inactive
-# sudo port uninstall leaves
-# port echo leaves
-# Look up install location of port: port content [jline]
-
 # Update two folders:
 # rsync -ravutz -e ssh source-dir/ summer@130.108.28.50:dest-dir
 # If want to delete extraneous files in destination folder, add "--delete" option.
@@ -347,17 +341,22 @@
 # http://guide.macports.org/#using.port
 # port -qv installed > myports.txt
 # sudo port -f uninstall installed
-# 
+#                                    
+# sudo port selfupdate
+# port outdated
+# sudo port upgrade outdated
+# port installed inactive
+# sudo port uninstall inactive
+# sudo port uninstall leaves
+# port echo leaves
+# Look up install location of port: port content [jline]
+#
 # port select --show python
 # port select --list python 
 # sudo port select --set python <the python version>
 # sudo port select --set python python27
 # port select --set pip pip27
 # 
-# update:
-# sudo port selfupdate 
-# sudo port upgrade outdated
-#
 # clean: 
 # sudo port clean --all all; sudo port uninstall inactive
 
