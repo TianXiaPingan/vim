@@ -254,12 +254,12 @@
 # 2. java -classpath /opt/local/share/java/jline.jar:/Library/Java/JavaVirtualMachines/jdk1.7.0_45.jdk/Contents/Home/lib/tools.jar jline.ConsoleRunner com.sun.tools.example.debug.tty.TTY your-main-class 
 # Check content in a jar package: vim *.jar
 
-# Support python, cscope
+# VIM supports python, cscope
 # vim --version, check if python is supported.
 # port variant vim
 # port installed | grep vim
 # sudo port install vim +python27 +cscope +huge (for mac at least)
-# sudo port install vim +python27 +cscope +huge +x11 (for mac at least)
+# sudo port install vim +python27 +cscope +huge +x11 (for mac at least, would cause can not <C-l> and <C-w>
 # sudo port activate vim version.
 
 # port often fail in installing macvim.
