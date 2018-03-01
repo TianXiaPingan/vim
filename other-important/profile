@@ -346,6 +346,7 @@
 # port outdated
 # sudo port upgrade outdated
 # port installed inactive
+# sudo port rev-upgrade     # update broken ports.
 # sudo port uninstall inactive
 # sudo port uninstall leaves
 # port echo leaves
