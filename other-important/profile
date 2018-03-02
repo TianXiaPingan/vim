@@ -1,3 +1,14 @@
+# NLTK
+# download data: nltk.download()
+# draw syntactic tree: nltk.Tree('''(S  (S   (X  Aozhou) (X  shi)) (X  yu (X  Beihan) you (X  (X  bangjiao) de (X  (X  shaoshu guojia) zhiyi))))''').draw()
+
+# Thread
+# C++: Thread-not-safe: istringstream, regex. 
+
+# ---read large data file
+# Do not read all input data at one time, as the thread would not return large allocated memory to OS immediately.
+# We could read data in a lazy way with the help of lock and mutext.
+
 # iterm2 setting import and export
 # preferences -- general -- preferences: load... and save...
 # default folder: ~/vim/settings
@@ -208,12 +219,13 @@
 # installed_packages = pip.get_installed_distributions()
 # installed_packages_list = sorted(["%s==%s" % (i.key, i.version) for i in installed_packages])
 # print(installed_packages_list)
+# ---list all installed packages in pip: pip freeze or pip list
 #
 # Install scipy, numpy from easy_install, pip.
-# $ curl -O https://svn.apache.org/repos/asf/oodt/tools/oodtsite.publisher/trunk/distribute_setup.py
-# $ full-path-python2.7 distribute_setup.py
-# $ /usr/local/share/python/easy_install pip
-# $ pip2.7 install scipy, numpy
+# curl -O https://svn.apache.org/repos/asf/oodt/tools/oodtsite.publisher/trunk/distribute_setup.py
+# full-path-python2.7 distribute_setup.py
+# /usr/local/share/python/easy_install pip
+# pip2.7 install scipy, numpy
 #
 # PIL image-rendering commands
 # cvxmod: lingo-like programming pack 
@@ -221,7 +233,7 @@
 # gensim, a topic modeling package containing our LDA model. https://rstudio-pubs-static.s3.amazonaws.com/79360_850b2a69980c4488b1db95987a24867a.html
 # gensim: Python framework for fast Vector Space Modelling
 # matplotlib: a mature and popular plotting package, that provides publication-quality 2d plotting as well as rudimentary 3d plotting
-# nltk: a libray for NLP. 
+# nltk: a libray for NLP 
 # numpy: the fundamental package for numerical computation. it defines the numerical array and matrix types and basic operations on them.
 # pandas: powerful python data analysis toolkit, including time series analysis.
 # pybrain: a modular machine learning library for Reinforcement Learning, Artificial Intelligence and Neural Network.
