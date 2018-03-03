@@ -44,7 +44,7 @@ public class Alg {
     return new BufferedReader(new FileReader(fname));
   }
 
-  public static Map<String, Long> countWords(Stream<String> strStream) {
+  public static <Type> Map<Type, Long> countWords(Stream<Type> strStream) {
     return strStream.collect(groupingBy(str-> str, counting()));
   }
 

@@ -435,7 +435,7 @@ export PATH=/home/txia/installed/jdk1.8.0_91/bin:$PATH
 export CPLUS_INCLUDE_PATH=~/vim/include:$CPLUS_INCLUDE_PATH
 export CPLUS_INCLUDE_PATH=/opt/local/include:$CPLUS_INCLUDE_PATH
 export CPLUS_INCLUDE_PATH=/opt/local/Library/Frameworks/Python.framework/Versions/2.7/Headers:$CPLUS_INCLUDE_PATH
-export CPLUS_INCLUDE_PATH=~/Installed/boost_1_60_0:$CPLUS_INCLUDE_PATH
+export CPLUS_INCLUDE_PATH=~/installed/boost:$CPLUS_INCLUDE_PATH
 # for installing python library: json
 export CPLUS_INCLUDE_PATH=/System/Library/Frameworks/JavaVM.framework/Versions/A/Headers:$CPLUS_INCLUDE_PATH
 # for google test 1.7.0
@@ -444,9 +444,10 @@ export CPLUS_INCLUDE_PATH=~/Installed/gtest-1.7.0.summer/include:$CPLUS_INCLUDE_
 export LIBRARY_PATH=/opt/local/Library/Frameworks/Python.framework/Versions/2.7/lib:$LIBRARY_PATH
 export LIBRARY_PATH=/opt/local/lib:$LIBRARY_PATH
 export LIBRARY_PATH=/usr/local/lib:$LIBRARY_PATH
+export LIBRARY_PATH=~/installed/boost/stage/lib:$LIBRARY_PATH
 
 export DYLD_FALLBACK_LIBRARY_PATH=/opt/local/Library/Frameworks/Python.framework/Versions/2.7/lib:$DYLD_FALLBACK_LIBRARY_PATH
-export DYLD_FALLBACK_LIBRARY_PATH=~/Installed/boost_1_60_0/stage/lib:$DYLD_FALLBACK_LIBRARY_PATH
+export DYLD_FALLBACK_LIBRARY_PATH=~/installed/boost/stage/lib:$DYLD_FALLBACK_LIBRARY_PATH
 export DYLD_FALLBACK_LIBRARY_PATH=/opt/local/lib:$DYLD_FALLBACK_LIBRARY_PATH
 
 export PYTHONPATH=~/vim/include:$PYTHONPATH
