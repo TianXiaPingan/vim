@@ -45,7 +45,7 @@ public class Alg {
   }
 
   public static <Type> Map<Type, Long> countWords(Stream<Type> strStream) {
-    return strStream.collect(groupingBy(str-> str, counting()));
+    return strStream.collect(groupingBy(key-> key, counting()));
   }
 
   public static Map<String, String> extractAttribute(String[] blocks) {

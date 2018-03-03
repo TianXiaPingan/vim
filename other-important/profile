@@ -84,6 +84,7 @@
 
 # Parallel stream in Java
 # java -Djava.util.concurrent.ForkJoinPool.common.parallelism=8 ...
+# or: System.setProperty("java.util.concurrent.ForkJoinPool.common.parallelism", "8")
 # java -Xmx40G  ...
 # Use -Xmx to specify the maximum heap size
 # Use -Xms to specify the initial Java heap size
