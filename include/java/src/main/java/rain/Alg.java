@@ -12,6 +12,7 @@ import static java.util.stream.Collectors.groupingBy;
 
 public class Alg {
   public static double EPSILON = 1e-8;
+  public static Random rand_ = new Random();
 
   public static <Type> Type last(List<Type> data) {
     return data.get(data.size() - 1);
@@ -23,11 +24,14 @@ public class Alg {
       System.out.printf("Warning: sample size=%d <= 0\n", num);
       return new ArrayList<>();
     }
-    if (num > data.size()) {
+    if (num >= data.size()) {
       return data.subList(0, data.size());
     }
 
-    Collections.shuffle(data);
+    for (int p = 0; p < num; ++p) {
+      int pos = rand_.nextInt(data.size() - p);
+      Collections.swap(data, p, p + pos);
+    }
     return data.subList(0, num);
   }
 
