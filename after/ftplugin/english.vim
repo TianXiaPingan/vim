@@ -14,11 +14,11 @@ endfunction
 
 function! SaveWord(phrase)
 python << endpython
-import vim
+import vim, os
 
 phrase = vim.eval("a:phrase")
 VIMHOME = vim.eval("g:VIMHOME")
-print >> open("%s/data/vocabulary.dat" %VIMHOME, "a"), phrase
+print >> open(os.path.expanduser("~/water/.water.en.vob"), "a"), phrase
 
 endpython
 endfunction
@@ -39,11 +39,12 @@ endfunction
 
 function! LoadAllWords()
 python << endpython
-import vim
+import vim, os
 
 try:
   VIMHOME = vim.eval("g:VIMHOME")
   fname = "%s/data/vocabulary.dat" %VIMHOME
+  fname = os.path.expanduser("~/water/.water.en.vob")
   phrases = sorted(list(set(open(fname))))
   for v in phrases:
     vim.command('''call LoadWord("%s")''' %v)
