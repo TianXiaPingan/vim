@@ -475,6 +475,7 @@ map <S-F12>         :set ignorecase!<CR> :set ignorecase?<CR>
 
 " insert locale time
 map time            a<C-R>=strftime("%c")<CR><Esc>a
+"map time           a----------<C-R>=strftime("%Y-%m-%d")<CR>----------<Esc>o
 
 " comment and uncomment a variety of source files.
 map c               <leader>c<space>
