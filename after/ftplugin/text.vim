@@ -74,7 +74,8 @@ endpython
 endfunction
 
 set foldmethod=manual
-set tw=80
+set tw=0
+set wrap
 map --- O--------------------------------------------------------------------<Esc>
 
 syn match Define          "^---.*"
