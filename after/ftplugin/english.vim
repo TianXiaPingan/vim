@@ -18,7 +18,7 @@ import vim, os
 
 phrase = vim.eval("a:phrase")
 VIMHOME = vim.eval("g:VIMHOME")
-print >> open(os.path.expanduser("~/water/.water.en.vob"), "a"), phrase
+print >> open(os.path.expanduser("~/self/.water.en.vob"), "a"), phrase
 
 endpython
 endfunction
@@ -44,7 +44,7 @@ import vim, os
 try:
   VIMHOME = vim.eval("g:VIMHOME")
   fname = "%s/data/vocabulary.dat" %VIMHOME
-  fname = os.path.expanduser("~/water/.water.en.vob")
+  fname = os.path.expanduser("~/self/.water.en.vob")
   phrases = sorted(list(set(open(fname))))
   for v in phrases:
     vim.command('''call LoadWord("%s")''' %v)
