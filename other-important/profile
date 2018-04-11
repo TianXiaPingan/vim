@@ -1,3 +1,6 @@
+# Some common tools:
+# codepad: coding interview tool [[https://codepad.remoteinterview.io/VOVOCYDHJB]]
+
 # NLTK
 # download data: nltk.download()
 # draw syntactic tree: nltk.Tree('''(S  (S   (X  Aozhou) (X  shi)) (X  yu (X  Beihan) you (X  (X  bangjiao) de (X  (X  shaoshu guojia) zhiyi))))''').draw()

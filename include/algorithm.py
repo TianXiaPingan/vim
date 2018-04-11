@@ -193,6 +193,13 @@ def groupByKey(dataIter):
   if sample != []:
     yield prevKey, sample
 
+def createList(shape, defaultValue=None):
+  assert type(shape) is list and len(shape) > 0
+  if len(shape) == 1:
+    return [defaultValue for _ in xrange(shape[0])]
+  else:
+    return [createList(shape[1:], defaultValue) for _ in xrange(shape[0])]
+
 def splitBy(data, f):
   data1, data2 = [], []
   for d in data:
@@ -400,6 +407,18 @@ def renewGSS():
   executeCmd("kinit -R -k -t /home/txia/.ssh/txia.keytab txia@DC1.CORP.GD")
 
 if __name__ == "__main__":
+  data = createList([10])
+  data[0] = 1
+  print data
+
+  data = createList([3, 4], None)
+  data[0][0] = 1
+  print data
+
+  data = createList([3, 4, 5], None)
+  data[0][0][0] = 1
+  print data
+
   data = [("a", 1), ("a", 2), ("b", 3), ("c", 4)]
   print list(groupByKey(iter(data)))
 
