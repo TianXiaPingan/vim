@@ -5,7 +5,6 @@ from operator import methodcaller, attrgetter, itemgetter, add
 from optparse import OptionParser
 
 import bisect
-import pickle
 import collections
 import copy
 import datetime
@@ -14,15 +13,17 @@ import itertools
 import logging
 import math
 import multiprocessing
+import operator
 import optparse
 import os
+import pickle
 import pprint
+import queue
 import random
 import re
 import struct
 import sys
 import time
-import queue
 
 try:
   import scipy
@@ -35,7 +36,7 @@ EPSILON     = 1e-6
 
 class Spark:
   @staticmethod
-  def toUtf8(data, keys):
+  def toUtf8(data, keys: list):
     def mapper(vd):
       for key in keys:
         value = toUtf8(vd[key])
@@ -193,8 +194,8 @@ def groupByKey(dataIter):
   if sample != []:
     yield prevKey, sample
 
-def createList(shape, defaultValue=None):
-  assert type(shape) is list and len(shape) > 0
+def createList(shape: list, defaultValue=None):
+  assert len(shape) > 0
   if len(shape) == 1:
     return [defaultValue for _ in range(shape[0])]
   else:
@@ -261,8 +262,7 @@ def toUtf8(line):
     print("Error: wrong type in toUtf8(...)")
     return None
 
-def toUtf8List(lines):
-  assert type(lines) is list
+def toUtf8List(lines: list):
   return [ln for ln in map(toUtf8, lines) if ln is not None]
 
 def calcNdcg(relsList):
@@ -407,7 +407,7 @@ def renewGSS():
   executeCmd("kinit -R -k -t /home/txia/.ssh/txia.keytab txia@DC1.CORP.GD")
 
 if __name__ == "__main__":
-  parser = optparse.OptionParser(usage = "cmd dev1@dir1 dir2")
+  parser = OptionParser(usage = "cmd dev1@dir1 dir2")
   #parser.add_option("-q", "--quiet", action = "store_true", dest = "verbose",
   #default = False, help = "")
   (options, args) = parser.parse_args()

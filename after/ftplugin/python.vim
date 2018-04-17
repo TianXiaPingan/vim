@@ -46,7 +46,7 @@ content = '''\
 #!/usr/bin/env python
 #coding: utf8
 
-from algorithm import *
+from algorithm_3x import *
 
 if __name__ == "__main__":
   os.system("clear")
