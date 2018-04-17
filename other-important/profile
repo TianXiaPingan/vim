@@ -229,7 +229,7 @@
 # curl -O https://svn.apache.org/repos/asf/oodt/tools/oodtsite.publisher/trunk/distribute_setup.py
 # full-path-python2.7 distribute_setup.py
 # /usr/local/share/python/easy_install pip
-# pip2.7 install scipy, numpy
+# pip2.7 install scipy, numpy [--upgrade]
 #
 # PIL image-rendering commands
 # cvxmod: lingo-like programming pack 
@@ -249,6 +249,7 @@
 # sklearn_pandas: this module provides a bridge between scikit-learn's machine learning methods and pandas-style data frames.
 # sympy: a symbolic manipulation package, written in pure python
 # tensorflow
+# tensorflow_nlp
 
 # Debug java in a GUI jdb.
 # 1) mvim --servername debug *.java
