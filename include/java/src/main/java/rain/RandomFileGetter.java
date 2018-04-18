@@ -34,7 +34,7 @@ public class RandomFileGetter {
   public synchronized String readLine() {
     try {
       while (!isClosed_ && buffer_.size() < bufferSize_) {
-        String line = reader_.readLine();
+        var line = reader_.readLine();
         if (line == null) {
           isClosed_ = true;
           reader_.close();
@@ -48,7 +48,7 @@ public class RandomFileGetter {
       }
       int index = random_.nextInt(buffer_.size());
       int lastIndex = buffer_.size() - 1;
-      String ret = buffer_.get(index);
+      var ret = buffer_.get(index);
       buffer_.set(index, buffer_.get(lastIndex));
       buffer_.remove(lastIndex);
       return ret;

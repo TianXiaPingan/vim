@@ -54,7 +54,7 @@ public class Alg {
 
   public static Map<String, String> extractAttribute(String[] blocks) {
     Map<String, String> ret = new TreeMap<>();
-    for (String block: blocks) {
+    for (var block: blocks) {
       int p = block.indexOf("=");
       if (p == -1) {
         out.println("found wrong block: " + block);
@@ -89,7 +89,7 @@ public class Alg {
 
   public static double[] l1Norm(double[] weight, double norm) {
     double wsum = 0.;
-    for (double w: weight) {
+    for (var w: weight) {
       wsum += Math.abs(w);
     }
 
@@ -99,7 +99,7 @@ public class Alg {
     }
 
     double ratio = norm / wsum;
-    double[] ret = new double[weight.length];
+    var ret = new double[weight.length];
     for (int p = 0; p < weight.length; ++p) {
       ret[p] = weight[p] * ratio;
     }
@@ -111,20 +111,20 @@ public class Alg {
   //}
 
   public static void main(String[] argv) {
-    Timer timer = new Timer("Test Alg");
+    var timer = new Timer("Test Alg");
     out.println("Hello rain.Alg");
 
-    List<Integer> list = Arrays.asList(1, 2, 3, 4, 5);
+    var list = Arrays.asList(1, 2, 3, 4, 5);
     out.println(Alg.last(list));
 
-    List<Double> data = new ArrayList<>();
+    var data = new ArrayList<>();
     Alg.resize(data, 10, 0.);
     out.println(data.size());
 
     double[] weights = {
       1, 2, 3, 4,
       };
-    double[] weightsL1 = Alg.l1Norm(weights, 1.);
+    var weightsL1 = Alg.l1Norm(weights, 1.);
     //    out.println(Alg.last(weights));
 
     out.println(Arrays.asList(ArrayUtils.toObject(weightsL1)));
@@ -132,7 +132,7 @@ public class Alg {
     out.println(Alg.extractAttribute("name=\tage=30   ".split("\t")));
     out.println(Alg.extractAttribute("n=n=summer\tage=30   ".split("\t")));
 
-    String stream = "a b c d a b d g e 3 4 1 1 1 2 2 3";
+    var stream = "a b c d a b d g e 3 4 1 1 1 2 2 3";
     System.out.println(countWords(Arrays.stream(stream.split("\\s+"))));
 
     System.out.println("seconds: " + timer.getSeconds());
@@ -141,7 +141,7 @@ public class Alg {
 
     timer.stop();
 
-    List<Integer> data1 = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8);
+    var data1 = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8);
     System.out.println(sample(data1, 3));
     System.out.println(sample(data1, -1));
     System.out.println(sample(data1, 10));
