@@ -230,6 +230,11 @@
 # full-path-python2.7 distribute_setup.py
 # /usr/local/share/python/easy_install pip
 # pip2.7 install scipy, numpy [--upgrade]
+# or 
+# curl https://bootstrap.pypa.io/get-pip.py | sudo python3.6 
+# see [[https://askubuntu.com/questions/889535/how-to-install-pip-for-python-3-6-on-ubuntu-16-10?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa]]
+# python3.6 -m pip -V
+#
 #
 # PIL image-rendering commands
 # cvxmod: lingo-like programming pack 
