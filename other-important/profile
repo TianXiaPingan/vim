@@ -190,6 +190,9 @@
 # 
 # >> nvidia-smi
 # We should get the correct output
+#
+# examine the memory usuage for each GPU
+# >> sudo fuser -v /dev/nvidia*
 
 # Python debugger.
 # vim /opt/local/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/cmd.py
@@ -431,6 +434,9 @@ alias du2='clear; du -h --max-depth 1'
 # e.g. rsync --size-only -ravutz -e ssh source-dir/ summer@130.108.28.50:dest-dir/
 
 alias _cleanCano='cd /Volumes/CANO && find . -iregex ".*\.thm" -exec rm -v {} \;'
+
+alias _gpu_usage='nvidia-smi'
+alias _gpu_pids='sudo fuser -v /dev/nvidia*' 
 
 export PATH=/opt/local/bin:$PATH
 export PATH=/opt/local/sbin:$PATH
