@@ -31,8 +31,19 @@ try:
 except ImportError:
   print("Does not find package 'scipy'")
 
+try:
+  import tensorflow as tf
+except ImportError:
+  print("Does not find package 'tensorflow'")
+
 INF         = float("inf")
 EPSILON     = 1e-6
+
+def toInt(tensor):
+  return tf.cast(tensor, tf.int32)
+
+def toFloat(tensor):
+  return tf.cast(tensor, tf.float32)
 
 class Spark:
   @staticmethod

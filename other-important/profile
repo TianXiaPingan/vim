@@ -1,3 +1,9 @@
+# topic=wifi
+# shiflt + command + G: input /Library/Preferences/SystemConfiguration
+# remove: com.apple.airport.preferences.plist
+# remove: NetworkInterfaces.plist
+# remove: preferences.plist
+
 # topic=tools:
 # codepad: coding interview tool [[https://codepad.remoteinterview.io/VOVOCYDHJB]]
 # Python debugger: ipdb
