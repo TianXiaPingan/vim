@@ -42,9 +42,9 @@ def thread_compile(args):
   else:
     error_txt = open(error_file).read().strip()
     if error_txt != "":
-      print "-" * 16, "Warning", "-" * 16
-      print error_txt
-      print
+      print("-" * 16, "Warning", "-" * 16)
+      print(error_txt)
+      print()
     return [fname, None]
 
 def get_default_config():
@@ -99,14 +99,14 @@ if __name__ == "__main__":
   (options, args) = parser.parse_args()
 
   if options.new_BUILD:
-    print >> open("BUILD", "w"), BUILD_format
+    print(BUILD_format, file=open("BUILD", "w"))
     exit(0)
 
   try:
     user_config = {}
-    execfile("BUILD", user_config) 
+    exec(compile(open("BUILD").read(), "BUILD", 'exec'), user_config) 
   except IOError:
-    print "Can NOT find BUILD file"
+    print("Can NOT find BUILD file")
     exit(1)
 
   config = combine_config(user_config, get_default_config()) 
@@ -133,7 +133,7 @@ if __name__ == "__main__":
   dot_o_files = []
 
   for src_file in src_files:
-    print "%s %s %s" %("-" * 20, src_file, "-" * 20)
+    print("%s %s %s" %("-" * 20, src_file, "-" * 20))
     dot_o_file = "." + src_file.replace(".cpp", ".o").replace(".cc", ".o")
     error_file = "." + src_file.replace(".cpp", ".error").replace(".cc", ".error")
 
@@ -149,10 +149,10 @@ if __name__ == "__main__":
 
       cmd = "g++ -c %s %s -o %s %s 2> %s" \
           %(src_file, compile_flags_str, dot_o_file, include_paths_str, error_file)
-      print cmd
+      print(cmd)
       cpp_to_compile.append((cmd, error_file))
     else:
-      print "%s is the newest" %(dot_o_file)
+      print("%s is the newest" %(dot_o_file))
     dot_o_files.append(dot_o_file)    
 
   thread_pools = Pool()
@@ -163,10 +163,10 @@ if __name__ == "__main__":
       error_inf.extend(error)
   
   if error_inf != []:
-    print >> open(ERROR_FILE, "w"), "".join(error_inf)
-    print "".join(error_inf[: 25])
+    print("".join(error_inf), file=open(ERROR_FILE, "w"))
+    print("".join(error_inf[: 25]))
   else: 
-    print "-" * 48
+    print("-" * 48)
     link_flags_str = get_list_to_str(config, "link_flags", "")
     lib_paths_str  = get_list_to_str(config, "lib_paths", "-L")
     libs_str       = get_list_to_str(config, "libs", "-l")
@@ -174,10 +174,10 @@ if __name__ == "__main__":
     cmd = "g++ %s -o %s %s %s %s" \
         %(" ".join(dot_o_files), config["binary"], link_flags_str, libs_str, \
         lib_paths_str)
-    print cmd
+    print(cmd)
 
     if system("%s 2> %s" %(cmd, ERROR_FILE)) == 0:
-      print "Successful! binary type: %s, %s" %(binary_type, config["binary"])
+      print("Successful! binary type: %s, %s" %(binary_type, config["binary"]))
     else:
-      print "".join(open(ERROR_FILE).readlines()[: 20])
+      print("".join(open(ERROR_FILE).readlines()[: 20]))
 
