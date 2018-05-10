@@ -142,7 +142,9 @@ using boost::format;
 typedef long long           int64;
 typedef unsigned long long  uint64;
 typedef vector<int>         VecInteger; 
+typedef vector<unsigned>    VecUnsigned; 
 typedef vector<double>      VecDouble;  
+typedef vector<float>       VecFloat;  
 typedef vector<string>      VecString;
 
 namespace rain {
