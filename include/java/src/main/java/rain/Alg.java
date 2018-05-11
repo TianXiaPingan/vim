@@ -4,6 +4,7 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.apache.commons.lang3.ArrayUtils;
 import static java.lang.System.out;
@@ -42,6 +43,11 @@ public class Alg {
   public static Stream<String> openReadFileStream(String fname)
     throws IOException {
     return Files.lines(Paths.get(fname)).map(String::trim);
+  }
+
+  public static List<String> openReadFileLines(String fname)
+    throws IOException {
+    return openReadFileStream(fname).collect(Collectors.toList());
   }
 
   public static BufferedReader openReadFile(String fname) throws IOException {

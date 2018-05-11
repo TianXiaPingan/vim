@@ -39,6 +39,28 @@ except ImportError:
 INF         = float("inf")
 EPSILON     = 1e-6
 
+class WordIdDict:
+  def __init__(self):
+    self._word2Id = {}
+    self._words = []
+
+  def addWord(self, word):
+    idx = self._word2Id.get(word, None)
+    if idx is not None:
+      return idx
+    self._words.append(word)
+    self._word2Id[word] = len(self._word2Id)
+    return len(self._words) - 1
+
+  def getWordId(self, word):
+    return self._word2Id.get(word, None)
+
+  def getWord(self, idx):
+    return self._words[idx] if 0 <= idx < len(self._words) else None
+
+  def size(self):
+    return len(self._words)
+
 def toInt(tensor):
   return tf.cast(tensor, tf.int32)
 
@@ -423,6 +445,14 @@ if __name__ == "__main__":
   #default = False, help = "")
   (options, args) = parser.parse_args()
 
+  idxDict = WordIdDict()
+  print(idxDict.addWord("summer"))
+  print(idxDict.addWord("rain"))
+  print(idxDict.getWord(100))
+  print(idxDict.getWord(1))
+  print(idxDict.size())
+
+
   data = createList([10])
   data[0] = 1
   print(data)
@@ -458,13 +488,12 @@ if __name__ == "__main__":
 
   printFlush("hello", sys.stdout)
 
-  fn = "/Users/txia/GoDaddy/tokenizer/data/dictionary/ranking.model/train-data"
-  print(len(list(readNamedColumnFile(fn + "/tld.price.data"))))
-
   executeCmd("ls")
 
-  lock1 = FileLock(1)
+  '''lock1 = FileLock(1)
   print("Wait several seconds and delete /tmp/lock.data")
   lock2 = FileLock(1)
   print("lock2")
-  lock2.unlock()
+  lock2.unlock()'''
+
+
