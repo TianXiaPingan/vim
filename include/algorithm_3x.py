@@ -39,6 +39,12 @@ except ImportError:
 INF         = float("inf")
 EPSILON     = 1e-6
 
+def toInt(tensor):
+  return tf.cast(tensor, tf.int32)
+
+def toFloat(tensor):
+  return tf.cast(tensor, tf.float32)
+
 class TF:
   @staticmethod
   def multiHot(x, depth):
@@ -81,12 +87,6 @@ class WordIdDict:
 
   def size(self):
     return len(self._words)
-
-def toInt(tensor):
-  return tf.cast(tensor, tf.int32)
-
-def toFloat(tensor):
-  return tf.cast(tensor, tf.float32)
 
 class Spark:
   @staticmethod
