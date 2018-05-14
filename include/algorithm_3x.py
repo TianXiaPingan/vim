@@ -59,8 +59,8 @@ class TF:
     initV = tf.constant(0)
 
     _, v = tf.while_loop(funcC, funcB,
-                         [initV,
-                          tf.convert_to_tensor([list(range(10))], tf.float32)],
+                         [initV, tf.convert_to_tensor([list(range(depth))],
+                                                      tf.float32)],
                          shape_invariants=[initV.get_shape(),
                                            tf.TensorShape([None, depth])])
 

@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 import org.apache.commons.lang3.ArrayUtils;
 import static java.lang.System.out;
@@ -14,6 +15,11 @@ import static java.util.stream.Collectors.groupingBy;
 public class Alg {
   public static double EPSILON = 1e-8;
   public static Random rand_ = new Random();
+
+  public static void setParallelism(String theadNum) {
+    var key = "java.util.concurrent.ForkJoinPool.common.parallelism";
+    System.setProperty(key, theadNum);
+  }
 
   public static <Type> Type last(List<Type> data) {
     return data.get(data.size() - 1);
