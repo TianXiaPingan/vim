@@ -21,6 +21,84 @@ public class Alg {
     System.setProperty(key, theadNum);
   }
 
+  public static double logSum(List nums) {
+    var maxV = (Double)Collections.max(nums);
+    var resSum = 0d;
+    for (var num: nums) {
+      resSum += Math.exp((Double)num - maxV);
+    }
+
+    return maxV + Math.log(resSum);
+  }
+
+  public static double logSum(double[] nums) {
+    var maxV = maxValue(nums);
+    var resSum = 0d;
+    for (var num: nums) {
+      resSum += Math.exp(num - maxV);
+    }
+
+    return maxV + Math.log(resSum);
+  }
+
+  public static float logSum(float[] nums) {
+    var maxV = maxValue(nums);
+    var resSum = 0d;
+    for (var num: nums) {
+      resSum += Math.exp(num - maxV);
+    }
+
+    return maxV + (float)Math.log(resSum);
+  }
+
+  public static double maxValue(double[] nums) {
+    var ret = nums[0];
+    for (var p = 1; p < nums.length; ++p) {
+      ret = Math.max(ret, nums[p]);
+    }
+    return ret;
+  }
+
+  public static float maxValue(float[] nums) {
+    var ret = nums[0];
+    for (var p = 1; p < nums.length; ++p) {
+      ret = Math.max(ret, nums[p]);
+    }
+    return ret;
+  }
+
+  public static int maxValue(int[] nums) {
+    var ret = nums[0];
+    for (var p = 1; p < nums.length; ++p) {
+      ret = Math.max(ret, nums[p]);
+    }
+    return ret;
+  }
+
+  public static double minValue(double[] nums) {
+    var ret = nums[0];
+    for (var p = 1; p < nums.length; ++p) {
+      ret = Math.min(ret, nums[p]);
+    }
+    return ret;
+  }
+
+  public static float minValue(float[] nums) {
+    var ret = nums[0];
+    for (var p = 1; p < nums.length; ++p) {
+      ret = Math.min(ret, nums[p]);
+    }
+    return ret;
+  }
+
+  public static int minValue(int[] nums) {
+    var ret = nums[0];
+    for (var p = 1; p < nums.length; ++p) {
+      ret = Math.min(ret, nums[p]);
+    }
+    return ret;
+  }
+
   public static <Type> Type last(List<Type> data) {
     return data.get(data.size() - 1);
   }
@@ -123,6 +201,9 @@ public class Alg {
   //}
 
   public static void main(String[] argv) {
+    var list0 = List.of(1d, 2d, 3d);
+    System.out.println(logSum(list0));
+
     var timer = new Timer("Test Alg");
     out.println("Hello rain.Alg");
 
