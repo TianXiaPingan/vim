@@ -32,7 +32,7 @@ public class Alg {
   }
 
   public static double logSum(double[] nums) {
-    var maxV = maxValue(nums);
+    var maxV = nums[argMax(nums)];
     var resSum = 0d;
     for (var num: nums) {
       resSum += Math.exp(num - maxV);
@@ -42,7 +42,7 @@ public class Alg {
   }
 
   public static float logSum(float[] nums) {
-    var maxV = maxValue(nums);
+    var maxV = nums[argMax(nums)];
     var resSum = 0d;
     for (var num: nums) {
       resSum += Math.exp(num - maxV);
@@ -51,53 +51,105 @@ public class Alg {
     return maxV + (float)Math.log(resSum);
   }
 
-  public static double maxValue(double[] nums) {
-    var ret = nums[0];
-    for (var p = 1; p < nums.length; ++p) {
-      ret = Math.max(ret, nums[p]);
+  public static int argMax(List nums) {
+    var maxV = (double)nums.get(0);
+    var ret = 0;
+    for (var p = 1; p < nums.size(); ++p) {
+      var v = (double)nums.get(p);
+      if (v > maxV) {
+        maxV = v;
+        ret = p;
+      }
     }
     return ret;
   }
 
-  public static float maxValue(float[] nums) {
-    var ret = nums[0];
+  public static int argMax(double[] nums) {
+    var maxV = nums[0];
+    var ret = 0;
     for (var p = 1; p < nums.length; ++p) {
-      ret = Math.max(ret, nums[p]);
+      if (nums[p] > maxV) {
+        maxV = nums[p];
+        ret = p;
+      }
     }
     return ret;
   }
 
-  public static int maxValue(int[] nums) {
-    var ret = nums[0];
+  public static int argMax(float[] nums) {
+    var maxV = nums[0];
+    var ret = 0;
     for (var p = 1; p < nums.length; ++p) {
-      ret = Math.max(ret, nums[p]);
+      if (nums[p] > maxV) {
+        maxV = nums[p];
+        ret = p;
+      }
     }
     return ret;
   }
 
-  public static double minValue(double[] nums) {
-    var ret = nums[0];
+  public static int argMax(int[] nums) {
+    var maxV = nums[0];
+    var ret = 0;
     for (var p = 1; p < nums.length; ++p) {
-      ret = Math.min(ret, nums[p]);
+      if (nums[p] > maxV) {
+        maxV = nums[p];
+        ret = p;
+      }
     }
     return ret;
   }
 
-  public static float minValue(float[] nums) {
-    var ret = nums[0];
-    for (var p = 1; p < nums.length; ++p) {
-      ret = Math.min(ret, nums[p]);
+  public static int argMin(List nums) {
+    var maxV = (double)nums.get(0);
+    var ret = 0;
+    for (var p = 1; p < nums.size(); ++p) {
+      var v = (double)nums.get(p);
+      if (v < maxV) {
+        maxV = v;
+        ret = p;
+      }
     }
     return ret;
   }
 
-  public static int minValue(int[] nums) {
-    var ret = nums[0];
+  public static int argMin(double[] nums) {
+    var maxV = nums[0];
+    var ret = 0;
     for (var p = 1; p < nums.length; ++p) {
-      ret = Math.min(ret, nums[p]);
+      if (nums[p] < maxV) {
+        maxV = nums[p];
+        ret = p;
+      }
     }
     return ret;
   }
+
+  public static int argMin(float[] nums) {
+    var maxV = nums[0];
+    var ret = 0;
+    for (var p = 1; p < nums.length; ++p) {
+      if (nums[p] < maxV) {
+        maxV = nums[p];
+        ret = p;
+      }
+    }
+    return ret;
+  }
+
+   public static int argMin(int[] nums) {
+    var maxV = nums[0];
+    var ret = 0;
+    for (var p = 1; p < nums.length; ++p) {
+      if (nums[p] < maxV) {
+        maxV = nums[p];
+        ret = p;
+      }
+    }
+    return ret;
+  }
+
+
 
   public static <Type> Type last(List<Type> data) {
     return data.get(data.size() - 1);
@@ -113,8 +165,8 @@ public class Alg {
       return data.subList(0, data.size());
     }
 
-    for (int p = 0; p < num; ++p) {
-      int pos = rand_.nextInt(data.size() - p);
+    for (var p = 0; p < num; ++p) {
+      var pos = rand_.nextInt(data.size() - p);
       Collections.swap(data, p, p + pos);
     }
     return data.subList(0, num);
