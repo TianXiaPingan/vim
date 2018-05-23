@@ -16,7 +16,6 @@ tags
 workbench.xmi
 model.*
 direct-ranker
-bin/
 target/
 out/
 
