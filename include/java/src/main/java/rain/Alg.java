@@ -16,9 +16,9 @@ public class Alg {
   public static double EPSILON = 1e-8;
   public static Random rand_ = new Random();
 
-  public static void setParallelism(String theadNum) {
+  public static void setParallelism(int theadNum) {
     var key = "java.util.concurrent.ForkJoinPool.common.parallelism";
-    System.setProperty(key, theadNum);
+    System.setProperty(key, Integer.toString(theadNum));
   }
 
   public static double logSum(List nums) {
