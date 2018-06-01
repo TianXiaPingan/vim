@@ -21,6 +21,25 @@ public class Alg {
     System.setProperty(key, Integer.toString(theadNum));
   }
 
+  public static int executeCmd(String cmd) {
+    // quite simple comamnds
+    try {
+      Runtime run = Runtime.getRuntime();
+      Process pr = run.exec(cmd);
+      var ret = pr.waitFor();
+      return ret;
+      /*BufferedReader buf = new BufferedReader(new InputStreamReader(pr.getInputStream()));
+
+      String line;
+      while ((line = buf.readLine()) != null) {
+        System.out.println(line);
+      }*/
+    }
+    catch (Exception error) {
+      return 1;
+    }
+  }
+
   public static double logSum(List nums) {
     var maxV = (Double)Collections.max(nums);
     var resSum = 0d;
