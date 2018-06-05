@@ -23,7 +23,7 @@ if __name__ == "__main__":
   srcDir = replaceServer(args[0]) + "/"
   tgtDir = replaceServer(args[1]) + "/"
   
-  cmd = "rsync -ravutzh --progress -e ssh %s %s   %s %s" \
+  cmd = "rsync -ravutzhl --progress -e ssh %s %s   %s %s" \
       %(srcDir, tgtDir, excludeOpt, deleteOpt)
   print cmd
   executeCmd(cmd)
