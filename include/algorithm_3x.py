@@ -11,6 +11,7 @@ import datetime
 import heapq
 import itertools
 import logging
+import functools
 import math
 import multiprocessing
 import operator
