@@ -99,6 +99,10 @@
 #
 # >> git config --global core.editor "vim"
 # >> git config --global diff.tool vimdiff
+#
+# cache username and password
+# >> git credential-osxkeychain
+# >> git config --global credential.helper osxkeychain
 
 # nosetest
 # >> cd /Users/txia/inf/Desktop/GoDaddy/api
