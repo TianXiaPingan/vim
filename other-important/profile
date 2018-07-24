@@ -1,3 +1,17 @@
+# topic=install python3.6
+# >> sudo add-apt-repository ppa:deadsnakes/ppa
+# >> sudo apt-get update
+# >> sudo apt-get install python3.6
+ 
+# topic=install java10
+# >> sudo add-apt-repository ppa:linuxuprising/java
+# >> sudo apt-get update
+# >> sudo apt-get install oracle-java10-installer
+# >> sudo apt-get install oracle-java10-set-default
+
+# topic=ubuntu waiting 5 minutes 
+# >> vim /etc/systemd/system/network-online.target.wants/networking.service
+
 # topic=connect local network from outside
 # https://www.zhihu.com/question/27771692
 # >> ngrok tcp 22
