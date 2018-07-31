@@ -56,7 +56,7 @@ while line_ID < len(buff):
     line_ID += 1
   else:
     match = match[0]
-    print "line:", line_ID, "match:", match 
+    #print "line:", line_ID, "match:", match 
     indentSize = len(match[1])
     if indentSize < indentStack[-1][0]:
       indentStack.pop()
