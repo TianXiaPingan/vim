@@ -1,3 +1,9 @@
+# topic=restore to 恢复模式
+# 重启之后(按住shift)进入 grub菜单: Advanced options for ubuntu.
+# 按选择进入到Recovery Menu 
+# 进入到Recovery Menu 首先fsck，会提示，根分区将会被重新mount为rw模式。 同时会mount /etc/fstab中定义的其它分区，选择yes就OK了。
+# 结束之后按Enter返回Recovery Menu, 选择进入root ，之后就会进入终端状态，可进行脚本执行。
+
 # topic=install python3.6
 # >> sudo add-apt-repository ppa:deadsnakes/ppa
 # >> sudo apt-get update
