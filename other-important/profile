@@ -210,6 +210,11 @@
 # :ProjectSettings or (:EclimSettings)
 # org.eclim.java.run.jvmargs=[-ea]
 
+# topic=tensorflow installation
+# https://www.tensorflow.org/install/install_linux#tensorflow_gpu_support
+# 1) CUDA Toolkit 9.0. for (tensorflow 1.10)
+# 2) cuDNN SDK. (match CUDA 9.0)
+
 # topic=GPU
 # cat /proc/driver/nvidia/gpus/0000\:0f\:00.0/information
 # lspci -vnn | grep -i VGA -A 12
