@@ -80,22 +80,23 @@ class SentenceBLEU:
     self._ngram2freq = defaultdict(int)
     self._max_order = max_order
     for ref in refs:
-      self._update_ngram_freqs(ref, self._ngram2freq)
+      ngram2freq = self._stat_ngram_freqs(ref)
+      self._ngram2freq = self._cut(self._ngram2freq, ngram2freq)
+      
     self._ref_order_nums = defaultdict(int)
     for ngram, freq in self._ngram2freq.items():
-      order = ngram.count("\t") + 1
+      order = ngram.count(" ") + 1
       self._ref_order_nums[order] += freq
     
     self._ref_len = min([len(ref) for ref in refs])
 
   def compute(self, hyp: str):
     hyp = hyp.split()
-    hyp_ngram2freq = defaultdict(int)
-    self._update_ngram_freqs(hyp, hyp_ngram2freq)
+    hyp_ngram2freq = self._stat_ngram_freqs(hyp)
     
     matched = defaultdict(int)
     for ngram, freq in hyp_ngram2freq.items():
-      order = ngram.count("\t") + 1
+      order = ngram.count(" ") + 1
       freq = min(freq, self._ngram2freq.get(ngram, 0))
       matched[order] += freq
       
@@ -107,13 +108,22 @@ class SentenceBLEU:
   def _calc_BLEU(self, matched):
     precs = [matched[order] / (self._ref_order_nums[order] + 1e-10)
              for order in range(1, self._max_order + 1)]
-    prec  = functools.reduce(operator.mul, precs, 1) ** 0.25
+    prec  = functools.reduce(operator.mul, precs, 1) ** (1 / self._max_order)
     return prec
   
-  def _update_ngram_freqs(self, hyp_list: list, ngram2freq):
+  def _cut(self, ngram2freq1: dict, ngram2freq2: dict):
+    ngram2freq = defaultdict(int)
+    for key in set(list(ngram2freq1.keys()) + list(ngram2freq2.keys())):
+      ngram2freq[key] = max(ngram2freq1.get(key, 0), ngram2freq2.get(key, 0))
+    return ngram2freq
+  
+  def _stat_ngram_freqs(self, hyp_list: list):
+    ngram2freq = defaultdict(int)
     for order in range(1, self._max_order + 1):
       for pos in range(0, len(hyp_list) - order + 1):
-        ngram2freq["\t".join(hyp_list[pos: pos + order])] += 1
+        ngram2freq[" ".join(hyp_list[pos: pos + order])] += 1
+        
+    return ngram2freq
 
 class WordIdDict:
   def __init__(self):
@@ -560,35 +570,25 @@ if __name__ == "__main__":
 
   executeCmd("ls")
   
-  sentBLEU = SentenceBLEU(["1 2 3 4", "1 3 4 5"], 2)
-  print("BLEU:", sentBLEU.compute("1 4 5"))
+  # sentBLEU = SentenceBLEU(["1 2 3 4", "1 3 4 5"], 2)
+  # print("BLEU:", sentBLEU.compute("1 4 5"))
 
-  reference1 = ['It', 'is', 'a', 'guide', 'to', 'action', 'that', 'ensures',
-                'that', 'the', 'military', 'will', 'forever', 'heed', 'Party',
-                'commands']
-  reference2 = ['It', 'is', 'the', 'guiding', 'principle', 'which',
-                'guarantees', 'the', 'military', 'forces', 'always',
-                'being', 'under', 'the', 'command', 'of', 'the', 'Party']
-  reference3 = ['It', 'is', 'the', 'practical', 'guide', 'for', 'the',
-                'army', 'always', 'to', 'heed', 'the', 'directions',
-                'of', 'the', 'party']
-  ref1 = " ".join(reference1)
-  ref2 = " ".join(reference2)
-  ref3 = " ".join(reference3)
-  
-  hypothesis1 = ['It', 'is', 'a', 'guide', 'to', 'action', 'which', 'ensures',
-                 'that', 'the', 'military', 'always', 'obeys', 'the',
-                 'commands', 'of', 'the', 'party']
-  hypothesis2 = ['It', 'is', 'to', 'insure', 'the', 'troops', 'forever',
-                 'hearing', 'the', 'activity', 'guidebook', 'that', 'party',
-                 'direct']
-  hyp1 = " ".join(hypothesis1)
-  hyp2 = " ".join(hypothesis2)
+  ref1 = "a b c d e"
+  ref2 = "a b c d e"
+  ref3 = "a b c d f"
+  hyp  = "a b c d e"
 
-  sentBLEU = SentenceBLEU([ref1, ref2, ref3], 4)
-  print(f"BLEU1:", sentBLEU.compute(hyp1))
-  print(f"BLEU2:", sentBLEU.compute(hyp2))
-  
+  import nltk
+  bleu = nltk.translate.bleu_score.sentence_bleu([ref1.split(),
+                                                  ref2.split(),
+                                                  ref3.split()],
+                                                 hyp.split(),
+                                                 [1, 1, 1])
+  print(f"nltk BLEU: {bleu}")
+
+  #todo
+  sentBLEU = SentenceBLEU([ref1, ref2, ref3], 3)
+  print(f"BLEU1:", sentBLEU.compute(hyp))
 
   '''lock1 = FileLock(1)
   print("Wait several seconds and delete /tmp/lock.data")
