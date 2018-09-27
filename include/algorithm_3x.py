@@ -66,6 +66,54 @@ class TF:
                                            tf.TensorShape([None, depth])])
 
     return v[1:,]
+  
+class SentenceBLEU:
+  '''
+  Regarding corpus BLEU: refer to "nltk.translate.bleu_score.sentence_bleu".
+  '''
+  def __init__(self, refs: list, max_order=4):
+    '''
+    :param refs: list[str]
+    '''
+    
+    refs = [ref.split() for ref in refs]
+    self._ngram2freq = defaultdict(int)
+    self._max_order = max_order
+    for ref in refs:
+      self._update_ngram_freqs(ref, self._ngram2freq)
+    self._ref_order_nums = defaultdict(int)
+    for ngram, freq in self._ngram2freq.items():
+      order = ngram.count("\t") + 1
+      self._ref_order_nums[order] += freq
+    
+    self._ref_len = min([len(ref) for ref in refs])
+
+  def compute(self, hyp: str):
+    hyp = hyp.split()
+    hyp_ngram2freq = defaultdict(int)
+    self._update_ngram_freqs(hyp, hyp_ngram2freq)
+    
+    matched = defaultdict(int)
+    for ngram, freq in hyp_ngram2freq.items():
+      order = ngram.count("\t") + 1
+      freq = min(freq, self._ngram2freq.get(ngram, 0))
+      matched[order] += freq
+      
+    matched["hyp_len"] = len(hyp)
+    matched["ref_len"] = self._ref_len
+    
+    return self._calc_BLEU(matched)
+    
+  def _calc_BLEU(self, matched):
+    precs = [matched[order] / (self._ref_order_nums[order] + 1e-10)
+             for order in range(1, self._max_order + 1)]
+    prec  = functools.reduce(operator.mul, precs, 1) ** 0.25
+    return prec
+  
+  def _update_ngram_freqs(self, hyp_list: list, ngram2freq):
+    for order in range(1, self._max_order + 1):
+      for pos in range(0, len(hyp_list) - order + 1):
+        ngram2freq["\t".join(hyp_list[pos: pos + order])] += 1
 
 class WordIdDict:
   def __init__(self):
@@ -511,6 +559,36 @@ if __name__ == "__main__":
   printFlush("hello", sys.stdout)
 
   executeCmd("ls")
+  
+  sentBLEU = SentenceBLEU(["1 2 3 4", "1 3 4 5"], 2)
+  print("BLEU:", sentBLEU.compute("1 4 5"))
+
+  reference1 = ['It', 'is', 'a', 'guide', 'to', 'action', 'that', 'ensures',
+                'that', 'the', 'military', 'will', 'forever', 'heed', 'Party',
+                'commands']
+  reference2 = ['It', 'is', 'the', 'guiding', 'principle', 'which',
+                'guarantees', 'the', 'military', 'forces', 'always',
+                'being', 'under', 'the', 'command', 'of', 'the', 'Party']
+  reference3 = ['It', 'is', 'the', 'practical', 'guide', 'for', 'the',
+                'army', 'always', 'to', 'heed', 'the', 'directions',
+                'of', 'the', 'party']
+  ref1 = " ".join(reference1)
+  ref2 = " ".join(reference2)
+  ref3 = " ".join(reference3)
+  
+  hypothesis1 = ['It', 'is', 'a', 'guide', 'to', 'action', 'which', 'ensures',
+                 'that', 'the', 'military', 'always', 'obeys', 'the',
+                 'commands', 'of', 'the', 'party']
+  hypothesis2 = ['It', 'is', 'to', 'insure', 'the', 'troops', 'forever',
+                 'hearing', 'the', 'activity', 'guidebook', 'that', 'party',
+                 'direct']
+  hyp1 = " ".join(hypothesis1)
+  hyp2 = " ".join(hypothesis2)
+
+  sentBLEU = SentenceBLEU([ref1, ref2, ref3], 4)
+  print(f"BLEU1:", sentBLEU.compute(hyp1))
+  print(f"BLEU2:", sentBLEU.compute(hyp2))
+  
 
   '''lock1 = FileLock(1)
   print("Wait several seconds and delete /tmp/lock.data")
