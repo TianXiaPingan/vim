@@ -77,39 +77,38 @@ class SentenceBLEU:
     '''
     
     refs = [ref.split() for ref in refs]
-    self._ngram2freq = defaultdict(int)
     self._max_order = max_order
+    global_ngram2freq = defaultdict()
     for ref in refs:
       ngram2freq = self._stat_ngram_freqs(ref)
-      self._ngram2freq = self._cut(self._ngram2freq, ngram2freq)
-      
-    self._ref_order_nums = defaultdict(int)
-    for ngram, freq in self._ngram2freq.items():
-      order = ngram.count(" ") + 1
-      self._ref_order_nums[order] += freq
+      global_ngram2freq = self._cut(global_ngram2freq, ngram2freq)
+    self._ref_ngram2freq = global_ngram2freq
     
     self._ref_len = min([len(ref) for ref in refs])
 
   def compute(self, hyp: str):
     hyp = hyp.split()
     hyp_ngram2freq = self._stat_ngram_freqs(hyp)
-    
     matched = defaultdict(int)
+    
     for ngram, freq in hyp_ngram2freq.items():
       order = ngram.count(" ") + 1
-      freq = min(freq, self._ngram2freq.get(ngram, 0))
+      freq = min(freq, self._ref_ngram2freq.get(ngram, 0))
       matched[order] += freq
       
     matched["hyp_len"] = len(hyp)
-    matched["ref_len"] = self._ref_len
     
     return self._calc_BLEU(matched)
     
   def _calc_BLEU(self, matched):
-    precs = [matched[order] / (self._ref_order_nums[order] + 1e-10)
+    hyp_len, ref_len = matched["hyp_len"], self._ref_len
+    precs = [matched[order] / (hyp_len - order + 1 + 1e-10)
              for order in range(1, self._max_order + 1)]
     prec  = functools.reduce(operator.mul, precs, 1) ** (1 / self._max_order)
-    return prec
+    ratio = math.exp(min(0, 1 - ref_len / (hyp_len + 1e-10)))
+    bleu = prec * ratio
+    
+    return bleu
   
   def _cut(self, ngram2freq1: dict, ngram2freq2: dict):
     ngram2freq = defaultdict(int)
@@ -573,10 +572,10 @@ if __name__ == "__main__":
   # sentBLEU = SentenceBLEU(["1 2 3 4", "1 3 4 5"], 2)
   # print("BLEU:", sentBLEU.compute("1 4 5"))
 
-  ref1 = "a b c d e"
-  ref2 = "a b c d e"
-  ref3 = "a b c d f"
-  hyp  = "a b c d e"
+  ref1 = "a b c d 1 2 3 4 5 6 7 8 e"
+  ref2 = "a b c d 1 2 3 4 5 6 7 8 e"
+  ref3 = "a b c e 1 2 3 4 5 6 7 8 d"
+  hyp  = "a b c e 1 2 3 4 5 6 7 e e"
 
   import nltk
   bleu = nltk.translate.bleu_score.sentence_bleu([ref1.split(),
