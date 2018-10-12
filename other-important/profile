@@ -1,3 +1,9 @@
+# topic=service
+# >> sudo service neo4j start                     # start
+# >> sudo service --status-all | grep -i neo      # status
+# >> systemctl status  neo4j                      # status
+# >> sudo journalctl -e -u neo4j                  # log
+
 # topic=restore to 恢复模式
 # 重启之后(按住shift)进入 grub菜单: Advanced options for ubuntu.
 # 按选择进入到Recovery Menu 
@@ -275,10 +281,11 @@
 # pip2.7 install scipy, numpy [--upgrade]
 # 
 # install pip
-# curl https://bootstrap.pypa.io/get-pip.py | sudo python3.6 
-# see [[https://askubuntu.com/questions/889535/how-to-install-pip-for-python-3-6-on-ubuntu-16-10?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa]]
-# python3.6 -m pip -V
-#
+# >> sudo apt-get install python-pip
+# >> pip install some-package
+# or
+# >> python3.6 -m pip -V
+
 # How to find installed Python Library    
 # import pip
 # installed_packages = pip.get_installed_distributions()
