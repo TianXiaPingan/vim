@@ -129,6 +129,7 @@
 # cache username and password
 # >> git credential-osxkeychain
 # >> git config --global credential.helper osxkeychain
+# >> git config credential.helper store       # in ubuntu
 
 # nosetest
 # >> cd /Users/txia/inf/Desktop/GoDaddy/api
