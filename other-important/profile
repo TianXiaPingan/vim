@@ -502,14 +502,12 @@ alias _gpu_pids='sudo fuser -v /dev/nvidia*'
 
 export PATH=/opt/local/bin:$PATH
 export PATH=/opt/local/sbin:$PATH
-export PATH=~/vim/bin:$PATH
+export PATH=~/.vim/bin:$PATH
 export PATH=/opt/rh/devtoolset-3/root/usr/bin:$PATH
-export PATH=/home/txia/installed/jdk1.8.0_91/bin:$PATH
 
-export CPLUS_INCLUDE_PATH=~/vim/include:$CPLUS_INCLUDE_PATH
+export CPLUS_INCLUDE_PATH=~/.vim/include:$CPLUS_INCLUDE_PATH
 export CPLUS_INCLUDE_PATH=/opt/local/include:$CPLUS_INCLUDE_PATH
 export CPLUS_INCLUDE_PATH=/opt/local/Library/Frameworks/Python.framework/Versions/2.7/Headers:$CPLUS_INCLUDE_PATH
-export CPLUS_INCLUDE_PATH=~/installed/boost:$CPLUS_INCLUDE_PATH
 # for installing python library: json
 export CPLUS_INCLUDE_PATH=/System/Library/Frameworks/JavaVM.framework/Versions/A/Headers:$CPLUS_INCLUDE_PATH
 # for google test 1.7.0
@@ -518,21 +516,19 @@ export CPLUS_INCLUDE_PATH=~/Installed/gtest-1.7.0.summer/include:$CPLUS_INCLUDE_
 export LIBRARY_PATH=/opt/local/Library/Frameworks/Python.framework/Versions/2.7/lib:$LIBRARY_PATH
 export LIBRARY_PATH=/opt/local/lib:$LIBRARY_PATH
 export LIBRARY_PATH=/usr/local/lib:$LIBRARY_PATH
-export LIBRARY_PATH=~/installed/boost/stage/lib:$LIBRARY_PATH
 
 export DYLD_FALLBACK_LIBRARY_PATH=/opt/local/Library/Frameworks/Python.framework/Versions/2.7/lib:$DYLD_FALLBACK_LIBRARY_PATH
 export DYLD_FALLBACK_LIBRARY_PATH=~/installed/boost/stage/lib:$DYLD_FALLBACK_LIBRARY_PATH
 export DYLD_FALLBACK_LIBRARY_PATH=/opt/local/lib:$DYLD_FALLBACK_LIBRARY_PATH
 
-export PYTHONPATH=~/vim/include:$PYTHONPATH
-export PYTHONPATH=~/vim/bin:$PYTHONPATH
-export PYTHONPATH=/Users/summer/inf/Desktop/projects.active/PA-Insight/Insight_NLP:$PYTHONPATH
-export PYTHONPATH=/Users/summer/inf/Desktop/projects.active/PA-Insight/Insight_WebSiteDownloader:$PYTHONPATH
+export PYTHONPATH=~/.vim/include:$PYTHONPATH
+export PYTHONPATH=~/.vim/bin:$PYTHONPATH
+export PYTHONPATH=~/Desktop/projects.active/PA-Insight/Insight_NLP:$PYTHONPATH
+export PYTHONPATH=~/Desktop/projects.active/PA-Insight/Insight_WebSiteDownloader:$PYTHONPATH
 
 export CLASSPATH=~/.m2/repository/org/scala-lang/scala-library/2.11.7/scala-library-2.11.7.jar:$CLASSPATH
 export CLASSPATH=/opt/local/share/java/jline.jar:$CLASSPATH
 export CLASSPATH=/Library/Java/JavaVirtualMachines/jdk1.8.0_91.jdk/Contents/Home/lib/tools.jar:$CLASSPATH
-#export CLASSPATH=~/vim/include/java/bin:$CLASSPATH
 
 #export PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME%%.*}: ${PWD/#$HOME/~}\007"'
 
