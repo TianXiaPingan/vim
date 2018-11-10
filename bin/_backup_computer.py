@@ -6,9 +6,11 @@ if __name__ == "__main__":
   parser = optparse.OptionParser(usage = "cmd [optons]")
   parser.add_option("--driver", default="gdrive",
                     help="['*gdrive', 'warehouse']")
-  parser.add_option("-d", action = "store_true", dest="delete")
-  parser.add_option("--no_debug", action = "store_true", dest="no_debug")
-  parser.add_option("--action", default="backup", help="['backup', 'restore']")
+  parser.add_option("-d", action="store_true", dest="delete",
+                    help="to delete additional files.")
+  parser.add_option("--no_debug", action="store_true", dest="no_debug",
+                    help="to run")
+  parser.add_option("--action", default="backup", help="['*backup', 'restore']")
   (options, args) = parser.parse_args()
 
   assert options.driver in ["gdrive", "warehouse"]
@@ -45,10 +47,14 @@ if __name__ == "__main__":
   print("--" * 64, "\n")
 
   if options.no_debug:
-    answer = input("continue [y|n]? >> ")
+    answer = input("continue [y | n] ? >> ")
     if answer == "y":
       start_time = time.time()
+
       executeCmd(cmd)
+      cmd = "_clone_file_tag.py --cmd gen"
+      executeCmd(cmd)
+
       duration = time.time() - start_time
       print(f"time: {duration} seconds.")
 
