@@ -1,24 +1,54 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
-from algorithm import *
-
-def isTargetDirValid(path, folder):
-  msg = os.popen("_ssh.py wd 'cd %s; ls'" %path).read()
-  #print msg
-  return folder in msg
+from algorithm_3x import *
 
 if __name__ == "__main__":
   parser = optparse.OptionParser(usage = "cmd [optons]")
-  parser.add_option("-d", action = "store_true", dest = "delete",
-                    help = "Whether to delete all extra files in the"
-                    "target directory.")
+  parser.add_option("--driver", default="gdrive",
+                    help="['*gdrive', 'warehouse']")
+  parser.add_option("-d", action = "store_true", dest="delete")
+  parser.add_option("--no_debug", action = "store_true", dest="no_debug")
+  parser.add_option("--action", default="backup", help="['backup', 'restore']")
   (options, args) = parser.parse_args()
 
-  os.chdir(os.path.expanduser("~/inf"))
-  path, folder = "/media/summer/WareHouse", "in-the-laptop.inf"
-  assert isTargetDirValid(path, folder), path + "/" + folder
+  assert options.driver in ["gdrive", "warehouse"]
+  assert options.action in ["backup", "restore"]
 
-  cmd = "_supdate.py . wd@%s/%s" %(path, folder)
+  src_path = os.path.expanduser("~/inf")
+  assert os.path.isdir(src_path)
+  os.chdir(src_path)
+  src_path = "."
+
+  if options.driver == "gdrive":
+    target_path = "/Volumes/gdrive/inf"
+  elif options.driver == "warehouse":
+    target_path = "/Volumes/warehouse/inf"
+  assert os.path.isdir(target_path)
+
+  if options.action == "restore":
+    src_path, target_path = target_path, src_path
+
+  cmd = f"_supdate.py {src_path} {target_path}"
   if options.delete:
     cmd += " -d"
-  executeCmd(cmd)
+
+  print("--" * 64)
+  print(f"drive       : {options.driver}")
+  print(f"to delete   : {options.delete}")
+  print(f"no_debug    : {options.no_debug}")
+  print(f"action      : {options.action}")
+  print()
+
+  print(f"pwd: {os.getcwd()}")
+  print(f"cmd to excute: {cmd}")
+
+  print("--" * 64, "\n")
+
+  if options.no_debug:
+    answer = input("continue [y|n]? >> ")
+    if answer == "y":
+      start_time = time.time()
+      executeCmd(cmd)
+      duration = time.time() - start_time
+      print(f"time: {duration} seconds.")
+
