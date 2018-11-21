@@ -4,17 +4,14 @@ from algorithm_3x import *
 
 if __name__ == "__main__":
   parser = optparse.OptionParser(usage = "cmd [optons]")
-  parser.add_option("--driver", default="gdrive",
-                    help="['*gdrive', 'warehouse']")
+  parser.add_option("--driver", default="server",
+                    help="['gdrive', 'warehouse', '*server']")
   parser.add_option("-d", action="store_true", dest="delete",
                     help="to delete additional files.")
   parser.add_option("--no_debug", action="store_true", dest="no_debug",
                     help="to run")
   parser.add_option("--action", default="backup", help="['*backup', 'restore']")
   (options, args) = parser.parse_args()
-
-  assert options.driver in ["gdrive", "warehouse"]
-  assert options.action in ["backup", "restore"]
 
   src_path = os.path.expanduser("~/inf")
   assert os.path.isdir(src_path)
@@ -23,10 +20,16 @@ if __name__ == "__main__":
 
   if options.driver == "gdrive":
     target_path = "/Volumes/gdrive/inf"
+    assert os.path.isdir(target_path)
   elif options.driver == "warehouse":
     target_path = "/Volumes/warehouse/inf"
-  assert os.path.isdir(target_path)
+    assert os.path.isdir(target_path)
+  elif options.driver == "server":
+    target_path = "gpu2@/media/workspace/summer/backup/inf"
+  else:
+    assert False
 
+  assert options.action in ["backup", "restore"]
   if options.action == "restore":
     src_path, target_path = target_path, src_path
 
