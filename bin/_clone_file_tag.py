@@ -37,7 +37,7 @@ def analyze_file_tag(fname):
 
   toks = line.split("\t")
   if len(toks) == 1:
-    print(f"not found for '{fname}'")
+    #print(f"not found for '{fname}'")
     return None
 
   tags = toks[1].strip()
