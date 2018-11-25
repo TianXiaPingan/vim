@@ -410,6 +410,8 @@
 # In mac： 'otool -L data_ext.so', while in linux: 'ldd'
 
 # topic=macport
+# >> xcode-select --install
+# 
 # [[http://guide.macports.org/#using.port]]
 # ---backup
 # >> port -qv installed > myports.txt
