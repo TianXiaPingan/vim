@@ -168,8 +168,6 @@ public class Alg {
     return ret;
   }
 
-
-
   public static <Type> Type last(List<Type> data) {
     return data.get(data.size() - 1);
   }
@@ -309,6 +307,5 @@ public class Alg {
     System.out.println(sample(data1, 3));
     System.out.println(sample(data1, -1));
     System.out.println(sample(data1, 10));
-
   }
 };

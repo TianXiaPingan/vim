@@ -8,8 +8,6 @@ if __name__ == "__main__":
                     help="['gdrive', 'warehouse', '*server']")
   parser.add_option("-d", action="store_true", dest="delete",
                     help="to delete additional files.")
-  parser.add_option("--no_debug", action="store_true", dest="no_debug",
-                    help="to run")
   parser.add_option("--action", default="backup", help="['*backup', 'restore']")
   (options, args) = parser.parse_args()
 
@@ -40,7 +38,6 @@ if __name__ == "__main__":
   print("--" * 64)
   print(f"drive       : {options.driver}")
   print(f"to delete   : {options.delete}")
-  print(f"no_debug    : {options.no_debug}")
   print(f"action      : {options.action}")
   print()
 
@@ -49,15 +46,14 @@ if __name__ == "__main__":
 
   print("--" * 64, "\n")
 
-  if options.no_debug:
-    answer = input("continue [y | n] ? >> ")
-    if answer == "y":
-      start_time = time.time()
+  answer = input("continue [y | n] ? >> ")
+  if answer == "y":
+    start_time = time.time()
 
-      executeCmd(cmd)
-      cmd = "_clone_file_tag.py --cmd gen"
-      executeCmd(cmd)
+    executeCmd(cmd)
+    cmd = "_clone_file_tag.py --cmd gen"
+    executeCmd(cmd)
 
-      duration = time.time() - start_time
-      print(f"time: {duration} seconds.")
+    duration = time.time() - start_time
+    print(f"time: {duration} seconds.")
 
