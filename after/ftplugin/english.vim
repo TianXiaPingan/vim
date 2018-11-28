@@ -94,6 +94,7 @@ map +           :call ExpandandEmphrasize()<Esc>
 "vnoremap <silent> @ :<C-U> normal gvy<CR> :echo getreg('"')<CR>
 vnoremap <silent> + :call Emphasize()<CR>
 
-map <silent><C-d>  :execute "!say " . expand("<cword>") <CR><CR>
+"map <silent><C-d>  :execute "!say " . expand("<cword>") <CR><CR>
+"<s-l> and then <option-s>
 
 call LoadAllWords()
