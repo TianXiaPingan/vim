@@ -1,3 +1,7 @@
+# topic=7z
+# >> sudo apt-get install p7zip-full
+# >> 7z e {file-name}.7z.001
+
 # topic=service
 # >> sudo service neo4j start                     # start
 # >> sudo service --status-all | grep -i neo      # status
