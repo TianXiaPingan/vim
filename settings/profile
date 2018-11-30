@@ -454,12 +454,12 @@ alias _create_cpp_project='cp "/Users/world/Desktop/test program/leetcode templa
 alias _create_java_project='cp "/Users/world/Desktop/test program/java template/"* .; cp ~/.gitignore .; git init;'
 alias _create_python_project='cp "/Users/world/Desktop/test program/python template/"* .; cp ~/.gitignore .; git init;'
 
-alias l='       ls -lhrp'
-alias ll='      ls -lhtrp'
-alias la='      ls -lhatrp'
-alias lld='     ls -lhtr | grep "^d"'
-alias lll='     ls -lhtr | grep "^l"'
-alias llf='     ls -lhtr | grep "^-"'
+alias l='       ls -lhp'
+alias ll='      ls -lhrtp'
+alias la='      ls -lhatp'
+alias lld='     ls -lht | grep "^d"'
+alias lll='     ls -lht | grep "^l"'
+alias llf='     ls -lht | grep "^-"'
 
 alias vimr='vim -R'
 
