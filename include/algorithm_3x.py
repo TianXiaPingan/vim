@@ -40,6 +40,12 @@ except ImportError:
 INF         = float("inf")
 EPSILON     = 1e-6
 
+def cmp(a, b)-> int:
+  return (a > b) - (a < b)
+
+def get_home_dir():
+  return os.environ["HOME"]
+
 def toInt(tensor):
   return tf.cast(tensor, tf.int32)
 

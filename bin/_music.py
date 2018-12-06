@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 from sys import stdout
 from os import system, path, listdir
@@ -7,7 +7,8 @@ from math import exp, log
 from optparse import OptionParser
 from random import sample, random
 from threading import Thread
-
+import os
+import algorithm_3x as alg
 
 class PlayThread:
   def __init__(self, play_cmd):
@@ -17,7 +18,8 @@ class PlayThread:
     system(self.cmd)
 
 class Sound:
-  SOUND_DIR = "/Users/world/inf/study/bin/music"
+  home = alg.get_home_dir()
+  SOUND_DIR = f"{alg.get_home_dir()}/.vim/bin/music"
   SID = 0
   SOUND_TABLE = []
 
@@ -27,7 +29,7 @@ class Sound:
     Sound.SID += 1
 
   @staticmethod
-  def gen_all_sounds(level):
+  def gen_all_sounds(level: str):
     types = [("-", "34567"), ("", "1234567"), ("+", "1234567"), ("++", "123")]
 
     ret = []
@@ -36,12 +38,13 @@ class Sound:
         name = "%s%s" % (s, t)
         ret.append(Sound(name))
         Sound.SOUND_TABLE.append(name)
+
         if s not in "37":
           ret.append(Sound("#" + name))
           Sound.SOUND_TABLE.append("#" + name)
+
     ret.append(Sound("4++"))
     Sound.SOUND_TABLE.append("4++")
-    print Sound.SOUND_TABLE
 
     if level == "1":
       f, t = Sound.SOUND_TABLE.index("1"), Sound.SOUND_TABLE.index("7")
@@ -64,78 +67,75 @@ class Sound:
     cmd = "afplay -t 2 %s/%s.aiff" % (Sound.SOUND_DIR, name)
     Thread(target=PlayThread(cmd)).run()
 
-
 class Music:
-  def __init__(self, level):
-    self.sounds = filter(lambda sd: "#" not in sd.name, 
-                         Sound.gen_all_sounds(level))
-    self.incor_sounds = Sound("incorrect")
-    self.cor_sounds = Sound("correct")
+  def __init__(self, level: str):
+    self._sounds = [sd for sd in Sound.gen_all_sounds(level)
+                    if "#" not in sd.name]
+    self._name2sounds = {
+      sd.name: sd for sd in self._sounds
+    }
+    self._wrong_sounds = Sound("incorrect")
+    self._right_sounds = Sound("correct")
 
   def learn(self):
-    for sound in self.sounds * 100:
-      key = raw_input("push any key to halt, and push ""
-                      'enter' to practice: ").strip()
-      if key != "":
+    for sound in self._sounds * 100:
+      key = input("push any key to halt, and push 'enter' to practice: ")
+      if key.strip() != "":
         break
-      print "name: ", sound.name
+      print("name: ", sound.name)
       sound.play()
 
   def guess(self):
-    score = 0.0
-    ite = 0
-    last_music = None
     while True:
+      sound = sample(self._sounds, 1)[0]
+      print("listen...")
+
       while True:
-        sound = sample(self.sounds, 1)[0]
-        if sound != last_music:
-          last_music = sound
-          break
-      print "listen..."
-      sound.play()
-      iname = raw_input("input name (e.g. 3+, 1-, #4-): ").strip()
-      if iname == sound.name:
-        self.cor_sounds.play()
-      else:
-        self.incor_sounds.play()
-        print "again..."
         sound.play()
-        searched = [sd for sd in self.sounds if sd.name == iname]
-        if searched == []:
-          print "input error"
+        print([s.name for s in self._sounds])
+        iname = input("input name: ").strip()
+        if iname == sound.name:
+          self._right_sounds.play()
+          break
         else:
-          score += abs(searched[0].sid - sound.sid)
-      ite += 1
-      print "names:", sound.name, ", your score (smaller, better):", score / ite
+          self._wrong_sounds.play()
+          self._name2sounds.get(iname).play()
+          print("again...")
 
   def compare(self):
     while True:
       while True:
-        s1, s2 = sample(self.sounds, 2)
-        if 0 < abs(s1.sid - s2.sid) <= 4:
+        s1, s2 = sample(self._sounds, 2)
+        if 0 < abs(s1.sid - s2.sid) <= 3:
           break
-      print "listening..."
-      s1.play()
-      s2.play()
-      v = input("input the maximum one: (1, 2): ")
-      v = 1 if v == 1 else -1
-      if cmp(s1.sid, s2.sid) * v < 0:
-        self.incor_sounds.play()
-      else:
-        self.cor_sounds.play()
+      print("listening...")
 
+      while True:
+        s1.play()
+        s2.play()
+
+        while True:
+          v = input("input the maximum one: (1, 2): ").strip()
+          if v in ["1", "2"]:
+            break
+
+        v = int(v)
+        cmp_result = alg.cmp(s1.sid, s2.sid)
+        if (v == 1 and cmp_result == 1) or (v == 2 and cmp_result == -1):
+          self._right_sounds.play()
+          print(s1.name, s2.name)
+          break
+        else:
+          self._wrong_sounds.play()
 
 if __name__ == "__main__":
   parser = OptionParser(usage="cmd [optons] ..]")
-  # parser.add_option("-q", "--quiet", action = "store_true", dest = 
-  # "verbose", default = False, help = "don't print status messages to stdout")
-  parser.add_option("--learn", action="store_true", dest="learn", default=False,
+  parser.add_option("--learn", action="store_true", 
                     help="learning the frequency of all sounds")
-  parser.add_option("--guess", action="store_true", dest="guess", default=False,
+  parser.add_option("--guess", action="store_true", 
                     help="guess the sound when hearing")
-  parser.add_option("--compare", action="store_true", dest="compare",
-                    default=False, help="compare")
-  parser.add_option("--level", dest="level", default="1", help="level: 1-4")
+  parser.add_option("--compare", action="store_true", help="compare")
+  parser.add_option("--level", default="1", help="level: 1-4, default '1'")
   (options, args) = parser.parse_args()
 
   music = Music(options.level)
