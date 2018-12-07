@@ -74,7 +74,7 @@ class Music:
     self._name2sounds = {
       sd.name: sd for sd in self._sounds
     }
-    self._wrong_sounds = Sound("incorrect")
+    self._wrong_sound_hint = Sound("incorrect")
     self._right_sounds = Sound("correct")
 
   def learn(self):
@@ -88,19 +88,21 @@ class Music:
   def guess(self):
     while True:
       sound = sample(self._sounds, 1)[0]
-      print("listen...")
 
+      print([s.name for s in self._sounds])
       while True:
+        print("listen...")
         sound.play()
-        print([s.name for s in self._sounds])
         iname = input("input name: ").strip()
         if iname == sound.name:
           self._right_sounds.play()
           break
         else:
-          self._wrong_sounds.play()
-          self._name2sounds.get(iname).play()
-          print("again...")
+          guess_sound = self._name2sounds.get(iname)
+          if guess_sound is not None:
+            self._wrong_sound_hint.play()
+            print(f"This is your guess")
+            guess_sound.play()
 
   def compare(self):
     while True:
@@ -126,7 +128,7 @@ class Music:
           print(s1.name, s2.name)
           break
         else:
-          self._wrong_sounds.play()
+          self._wrong_sound_hint.play()
 
 if __name__ == "__main__":
   parser = OptionParser(usage="cmd [optons] ..]")
