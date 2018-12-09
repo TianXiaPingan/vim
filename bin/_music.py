@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import common as nlp
 from sys import stdout
 from os import system, path, listdir
 from time import time
@@ -18,8 +19,8 @@ class PlayThread:
     system(self.cmd)
 
 class Sound:
-  home = alg.get_home_dir()
-  SOUND_DIR = f"{alg.get_home_dir()}/.vim/bin/music"
+  home = nlp.get_home_dir()
+  SOUND_DIR = f"{nlp.get_home_dir()}/.vim/bin/music"
   SID = 0
   SOUND_TABLE = []
 
@@ -122,7 +123,7 @@ class Music:
             break
 
         v = int(v)
-        cmp_result = alg.cmp(s1.sid, s2.sid)
+        cmp_result = nlp.cmp(s1.sid, s2.sid)
         if (v == 1 and cmp_result == 1) or (v == 2 and cmp_result == -1):
           self._right_sounds.play()
           print(s1.name, s2.name)
