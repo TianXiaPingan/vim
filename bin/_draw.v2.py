@@ -28,7 +28,7 @@ reg = compile(":([\d.]+)")
 def extract(ln):
     toks = reg.findall(ln)
     assert len(toks) == 10, ln
-    return map(float, toks)
+    return list(map(float, toks))
 
 def analyze(log):
     train_measures, vali_measures, test_measures = [], [], []     
@@ -68,7 +68,7 @@ def get_style():
         #yield app
     #shuffle(ret)
     for app in ret:
-        print app
+        print(app)
         yield app
 
     '''data = map(float, range(5)) * 10
@@ -108,17 +108,17 @@ if __name__ == "__main__":
         result1, result2, result3 = col(result1, options.measure), col(result2, options.measure), col(result3, options.measure),
         #print result[: 3]
         if options.train:
-            pylab.plot(result1, style.next(), label = "%s: train" %log) 
+            pylab.plot(result1, next(style), label = "%s: train" %log) 
             #print "\n".join(map(str, result1))
         if options.vali:    
-            pylab.plot(result2, style.next(), label = "%s: vali"  %log) 
+            pylab.plot(result2, next(style), label = "%s: vali"  %log) 
             #print "\n".join(map(str, result2))
         if options.test:    
-            pylab.plot(result3, style.next(), label = "%s: test"  %log) 
+            pylab.plot(result3, next(style), label = "%s: test"  %log) 
             #print "\n".join(map(str, result3))
         if options.legend:
             pylab.legend()
-        print
+        print()
     pylab.grid()
     if options.outfile is not None:
         pylab.savefig(options.outfile)

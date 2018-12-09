@@ -2,6 +2,7 @@
 #coding: utf8
 
 from algorithm_3x import *
+import common as nlp
 
 VALID_FILE_EXTS = set([
   "pdf",
@@ -52,7 +53,7 @@ def apply_file_tag(item):
   try:
     print("adding '%s' into '%s'" %(tag, fn))
     cmd = '''_tag_file -s "%s" "%s"''' %(tag, fn)
-    executeCmd(cmd)
+    nlp.execute_cmd(cmd)
   except:
     print("failed '%s'" %fn)
   print()

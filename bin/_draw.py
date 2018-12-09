@@ -18,10 +18,10 @@ def analyze(log):
     data = []
     for ln in fin:
         if ln.startswith("evaluation"):
-            values = map(float, reg1.findall(ln))[1:]
+            values = list(map(float, reg1.findall(ln)))[1:]
             istest = True
         elif istest:
-            buffs = map(float, reg2.findall(ln))
+            buffs = list(map(float, reg2.findall(ln)))
             values.extend(buffs)
             data.append(values)
             istest = False
@@ -37,17 +37,17 @@ if __name__ == "__main__":
     (options, args) = parser.parse_args()
 
     data = analyze(args[0])
-    print data[0]
+    print(data[0])
 
     col = lambda data, idx: [p[idx] for p in data]
     for log in args:
         data = analyze(log)
         if options.train:
-            pylab.plot(map(itemgetter(0), data), "+-", label = "%s: train" %log) 
+            pylab.plot(list(map(itemgetter(0), data)), "+-", label = "%s: train" %log) 
         if options.vali:    
-            pylab.plot(map(itemgetter(1), data), "o-", label = "%s: vali"  %log) 
+            pylab.plot(list(map(itemgetter(1), data)), "o-", label = "%s: vali"  %log) 
         if options.test:    
-            pylab.plot(map(itemgetter(2 + options.order - 1), data), "*-", label = "%s: test"  %log) 
+            pylab.plot(list(map(itemgetter(2 + options.order - 1), data)), "*-", label = "%s: test"  %log) 
         pylab.legend()
         pylab.grid()
     pylab.show()

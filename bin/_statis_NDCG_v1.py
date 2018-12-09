@@ -31,7 +31,7 @@ def get_result(fn, tree_num):
     for ln in open(fn):
         if ln.startswith("test:"):
             #print map(float, reg.findall(ln))
-            results.append(list(itemgetter(0, 2, 9)(map(float, reg.findall(ln)))))
+            results.append(list(itemgetter(0, 2, 9)(list(map(float, reg.findall(ln))))))
         elif ln.startswith("ERR:"):
             results[-1].append(float(ln.split()[-1]))
     if len(results) >= tree_num:
@@ -41,7 +41,7 @@ def get_result(fn, tree_num):
 
 def analysis(sys_name, fn_log, tree_num):
     n_fold  = len([fold for fold in listdir(".") if fold.startswith("fold")])
-    results = [get_result("fold%d/%s/%s" %(fold + 1, sys_name, fn_log), tree_num) for fold in xrange(n_fold)]
+    results = [get_result("fold%d/%s/%s" %(fold + 1, sys_name, fn_log), tree_num) for fold in range(n_fold)]
     return results
     
 if __name__ == "__main__":
@@ -52,12 +52,12 @@ if __name__ == "__main__":
     (options, args) = parser.parse_args()
 
     for sys_name in args:
-        print "System:", sys_name
-        print "%12s %12s %12s %12s %12s" %("fold", "NDCG@1", "NDCG@3", "NDCG@10", "ERR")
+        print("System:", sys_name)
+        print("%12s %12s %12s %12s %12s" %("fold", "NDCG@1", "NDCG@3", "NDCG@10", "ERR"))
         result = analysis(sys_name, options.fn_log, options.tree_num)
         for fold, (n1, n3, n10, err) in enumerate(result):
-            print "%d\t%f\t%f\t%f\t%f" %(fold + 1, n1, n3, n10, err)
-        print 
+            print("%d\t%f\t%f\t%f\t%f" %(fold + 1, n1, n3, n10, err))
+        print() 
         n1, n3, n10, err = sum(result) / len(result)
-        print "%s\t%f\t%f\t%f\t%f" %("AVG", n1, n3, n10, err)
-        print 
+        print("%s\t%f\t%f\t%f\t%f" %("AVG", n1, n3, n10, err))
+        print() 

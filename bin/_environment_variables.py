@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 from algorithm_3x import *
+import common as nlp
 import os
 
 if __name__ == "__main__":
@@ -17,8 +18,8 @@ if __name__ == "__main__":
       continue
     print("*" * 32, key, "*" * 32)
     values = [v.strip() for v in values.split(":")
-              if not is_none_or_empty(v.strip())]
-    for vi, v in enumerate(sorted(values.split(":"))):
+              if not nlp.is_none_or_empty(v.strip())]
+    for vi, v in enumerate(sorted(values)):
       print(vi, v)
     print()
 

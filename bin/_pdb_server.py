@@ -1,13 +1,13 @@
 #!/usr/bin/env python
 
-import commands
+import subprocess
 import optparse   
 import os
 import popen2
 import re
 import string
 import sys
-import thread
+import _thread
 import time
 
 debug = None
@@ -16,7 +16,7 @@ class VimPythonDebugger(object):
   def __init__(self, server_name, main_class):
     self._server_name   = server_name 
     self._quit          = False
-    self._lock          = thread.allocate_lock()
+    self._lock          = _thread.allocate_lock()
     self._main_class    = main_class 
     self._bp2file       = dict()
     self._file2bp       = dict()
@@ -27,10 +27,10 @@ class VimPythonDebugger(object):
 
   def log(self, *msgs):
     if debug:
-      print "\nlog:", 
+      print("\nlog:", end=' ') 
       for msg in msgs:
-        print msg, 
-      print   
+        print(msg, end=' ') 
+      print()   
 
   def _parse_pdb_status(self, pdb_pipe, line):
     '''Parsing commands from pdb and send to Vim'''
@@ -120,16 +120,16 @@ class VimPythonDebugger(object):
   def run(self, params):
     try:
       # Monitoring commands from Vim.
-      os.mkfifo(".%s" % self._server_name, 0600)
+      os.mkfifo(".%s" % self._server_name, 0o600)
       self._send_to_vim('''VDBInit('.%s', '%s')''' 
                         %(self._server_name, os.path.realpath(os.curdir)))
       # Monitoring pdb.
       pdb = "python -m pdb %s '%s'" %(self._main_class, params)
       pdb_pipe = popen2.Popen3(pdb, capturestderr = False, bufsize = 0)
 
-      thread.start_new_thread(self._monitor_pdb, (pdb_pipe,))
-      thread.start_new_thread(self._monitor_cmd_input, (pdb_pipe,))
-      thread.start_new_thread(self._monitor_vim, (pdb_pipe,))
+      _thread.start_new_thread(self._monitor_pdb, (pdb_pipe,))
+      _thread.start_new_thread(self._monitor_cmd_input, (pdb_pipe,))
+      _thread.start_new_thread(self._monitor_vim, (pdb_pipe,))
 
       try:
         while True:
@@ -137,7 +137,7 @@ class VimPythonDebugger(object):
             self._quit = True
             break
           time.sleep(0.1)
-      except KeyboardInterrupt, ex:
+      except KeyboardInterrupt as ex:
         with self._lock:
           self._quit = True
 

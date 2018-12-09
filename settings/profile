@@ -529,8 +529,6 @@ export DYLD_FALLBACK_LIBRARY_PATH=/opt/local/lib:$DYLD_FALLBACK_LIBRARY_PATH
 
 export PYTHONPATH=~/.vim/include:$PYTHONPATH
 export PYTHONPATH=~/.vim/bin:$PYTHONPATH
-export PYTHONPATH=~/Desktop/projects.active/PA-Insight/Insight_NLP:$PYTHONPATH
-export PYTHONPATH=~/Desktop/projects.active/PA-Insight/Insight_WebSiteDownloader:$PYTHONPATH
 
 export CLASSPATH=~/.m2/repository/org/scala-lang/scala-library/2.11.7/scala-library-2.11.7.jar:$CLASSPATH
 export CLASSPATH=/opt/local/share/java/jline.jar:$CLASSPATH

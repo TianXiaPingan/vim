@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 #coding: utf8
 
 from algorithm import *
@@ -28,7 +28,7 @@ def replaceServer(addr):
 def showServers():
   servers = loadServerConfig()
   for name in sorted(servers.keys()):
-    print name, servers[name]
+    print(name, servers[name])
 
 if __name__ == "__main__":
   parser = optparse.OptionParser(usage = "cmd dev1@dir1 dir2")
@@ -51,6 +51,6 @@ if __name__ == "__main__":
     cmd = "scp -r -oStrictHostKeyChecking=no %s %s %s" %(dirOpt, srcDir, tgtDir)
   else:
     cmd = "scp %s -oStrictHostKeyChecking=no %s %s" %(dirOpt, srcDir, tgtDir)
-  print cmd
+  print(cmd)
   os.system(cmd)
 

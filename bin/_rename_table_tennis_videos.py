@@ -63,12 +63,12 @@ class RenameTableTennies:
         continue
 
       msg = "%3d) %s --> %s" %(fid, fn, fn_new)
-      print msg 
-      print >> fou, msg 
+      print(msg) 
+      print(msg, file=fou) 
 
       if fn_new in existent_vfiles:
-        print >> fou, "Error: new file name exists"
-        print "Error: new file name exists"
+        print("Error: new file name exists", file=fou)
+        print("Error: new file name exists")
         break
       if not debug:
         os.rename(fn, fn_new)

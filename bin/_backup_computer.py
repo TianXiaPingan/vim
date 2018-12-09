@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 from algorithm_3x import *
+import common as nlp
 
 if __name__ == "__main__":
   parser = optparse.OptionParser(usage = "cmd [optons]")
@@ -50,9 +51,9 @@ if __name__ == "__main__":
   if answer == "y":
     start_time = time.time()
 
-    executeCmd(cmd)
+    nlp.execute_cmd(cmd)
     cmd = "_clone_file_tag.py --cmd gen"
-    executeCmd(cmd)
+    nlp.execute_cmd(cmd)
 
     duration = time.time() - start_time
     print(f"time: {duration} seconds.")

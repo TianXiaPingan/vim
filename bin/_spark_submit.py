@@ -49,6 +49,6 @@ if __name__ == "__main__":
                  ",".join(defaultIncludedFiles), pyFiles,
                  " ".join(args))
 
-  print cmd
+  print(cmd)
   executeCmd(cmd)
 

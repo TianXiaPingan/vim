@@ -4,7 +4,7 @@ from algorithm import *
 import nltk
 
 def generate_tree(words, ldeps, rdeps, node_id):
-    print "node_id:", node_id
+    print("node_id:", node_id)
     w = words[node_id]
     lleaves, rleaves = "", ""
     for lw in sorted(ldeps[node_id]):
@@ -46,16 +46,16 @@ if __name__ == "__main__":
         p1, p2      = int(p1) - 1, int(p2) - 1
         words[p1]   = t1
         words[p2]   = t2
-        print p1, w1, p2, w2
+        print(p1, w1, p2, w2)
         if p1 > p2:
             ldeps[p1].append(p2)
         else:
             rdeps[p1].append(p2)
-        print "left:", ldeps
-        print "right:", rdeps
+        print("left:", ldeps)
+        print("right:", rdeps)
   
     tree = generate_tree(words, ldeps, rdeps, -1)
-    print tree
+    print(tree)
     nltk.Tree(tree).draw()
         
 
