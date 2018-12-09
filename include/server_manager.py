@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 #coding: utf8
 
 from algorithm import *
@@ -32,11 +32,11 @@ class ServerManager:
     return "%s@%s" %(server["account"], server["ip"])
 
   def getServerNames(self):
-    return self._servers.keys()
+    return list(self._servers.keys())
 
   def showAllServers(self):
     for p, name in enumerate(sorted(self._servers.keys())):
-      print p, self._servers[name]
+      print(p, self._servers[name])
 
   @staticmethod
   def getInstance():

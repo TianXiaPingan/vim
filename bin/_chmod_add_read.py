@@ -1,7 +1,7 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 #coding: utf8
 
-from algorithm import *
+from algorithm_3x import *
 
 if __name__ == "__main__":
   os.system("clear")
@@ -14,8 +14,8 @@ if __name__ == "__main__":
   cwd = os.getcwd()
 
   cmd = "find . -type d -exec chmod -v a+x {} \;"
-  os.system(cmd)
+  executeCmd(cmd)
 
   cmd = "chmod -Rv a+r ."
-  os.system(cmd)
+  executeCmd(cmd)
 

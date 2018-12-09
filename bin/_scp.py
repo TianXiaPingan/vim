@@ -2,7 +2,7 @@
 #coding: utf8
 
 from algorithm import *
-from ServerManager import *
+from server_manager import *
 
 debug = False
 

@@ -1,10 +1,8 @@
-#!/usr/bin/env python
-
 from sys import argv
 
 def is_zh_char(uchar):
     '''check a unicode char is chinese'''
-    return uchar >= u'\u4e00' and uchar <= u'\u9fa5'
+    return uchar >= '\u4e00' and uchar <= '\u9fa5'
 
 def char_B2Q(uchar):
     '''char of B2Q'''
@@ -12,7 +10,7 @@ def char_B2Q(uchar):
     if inside_code < 0x0020 or inside_code > 0x7e:   
         return uchar
     inside_code = 0x3000 if inside_code == 0x0020 else inside_code + 0xfee0
-    return unichr(inside_code)
+    return chr(inside_code)
 
 def char_Q2B(uchar):
     '''char of Q2B'''
@@ -20,7 +18,7 @@ def char_Q2B(uchar):
     inside_code = 0x0020 if inside_code == 0x3000 else inside_code - 0xfee0
     if inside_code < 0x0020 or inside_code > 0x7e: 
         return uchar
-    return unichr(inside_code)
+    return chr(inside_code)
 
 def str_Q2B(ustr):
     '''transfor a unicode string from Q 2 B'''
@@ -38,8 +36,8 @@ if __name__ == "__main__":
 
     code = argv[3]
     if argv[2] == "quan":
-        print >> open(argv[1] + ".quan", "w"), str_B2Q(open(argv[1]).read().decode(code)).encode(code)
+        print(str_B2Q(open(argv[1]).read().decode(code)).encode(code), file=open(argv[1] + ".quan", "w"))
     elif argv[2] == "ban":
-        print >> open(argv[1] + ".ban", "w"), str_Q2B(open(argv[1]).read().decode(code)).encode(code)
+        print(str_Q2B(open(argv[1]).read().decode(code)).encode(code), file=open(argv[1] + ".ban", "w"))
     else:
-        print "quan or ban, input error!"
+        print("quan or ban, input error!")

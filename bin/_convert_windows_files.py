@@ -11,9 +11,9 @@ if __name__ == "__main__":
   for fn in args:
     try:
       txt = open(fn).read()
-      txt = filter(lambda ch: ord(ch) != 13, txt)
-      print >> open(fn + ".converted", "w"), txt
-      print fn, "is OK"
+      txt = [ch for ch in txt if ord(ch) != 13]
+      print(txt, file=open(fn + ".converted", "w"))
+      print(fn, "is OK")
     except:
       break
 

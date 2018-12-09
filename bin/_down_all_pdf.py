@@ -2,7 +2,7 @@
  
 from algorithm import * 
 import re
-import urllib
+import urllib.request, urllib.parse, urllib.error
 import mechanize
 
 expect_suffix = ["pdf", "doc", "ppt", "ps", "docx"]
@@ -21,7 +21,7 @@ def analyze_links(url):
                 yield lk.text, lk.absolute_url
 
 def download(url):
-    return urllib.urlopen(url).read()
+    return urllib.request.urlopen(url).read()
 
 def shortname(url):
     return url.split("/")[-1]
@@ -34,16 +34,16 @@ if __name__ == "__main__":
     parser.add_option("-u", "--url", dest = "url", help = "url of website")
     (options, args) = parser.parse_args()
 
-    print >> open("mainpage.html", "w"), download(options.url) 
-    print >> open("url.txt", "w"), options.url 
+    print(download(options.url), file=open("mainpage.html", "w")) 
+    print(options.url, file=open("url.txt", "w")) 
 
     for ind, (text, path) in enumerate(analyze_links(options.url)):
-        print "%3d-th link, text: '%s', path='%s'" %(ind, text, path)
-        print
+        print("%3d-th link, text: '%s', path='%s'" %(ind, text, path))
+        print()
         name = "%s (%s).%s" %(text, shortname(path), linktype(path))
         try:
             cont = download(path)
-            print >> open(name, "w"), cont 
+            print(cont, file=open(name, "w")) 
         except IOError:
-            print "find an error, and ignore:", name
+            print("find an error, and ignore:", name)
 
