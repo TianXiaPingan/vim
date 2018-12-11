@@ -15,8 +15,8 @@ def run(size):
 
   end_time = time.time()
   print(f"It takes {end_time - start_time: .4f} s")
-  print(f"MacBook Pro: 2.2246 s")
-
+  print(f"GPU2, GPU3 machines: 1.799 s")
+  print(f"MacBook Pro        : 2.224 s")
 
 if __name__ == "__main__":
   parser = optparse.OptionParser(usage="cmd [optons] ..]")
