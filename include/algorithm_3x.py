@@ -58,49 +58,6 @@ class WordIdDict:
   def size(self):
     return len(self._words)
 
-class DisjointSet:
-  def __init__(self, size):
-    self._fathers = [None] * size
-    self._sizes   = [1] * size
-    self._cluster_size = size
-
-  def getFather(self, p):
-    if self._fathers[p] is None:
-      return p
-    self._fathers[p] = self.getFather(self._fathers[p])
-    return self._fathers[p]
-
-  def isTogether(self, p1, p2):
-    return self.getFather(p1) == self.getFather(p2)
-
-  def combine(self, p1, p2):
-    f1, f2 = self.getFather(p1), self.getFather(p2)
-    if f1 != f2:
-      if self._sizes[f1] >= self._sizes[f2]:
-        self._fathers[f2] = f1
-        self._sizes[f1] += self._sizes[f2]
-      else:
-        self._fathers[f1] = f2
-        self._sizes[f2] += self._sizes[f1]
-      self._cluster_size -= 1
-
-def group_by_key(dataIter):
-  # dataIter.next() --> (key, data)
-  # return: (key, [data1, ...])
-  sample = []
-  prevKey = None
-  for key, inst in dataIter:
-    if sample == [] or key == prevKey:
-      sample.append(inst)
-    else:
-      yield prevKey, sample
-      sample = [inst]
-
-    prevKey = key
-
-  if sample != []:
-    yield prevKey, sample
-
 def trim_dict(dictObj, attrsKept):
   attrsKept = set(attrsKept)
   for attr in list(dictObj.keys()):
@@ -152,14 +109,6 @@ def extract_attribute(line: str, keys=None):
     print("ERROR: Wrong format:", line)
     return dict()
 
-def discrete_sample(dists):
-  '''each probability must be greater than 0'''
-  dists = array(dists)
-  assert all(dists >= 0)
-  accsum = scipy.cumsum(dists)
-  expNum = accsum[-1] * random.random()
-  return bisect.bisect(accsum, expNum)
-
 if __name__ == "__main__":
   parser = OptionParser(usage="cmd dev1@dir1 dir2")
   #parser.add_option("-q", "--quiet", action = "store_true", dest = "verbose",
@@ -172,13 +121,6 @@ if __name__ == "__main__":
   print(idxDict.getWord(100))
   print(idxDict.getWord(1))
   print(idxDict.size())
-
-
-  data = [("a", 1), ("a", 2), ("b", 3), ("c", 4)]
-  print(list(group_by_key(iter(data))))
-
-  dists = [1, 2, 3, 4]
-  print(collections.Counter([discrete_sample(dists) for freq in range(100000)]))
 
   toks = "name=TianXia\tage=16\theight=1.76".split("\t")
   print(list(extract_attribute(toks, set(["name"])).items()))
