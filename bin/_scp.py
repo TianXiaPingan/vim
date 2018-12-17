@@ -1,16 +1,17 @@
 #!/usr/bin/env python3
 #coding: utf8
 
-from algorithm import *
 from server_manager import *
+import common as nlp
+import optparse
 
 debug = False
 
 def loadServerConfig():
-  serverManager = ServerManager.getInstance()
+  serverManager = ServerManager.get_instance()
   ret = {}
-  for name in serverManager.getServerNames():
-    ret[name] = serverManager.getLogin(name)
+  for name in serverManager.get_server_name():
+    ret[name] = serverManager.get_login(name)
 
   return ret
 
@@ -52,5 +53,5 @@ if __name__ == "__main__":
   else:
     cmd = "scp %s -oStrictHostKeyChecking=no %s %s" %(dirOpt, srcDir, tgtDir)
   print(cmd)
-  os.system(cmd)
+  nlp.execute_cmd(cmd)
 

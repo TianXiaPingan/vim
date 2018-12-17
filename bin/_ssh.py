@@ -1,8 +1,9 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 #coding: utf8
 
-from algorithm import *
 from _scp import *
+import os
+import common as nlp
 
 if __name__ == "__main__":
   parser = optparse.OptionParser(usage = "cmd server 'cmd'")
@@ -21,5 +22,5 @@ if __name__ == "__main__":
   
   cmd = "ssh -oStrictHostKeyChecking=no %s '%s'" %(loginServer, "" if len(args) == 1 else args[1])
   print(cmd)
-  os.system(cmd)
+  nlp.execute_cmd(cmd)
 

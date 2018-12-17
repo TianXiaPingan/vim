@@ -1,7 +1,8 @@
 #!/usr/bin/env python2
 #coding: utf8
 
-from algorithm import *
+import os
+import optparse
 
 if __name__ == "__main__":
   os.system("clear")
@@ -31,7 +32,7 @@ if __name__ == "__main__":
         continue
       files.append(f.strip())
 
-    print "\n".join(files)
+    print("\n".join(files))
 
 
 

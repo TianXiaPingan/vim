@@ -1,0 +1,5 @@
+{'name': 'wd', 'password': '', 'account': 'summer', 'ip': '192.168.1.104'}
+{'name': 'gpu2', 'password': 'common', 'account': 'summer', 'ip': '192.168.1.201'}
+{'name': 'gpu3', 'password': 'common', 'account': 'summer', 'ip': '192.168.1.208'}
+{'name': 'asr', 'password': 'common', 'account': 'summer', 'ip': '192.168.1.209'}
+{'name': 'robot', 'password': '', 'account': 'ubuntu', 'ip': 'ec2-54-169-158-182.ap-southeast-1.compute.amazonaws.com'}

@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 #coding: utf8
 
-from algorithm_3x import *
 import common as nlp
+import os
+import optparse
+import multiprocessing
 
 VALID_FILE_EXTS = set([
   "pdf",

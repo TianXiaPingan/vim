@@ -1,8 +1,9 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 #coding: utf8
 
-from algorithm import *
-from _scp import *
+import common as nlp
+import optparse
+import _scp
 
 if __name__ == "__main__":
   parser = optparse.OptionParser(usage = "cmd srcDir targetDir")
@@ -16,14 +17,14 @@ if __name__ == "__main__":
   
   deleteOpt = "--delete" if options.delete else ""
   if options.excludePattern is not None:
-    excludeOpt = "--exclude=%s" %options.excludePattern
+    excludeOpt = f"--exclude={options.excludePattern}"
   else:   
     excludeOpt = "" 
  
-  srcDir = replaceServer(args[0]) + "/"
-  tgtDir = replaceServer(args[1]) + "/"
+  srcDir = _scp.replaceServer(args[0]) + "/"
+  tgtDir = _scp.replaceServer(args[1]) + "/"
   
-  cmd = "rsync -ravutzhl --progress -e ssh %s %s   %s %s" \
-      %(srcDir, tgtDir, excludeOpt, deleteOpt)
-  print cmd
-  executeCmd(cmd)
+  cmd = f"rsync -ravutzhl --progress -e ssh " \
+        f"{srcDir} {tgtDir}  {excludeOpt} {deleteOpt}"
+  print(cmd)
+  nlp.execute_cmd(cmd)

@@ -1,45 +1,40 @@
 #!/usr/bin/env python3
 #coding: utf8
 
-from algorithm import *
-
-debug = False
+import common as nlp
+import optparse
 
 class ServerManager:
   _inst = None
 
   def __init__(self):
     self._servers = {}
-    for ln in open("%s/.vim/include/servers.config" %os.getenv("HOME")):
-      ln = ln.strip()
-      if ln == "":
-        continue
-      server = extractAttribute(ln)
-      if len(server) == 0:
-        continue
+    home = nlp.get_home_dir()
+    servers = nlp.read_pydict_file(f"{home}/.vim/include/servers.pydict")
+    for server in servers:
       self._servers[server["name"]] = server
 
-  def getIP(self, serverName):
+  def get_ip(self, serverName):
     if serverName == "localhost":
       return serverName
     return self._servers.get(serverName, {"ip": None})["ip"]
 
-  def getLogin(self, serverName):   
+  def get_login(self, serverName):
     if serverName not in self._servers:
       return None
 
     server = self._servers[serverName]
     return "%s@%s" %(server["account"], server["ip"])
 
-  def getServerNames(self):
+  def get_server_name(self):
     return list(self._servers.keys())
 
-  def showAllServers(self):
+  def show_all_servers(self):
     for p, name in enumerate(sorted(self._servers.keys())):
       print(p, self._servers[name])
 
   @staticmethod
-  def getInstance():
+  def get_instance():
     if ServerManager._inst is None:
       ServerManager._inst = ServerManager()
 
@@ -51,5 +46,5 @@ if __name__ == "__main__":
                      #default = False, help = "")
   (options, args) = parser.parse_args()
 
-  serverManager = ServerManager.getInstance()
-  serverManager.showAllServers()
+  serverManager = ServerManager.get_instance()
+  serverManager.show_all_servers()

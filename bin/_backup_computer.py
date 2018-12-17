@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
 
-from algorithm_3x import *
 import common as nlp
+import optparse
+import os
+import time
 
 if __name__ == "__main__":
   parser = optparse.OptionParser(usage = "cmd [optons]")
   parser.add_option("--driver", default="server",
-                    help="['gdrive', 'warehouse', '*server']")
+                    help="['*server', 'gdrive', 'warehouse']")
   parser.add_option("-d", action="store_true", dest="delete",
                     help="to delete additional files.")
   parser.add_option("--action", default="backup", help="['*backup', 'restore']")
